@@ -5,3 +5,7 @@ C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.c
 C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.CoreCompileInputs.cache
 C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.exe
 C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.pdb
+C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.Connect.resources
+C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.Main.resources
+C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.GenerateResource.cache
+C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.SignUp.resources
