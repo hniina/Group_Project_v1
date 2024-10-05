@@ -66,12 +66,46 @@ namespace SOProject
 
                else
                {
-                    byte[] newUser = System.Text.Encoding.ASCII.GetBytes("01" + email.Text + '\0' + Username_TextBox.Text + '\0' + password_TextBox.Text + '\0');
-                    server.Send(newUser);
+                    byte[] register = System.Text.Encoding.ASCII.GetBytes("01" + email.Text + '/' + Username_TextBox.Text + '/' + password_TextBox.Text);
+                    server.Send(register);
 
-                    byte[] response = new byte[1024];
-                    server.Receive(response);
-               }
+                    byte[] answer = new byte[1024];
+                    server.Receive(answer);
+
+                    switch (Encoding.ASCII.GetString(register, 0, 1))
+                    {
+                        case "0":
+
+                            MessageBox.Show("The email is already registered. Use another one.");
+
+                            break;
+
+                        case "1":
+                            MessageBox.Show("This username already exists. Please, choose another one.");
+                            break;
+
+                        case "2":
+                            MessageBox.Show("The email must have between 15 and 80 characters.");
+                            break;
+
+                        case "3":
+                            MessageBox.Show("Your username must have between 3 and 80 characters.");
+                            break;
+
+                        case "4":
+                            MessageBox.Show("Your passwrd must have between 8 and 20 characters");
+                            break;
+
+                        case "5":
+                            MessageBox.Show("Register was unsuccessful. Please, try again.");
+                            break;
+
+                        case "6":
+                            MessageBox.Show("New user registered successfully!");
+                            break;
+
+                    }
+                }
 
             }
 

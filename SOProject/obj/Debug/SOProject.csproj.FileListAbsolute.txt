@@ -9,3 +9,4 @@ C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.C
 C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.Main.resources
 C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.GenerateResource.cache
 C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.SignUp.resources
+C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.Queries.resources
