@@ -35,6 +35,9 @@ namespace SOProject
         {
             server.Shutdown(SocketShutdown.Both);
             server.Close();
+
+            MessageBox.Show("Disconnected");
+            this.Close();
         }
 
         private void loginbutton_Click(object sender, EventArgs e)

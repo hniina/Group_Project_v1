@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,6 +21,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -49,7 +49,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -69,8 +69,7 @@
               "RelativeToolTip": "Queries.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAEoAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-05T16:46:53.308Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T16:46:53.308Z"
             },
             {
               "$type": "Document",
@@ -81,8 +80,7 @@
               "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Queries.cs [Dise\u00F1o]",
               "RelativeToolTip": "Queries.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-05T16:46:50.003Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2024-10-05T16:46:50.003Z"
             },
             {
               "$type": "Document",
@@ -104,14 +102,14 @@
               "RelativeDocumentMoniker": "SignUp.cs",
               "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\SignUp.cs",
               "RelativeToolTip": "SignUp.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAjwC4AAAAAAAAA",
+              "ViewState": "AQIAACIAAAAAAAAAAIA4wC4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-04T09:53:35.934Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "SignUp.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\SignUp.cs",
               "RelativeDocumentMoniker": "SignUp.cs",
@@ -123,33 +121,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Main.cs",
               "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Main.cs",
               "RelativeDocumentMoniker": "Main.cs",
               "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Main.cs",
               "RelativeToolTip": "Main.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAIAwwCoAAAAMAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-04T09:51:29.344Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Connect.cs",
               "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Connect.cs",
               "RelativeDocumentMoniker": "Connect.cs",
               "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Connect.cs",
               "RelativeToolTip": "Connect.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAgwBkAAAAMAAAA",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAgwBkAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-04T09:39:24.847Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Main.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Main.cs",
               "RelativeDocumentMoniker": "Main.cs",
@@ -161,7 +159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Connect.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Connect.cs",
               "RelativeDocumentMoniker": "Connect.cs",
@@ -173,13 +171,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAhAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-04T09:38:11.723Z",
               "EditorCaption": ""
