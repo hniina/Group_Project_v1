@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.loginbutton = new System.Windows.Forms.Button();
             this.signupbutton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.usernameText = new System.Windows.Forms.TextBox();
             this.passwordText = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // loginbutton
@@ -57,7 +60,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(316, 381);
+            this.button1.Location = new System.Drawing.Point(316, 366);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(136, 35);
             this.button1.TabIndex = 2;
@@ -81,19 +84,31 @@
             this.passwordText.TabIndex = 4;
             this.passwordText.Text = "Password";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(1, -12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(799, 476);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.signupbutton);
+            this.Controls.Add(this.loginbutton);
             this.Controls.Add(this.passwordText);
             this.Controls.Add(this.usernameText);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.signupbutton);
-            this.Controls.Add(this.loginbutton);
+            this.Controls.Add(this.pictureBox1);
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,5 +121,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox usernameText;
         private System.Windows.Forms.TextBox passwordText;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

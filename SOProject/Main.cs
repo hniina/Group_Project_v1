@@ -39,10 +39,10 @@ namespace SOProject
 
         private void loginbutton_Click(object sender, EventArgs e)
         {
-            byte[] output = System.Text.Encoding.ASCII.GetBytes("02" + usernameText + '/' + passwordText.Text);
+            byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText + '/' + passwordText.Text);
             server.Send(output);
 
-            byte[] input = new byte[512];
+            byte[] input = new byte[1024];
             server.Receive(input);
 
 

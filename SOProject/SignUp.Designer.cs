@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignUp));
             this.email = new System.Windows.Forms.TextBox();
             this.Username_TextBox = new System.Windows.Forms.TextBox();
             this.password_TextBox = new System.Windows.Forms.TextBox();
             this.ConfirmPassword_TextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.acceptbutton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // email
@@ -92,20 +95,32 @@
             this.acceptbutton.UseVisualStyleBackColor = true;
             this.acceptbutton.Click += new System.EventHandler(this.acceptbutton_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(-158, -1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1110, 452);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
             // SignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.acceptbutton);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.ConfirmPassword_TextBox);
             this.Controls.Add(this.password_TextBox);
             this.Controls.Add(this.Username_TextBox);
             this.Controls.Add(this.email);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox1);
             this.Name = "SignUp";
             this.Text = "SignUp";
             this.Load += new System.EventHandler(this.SignUp_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,5 +134,6 @@
         private System.Windows.Forms.TextBox ConfirmPassword_TextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button acceptbutton;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

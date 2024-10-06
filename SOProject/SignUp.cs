@@ -66,7 +66,7 @@ namespace SOProject
 
                else
                {
-                    byte[] register = System.Text.Encoding.ASCII.GetBytes("01" + email.Text + '/' + Username_TextBox.Text + '/' + password_TextBox.Text);
+                    byte[] register = System.Text.Encoding.ASCII.GetBytes("1/" + email.Text + '/' + Username_TextBox.Text + '/' + password_TextBox.Text);
                     server.Send(register);
 
                     byte[] answer = new byte[1024];
