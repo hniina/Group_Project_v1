@@ -60,7 +60,7 @@ namespace SOProject
 
                 if (winner.Checked)
                 {
-                    string message = "1/" + gameid.Text;
+                    string message = "4/" + gameid.Text;
                     //We send the game ID
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
