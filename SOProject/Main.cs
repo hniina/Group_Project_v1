@@ -42,14 +42,15 @@ namespace SOProject
 
         private void loginbutton_Click(object sender, EventArgs e)
         {
-            byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText + '/' + passwordText.Text);
+            string soutput = "2/" + usernameText.Text + "/" + passwordText.Text;
+            byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText.Text + "/" + passwordText.Text);
             server.Send(output);
 
             byte[] input = new byte[1024];
             server.Receive(input);
 
 
-            switch (Encoding.ASCII.GetString(input, 0, 1))
+            switch (Encoding.ASCII.GetString(input))
             {
                 case "0":
 

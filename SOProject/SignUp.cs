@@ -66,13 +66,13 @@ namespace SOProject
 
                else
                {
-                    byte[] register = System.Text.Encoding.ASCII.GetBytes("1/" + email.Text + '/' + Username_TextBox.Text + '/' + password_TextBox.Text);
+                    byte[] register = System.Text.Encoding.ASCII.GetBytes("1/" + email.Text + "/" + Username_TextBox.Text + "/" + password_TextBox.Text);
                     server.Send(register);
 
                     byte[] answer = new byte[1024];
                     server.Receive(answer);
 
-                    switch (Encoding.ASCII.GetString(register, 0, 1))
+                    switch (Encoding.ASCII.GetString(answer, 0, 1))
                     {
                         case "0":
 
@@ -102,6 +102,7 @@ namespace SOProject
 
                         case "6":
                             MessageBox.Show("New user registered successfully!");
+                            this.Hide();
                             break;
 
                     }
