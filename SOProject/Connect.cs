@@ -51,7 +51,7 @@ namespace SOProject
 
         private void Connect_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

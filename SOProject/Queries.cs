@@ -69,19 +69,8 @@ namespace SOProject
                     byte[] msg2 = new byte[512];
                     server.Receive(msg2);
 
-                    string name= Convert.ToString(Encoding.ASCII.GetString(msg2).Split('/')[0]);
-                   
-
-                    if (string.IsNullOrEmpty(name))
-                    {
-
-                        MessageBox.Show("No winners found on that game");
-                    }
-                    else
-                    {
-                        MessageBox.Show("The winner is" + name);
-
-                    }
+                    string answer = Encoding.ASCII.GetString(msg2);
+                    MessageBox.Show(answer);
 
                 }
 
