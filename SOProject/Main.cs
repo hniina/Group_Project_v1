@@ -50,7 +50,7 @@ namespace SOProject
             server.Receive(input);
 
 
-            switch (Encoding.ASCII.GetString(input,0,1))
+            switch (Encoding.ASCII.GetString(input, 0, 1))
             {
                 case "0":
 
