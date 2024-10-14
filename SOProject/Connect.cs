@@ -51,7 +51,17 @@ namespace SOProject
 
         private void Connect_Load(object sender, EventArgs e)
         {
-            
+            IPAddress direc = IPAddress.Parse("192.168.56.102");
+            IPEndPoint ipep = new IPEndPoint(direc, 50017);
+
+            //We create the socket
+            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            server.Connect(ipep);
+
+            Queries q= new Queries(server);
+            q.ShowDialog();
+
+            this.Close();
         }
     }
 }
