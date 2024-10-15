@@ -70,7 +70,6 @@ namespace SOProject
                     MessageBox.Show("Login successful");
 
                     Queries q = new Queries(server);
-                    this.Hide();
                     q.ShowDialog();
                     break;
 
