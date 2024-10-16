@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Remoting.Channels;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SOProject
 {
@@ -82,6 +84,20 @@ namespace SOProject
                 MessageBox.Show("Error connecting to the server: " + ex.Message);
             }
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           // dataGridView1.ColumnCount = planList.GetNumber() + 1;
+           //dataGridView1.RowCount = 9;
+           // dataGridView1.RowHeadersVisible = false;
+           // dataGridView1.ColumnHeadersVisible = false;
+           // dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
     }
 }
