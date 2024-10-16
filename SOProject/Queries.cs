@@ -42,45 +42,47 @@ namespace SOProject
         {
             try
             {
+                string message = ""; // Prepare the message to send to the server
 
                 if (PlayerGame.Checked)
                 {
-                    string message = "3/";
-
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                    server.Send(msg);
-
-                    //Answer from the server.
-                    byte[] msg2 = new byte[512];
-                    server.Receive(msg2);
-
-                    string answer= Encoding.ASCII.GetString(msg2);
-                    MessageBox.Show(answer);
+                    message = "3/"; // The code for fetching players in each game
                 }
-
-                if (winner.Checked)
+                else if (winner.Checked)
                 {
-                    string message = "4/" + gameid.Text;
-                    //We send the game ID
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                    server.Send(msg);
-
-                    //We get the server answer
-                    byte[] msg2 = new byte[512];
-                    server.Receive(msg2);
-
-                    string answer = Encoding.ASCII.GetString(msg2);
-                    MessageBox.Show(answer);
-
+                    message = "4/" + gameid.Text; // The code for fetching the winner by game ID
                 }
 
+                if (!string.IsNullOrEmpty(message))
+                {
+                    // Send the message to the server
+                    byte[] msg = Encoding.ASCII.GetBytes(message);
+                    server.Send(msg);
+
+                    // the answer from the server
+                    StringBuilder responseBuilder = new StringBuilder();
+                    byte[] response = new byte[512];
+                    int receivedBytes = 0;
+
+                    do
+                    {
+                        receivedBytes = server.Receive(response);
+                        responseBuilder.Append(Encoding.ASCII.GetString(response, 0, receivedBytes));
+                    }
+                    while (receivedBytes == response.Length);
+
+                    string fullResponse = responseBuilder.ToString().Trim();
+
+                    MessageBox.Show(fullResponse);
+                }
             }
-            catch (SocketException)
+            catch (SocketException ex)
             {
-                //Si hay excepcion imprimimos error y salimos del programa con return 
-                MessageBox.Show("No he podido conectar con el servidor");
-                return;
+                // If there's a socket exception, show an error message
+                MessageBox.Show("Error connecting to the server: " + ex.Message);
             }
+
         }
     }
 }
+
