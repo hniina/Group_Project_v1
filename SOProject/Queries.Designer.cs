@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
+            this.connected = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             this.gameid.Size = new System.Drawing.Size(167, 22);
             this.gameid.TabIndex = 0;
             this.gameid.Text = "Game ID";
+            this.gameid.TextChanged += new System.EventHandler(this.gameid_TextChanged);
             // 
             // PlayerGame
             // 
@@ -105,7 +107,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 74);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 39);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -116,17 +118,28 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(95, 45);
+            this.label2.Location = new System.Drawing.Point(95, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "Connected:";
+            // 
+            // connected
+            // 
+            this.connected.Location = new System.Drawing.Point(12, 195);
+            this.connected.Name = "connected";
+            this.connected.Size = new System.Drawing.Size(240, 28);
+            this.connected.TabIndex = 8;
+            this.connected.Text = "Show connected players";
+            this.connected.UseVisualStyleBackColor = true;
+            this.connected.Click += new System.EventHandler(this.connected_Click);
             // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.connected);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
@@ -154,5 +167,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button connected;
     }
 }
