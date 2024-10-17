@@ -16,7 +16,6 @@ using System.Xml.Linq;
 using Microsoft.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
-
 namespace SOProject
 {
     public partial class Queries : Form
@@ -113,28 +112,24 @@ namespace SOProject
             server.Send(msg);
 
             //We get the server answer
-            byte[] msg2 = new byte[512];
-            server.Receive(msg2);
+            byte[] msg2 = new byte[1024];
+            int receivedBytes = server.Receive(msg2);
+            string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
 
-            string mensaje = Convert.ToString(Encoding.ASCII.GetString(msg2));
+            // Process the server response and split it into players
+            string[] players = fullResponse.Split('/');
+            int numberOfPlayers = Convert.ToInt32(players[0]);
 
-            int n = Convert.ToInt32(Convert.ToString(Encoding.ASCII.GetString(msg2).Split('/')[0]));
+            // Clear the DataGridView before populating it with new data
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear(); // Clear columns first
+            dataGridView1.Columns.Add("PlayerName", "Connected Players");
 
-            int i;
-
-            for(i=0; i < n; i++)
+            // Add rows for each player
+            for (int i = 1; i <= numberOfPlayers; i++)  // Start from 1, since 0 is the number of players
             {
-                dataGridView1[0, 0].Value = "Name";
-                string name=Convert.ToString(Encoding.ASCII.GetString(msg2).Split('/')[i]);
-                dataGridView1.ColumnCount = n + 1;
-                dataGridView1.RowCount = 1;
-                dataGridView1.RowHeadersVisible = false;
-                dataGridView1.ColumnHeadersVisible = false;
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                dataGridView1.Rows.Add(name);
-
+                dataGridView1.Rows.Add(players[i]);  // Add player name to the row
             }
         }
     }
 }
-
