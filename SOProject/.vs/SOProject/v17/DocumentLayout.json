@@ -1,34 +1,45 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\virtualBox\\Group_Project_v1\\SOProject\\",
+  "WorkspaceRootPath": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\virtualbox\\group_project_v1\\soproject\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\newgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:newgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\newgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:newgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\marta\\documents\\github\\group_project_v1\\soproject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 100,
+      "VerticalTabListWidth": 190,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Main.cs",
-              "DocumentMoniker": "C:\\virtualBox\\Group_Project_v1\\SOProject\\Main.cs",
-              "RelativeDocumentMoniker": "Main.cs",
-              "ToolTip": "C:\\virtualBox\\Group_Project_v1\\SOProject\\Main.cs",
-              "RelativeToolTip": "Main.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAgwE8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T13:16:12.325Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
@@ -38,8 +49,92 @@
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NewGame.cs",
+              "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\NewGame.cs",
+              "RelativeDocumentMoniker": "NewGame.cs",
+              "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\NewGame.cs*",
+              "RelativeToolTip": "NewGame.cs*",
+              "ViewState": "AQIAAGcAAAAAAAAAAAAnwHgAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T20:32:44.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NewGame.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\NewGame.cs",
+              "RelativeDocumentMoniker": "NewGame.cs",
+              "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\NewGame.cs [Dise\u00F1o]*",
+              "RelativeToolTip": "NewGame.cs [Dise\u00F1o]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T20:31:43.68Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Connect.cs",
+              "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Connect.cs",
+              "RelativeDocumentMoniker": "Connect.cs",
+              "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Connect.cs",
+              "RelativeToolTip": "Connect.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAArwBoAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T20:12:53.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Queries.cs",
+              "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Queries.cs",
+              "RelativeDocumentMoniker": "Queries.cs",
+              "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Queries.cs*",
+              "RelativeToolTip": "Queries.cs*",
+              "ViewState": "AQIAAIcAAAAAAAAAAAArwJ4AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T20:07:07.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Queries.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Queries.cs",
+              "RelativeDocumentMoniker": "Queries.cs",
+              "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Queries.cs [Dise\u00F1o]*",
+              "RelativeToolTip": "Queries.cs [Dise\u00F1o]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T20:03:54.483Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Connect.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Connect.cs",
+              "RelativeDocumentMoniker": "Connect.cs",
+              "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Connect.cs [Dise\u00F1o]",
+              "RelativeToolTip": "Connect.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T20:03:49.761Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Main.cs",
+              "RelativeDocumentMoniker": "Main.cs",
+              "ToolTip": "C:\\Users\\marta\\Documents\\GitHub\\Group_Project_v1\\SOProject\\Main.cs",
+              "RelativeToolTip": "Main.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAswEcAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T20:02:32.562Z",
+              "EditorCaption": ""
             }
           ]
         }

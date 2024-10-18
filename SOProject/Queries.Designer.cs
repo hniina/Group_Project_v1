@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.connected = new System.Windows.Forms.Button();
             this.playerName = new System.Windows.Forms.TextBox();
+            this.newgame = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -145,11 +146,22 @@
             this.playerName.Text = "Enter player Name";
             this.playerName.TextChanged += new System.EventHandler(this.playerName_TextChanged);
             // 
+            // newgame
+            // 
+            this.newgame.Location = new System.Drawing.Point(608, 379);
+            this.newgame.Name = "newgame";
+            this.newgame.Size = new System.Drawing.Size(155, 42);
+            this.newgame.TabIndex = 10;
+            this.newgame.Text = "New Game";
+            this.newgame.UseVisualStyleBackColor = true;
+            this.newgame.Click += new System.EventHandler(this.newgame_Click);
+            // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.newgame);
             this.Controls.Add(this.playerName);
             this.Controls.Add(this.connected);
             this.Controls.Add(this.label2);
@@ -181,5 +193,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button connected;
         private System.Windows.Forms.TextBox playerName;
+        private System.Windows.Forms.Button newgame;
     }
 }

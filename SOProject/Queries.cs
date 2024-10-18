@@ -151,5 +151,12 @@ namespace SOProject
                 MessageBox.Show("Error connecting to the server: " + ex.Message);
             }
         }
+
+        private void newgame_Click(object sender, EventArgs e)
+        {
+            NewGame  ng = new NewGame(server);
+            ng.ShowDialog();
+            
+        }
     }
 }
