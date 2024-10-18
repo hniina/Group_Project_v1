@@ -151,8 +151,5 @@ namespace SOProject
                 MessageBox.Show("Error connecting to the server: " + ex.Message);
             }
         }
-
-
-       
     }
 }

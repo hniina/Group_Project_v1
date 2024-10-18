@@ -43,9 +43,9 @@
             // 
             // gameid
             // 
-            this.gameid.Location = new System.Drawing.Point(139, 277);
+            this.gameid.Location = new System.Drawing.Point(366, 90);
             this.gameid.Name = "gameid";
-            this.gameid.Size = new System.Drawing.Size(167, 22);
+            this.gameid.Size = new System.Drawing.Size(122, 22);
             this.gameid.TabIndex = 0;
             this.gameid.Text = "Game ID ";
             this.gameid.TextChanged += new System.EventHandler(this.gameid_TextChanged);
@@ -53,7 +53,7 @@
             // PlayerGame
             // 
             this.PlayerGame.AutoSize = true;
-            this.PlayerGame.Location = new System.Drawing.Point(139, 305);
+            this.PlayerGame.Location = new System.Drawing.Point(494, 45);
             this.PlayerGame.Name = "PlayerGame";
             this.PlayerGame.Size = new System.Drawing.Size(158, 20);
             this.PlayerGame.TabIndex = 1;
@@ -65,7 +65,7 @@
             // winner
             // 
             this.winner.AutoSize = true;
-            this.winner.Location = new System.Drawing.Point(139, 331);
+            this.winner.Location = new System.Drawing.Point(494, 92);
             this.winner.Name = "winner";
             this.winner.Size = new System.Drawing.Size(294, 20);
             this.winner.TabIndex = 2;
@@ -77,7 +77,7 @@
             // gamesPlayed
             // 
             this.gamesPlayed.AutoSize = true;
-            this.gamesPlayed.Location = new System.Drawing.Point(139, 385);
+            this.gamesPlayed.Location = new System.Drawing.Point(494, 136);
             this.gamesPlayed.Name = "gamesPlayed";
             this.gamesPlayed.Size = new System.Drawing.Size(189, 20);
             this.gamesPlayed.TabIndex = 3;
@@ -88,7 +88,7 @@
             // 
             // query
             // 
-            this.query.Location = new System.Drawing.Point(139, 407);
+            this.query.Location = new System.Drawing.Point(608, 178);
             this.query.Name = "query";
             this.query.Size = new System.Drawing.Size(134, 31);
             this.query.TabIndex = 4;
@@ -99,7 +99,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(171, 258);
+            this.label1.Location = new System.Drawing.Point(502, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 16);
             this.label1.TabIndex = 5;
@@ -109,11 +109,11 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 39);
+            this.dataGridView1.Location = new System.Drawing.Point(33, 29);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(240, 240);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -128,7 +128,7 @@
             // 
             // connected
             // 
-            this.connected.Location = new System.Drawing.Point(12, 195);
+            this.connected.Location = new System.Drawing.Point(33, 275);
             this.connected.Name = "connected";
             this.connected.Size = new System.Drawing.Size(240, 28);
             this.connected.TabIndex = 8;
@@ -138,9 +138,9 @@
             // 
             // playerName
             // 
-            this.playerName.Location = new System.Drawing.Point(139, 357);
+            this.playerName.Location = new System.Drawing.Point(366, 136);
             this.playerName.Name = "playerName";
-            this.playerName.Size = new System.Drawing.Size(167, 22);
+            this.playerName.Size = new System.Drawing.Size(122, 22);
             this.playerName.TabIndex = 9;
             this.playerName.Text = "Enter player Name";
             this.playerName.TextChanged += new System.EventHandler(this.playerName_TextChanged);

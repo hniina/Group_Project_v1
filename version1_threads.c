@@ -64,9 +64,10 @@ int Delete (ConnectedList *lista, char name [20]){
 	//Returns 0 if delete and -1 if user does not exist
 	pthread_mutex_lock(&mutex);
 	int pos= GiveMePosition (lista, name);
-	if (pos==-1)
+	if (pos==-1){
+		pthread_mutex_unlock(&mutex);
 		return -1;
-	
+	}
 	else {
 		int i;
 		for (i=pos; i< lista->num-1;i++){
@@ -477,7 +478,7 @@ int main(int argc, char *argv[])
 	//htonl formatea el numero que recibe al formato necesario
 	serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
 	// escucharemos en el port 9050
-	serv_adr.sin_port = htons(50029);
+	serv_adr.sin_port = htons(50031);
 	if (bind(sock_listen, (struct sockaddr *) &serv_adr, sizeof(serv_adr)) < 0)
 		printf ("Error al bind");
 	//La cola de peticiones pendientes no podr? ser superior a 4
