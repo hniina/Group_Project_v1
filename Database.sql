@@ -8,7 +8,9 @@ CREATE TABLE Player (
 Id INTEGER AUTO_INCREMENT PRIMARY KEY,
 Password TEXT NOT NULL,
 Name TEXT NOT NULL,
-Points INTEGER DEFAULT 0 
+Points INTEGER DEFAULT 0, 
+Email TEXT NOT NULL
+
 )ENGINE =InnoDB;
 
 	CREATE TABLE Games (
@@ -24,9 +26,9 @@ CREATE TABLE PlayerGame (
 	FOREIGN KEY (Games) REFERENCES Games(Id)
 	)ENGINE=InnoDB;
 
-INSERT INTO Player (Id, Name, Password) VALUES (1, 'Marta', 'eetac1');
-INSERT INTO Player (Id,Name,Password) VALUES (2,'Niina', 'eetac2');
-INSERT INTO Player (Id,Name,Password) VALUES (3,'Nojus', 'eetac3');
+INSERT INTO Player (Id, Name, Password) VALUES (1, 'Marta', 'eetac1', 'marta@estudiantat.upc.edu');
+INSERT INTO Player (Id,Name,Password) VALUES (2,'Niina', 'eetac2', 'niina@estudiantat.upc.edu');
+INSERT INTO Player (Id,Name,Password) VALUES (3,'Nojus', 'eetac3', 'nojus@estudiantat.upc.edu');
 
 UPDATE Player SET Points=FLOOR(RAND() * (1000 - 50+ 1)) + 50 WHERE Name= 'Marta' OR Name= 'Niina' OR Name= 'Nojus';
 
