@@ -9,6 +9,7 @@
 #include <mysql.h>
 
 
+
 int username_exists(char username[80], MYSQL *conn) {
 	
 	MYSQL_RES *result;
