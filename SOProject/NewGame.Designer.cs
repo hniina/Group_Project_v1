@@ -42,24 +42,26 @@
             this.dataGridView1.Location = new System.Drawing.Point(44, 112);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(327, 212);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(494, 112);
+            this.dataGridView2.Location = new System.Drawing.Point(441, 112);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(329, 212);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // lblEstadoJuego
             // 
             this.lblEstadoJuego.AutoSize = true;
-            this.lblEstadoJuego.Location = new System.Drawing.Point(112, 286);
+            this.lblEstadoJuego.Location = new System.Drawing.Point(144, 327);
             this.lblEstadoJuego.Name = "lblEstadoJuego";
             this.lblEstadoJuego.Size = new System.Drawing.Size(84, 16);
             this.lblEstadoJuego.TabIndex = 2;
@@ -68,7 +70,7 @@
             // 
             // start
             // 
-            this.start.Location = new System.Drawing.Point(316, 338);
+            this.start.Location = new System.Drawing.Point(340, 341);
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(139, 45);
             this.start.TabIndex = 3;

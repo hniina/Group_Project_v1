@@ -23,18 +23,54 @@ namespace SOProject
 
         private void NewGame_Load(object sender, EventArgs e)
         {
-            dataGridView1.ColumnCount = 10;
-            dataGridView1.RowCount=10;
+            dataGridView1.ColumnCount = 9;
+            dataGridView1.RowCount=9;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.ColumnHeadersVisible = false;
 
-            dataGridView2.ColumnCount = 10;
-            dataGridView2.RowCount = 10;
+            dataGridView1[0, 1].Value = "A";
+            dataGridView1[0, 2].Value = "B";
+            dataGridView1[0, 3].Value = "C";
+            dataGridView1[0, 4].Value = "D";
+            dataGridView1[0, 5].Value = "E";
+            dataGridView1[0, 6].Value = "F";
+            dataGridView1[0, 7].Value = "G";
+            dataGridView1[0, 8].Value = "H";
+
+            dataGridView1[1, 0].Value = "1";
+            dataGridView1[2, 0].Value = "2";
+            dataGridView1[3, 0].Value = "3";
+            dataGridView1[4, 0].Value = "4";
+            dataGridView1[5, 0].Value = "5";
+            dataGridView1[6, 0].Value = "6";
+            dataGridView1[7, 0].Value = "7";
+            dataGridView1[8, 0].Value = "8";
+
+            dataGridView2.ColumnCount = 9;
+            dataGridView2.RowCount = 9;
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView2.RowHeadersVisible = false;
             dataGridView2.ColumnHeadersVisible = false;
-                    }
+
+            dataGridView2[0, 1].Value = "A";
+            dataGridView2[0, 2].Value = "B";
+            dataGridView2[0, 3].Value = "C";
+            dataGridView2[0, 4].Value = "D";
+            dataGridView2[0, 5].Value = "E";
+            dataGridView2[0, 6].Value = "F";
+            dataGridView2[0, 7].Value = "G";
+            dataGridView2[0, 8].Value = "H";
+
+            dataGridView2[1, 0].Value = "1";
+            dataGridView2[2, 0].Value = "2";
+            dataGridView2[3, 0].Value = "3";
+            dataGridView2[4, 0].Value = "4";
+            dataGridView2[5, 0].Value = "5";
+            dataGridView2[6, 0].Value = "6";
+            dataGridView2[7, 0].Value = "7";
+            dataGridView2[8, 0].Value = "8";
+        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -48,68 +84,30 @@ namespace SOProject
 
         private void InicializarTablero(DataGridView tablero)
         {
-            tablero.ColumnCount = 10;
-            tablero.RowCount = 10;
+            tablero.ColumnCount = 9;
+            tablero.RowCount = 9;
 
-            // Ajustar tamaño de las celdas
+            // Adjust cells
             foreach (DataGridViewColumn col in tablero.Columns)
             {
-                col.Width = 30; // Tamaño de las columnas
+                col.Width = 30; //Columns
             }
 
             foreach (DataGridViewRow row in tablero.Rows)
             {
-                row.Height = 30; // Tamaño de las filas
+                row.Height = 30; //Rows
             }
 
-            // Llenar las celdas con un valor predeterminado (agua)
-            for (int i = 0; i < 10; i++)
+            // Fill the gaps with water 
+            for (int i = 1; i < 9; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 1; j < 9; j++)
                 {
-                    tablero[j, i].Value = "~"; // Representa agua
+                    tablero[j, i].Value = "~"; // Water
                 }
             }
 
         }
-
-        private void dataGridViewOponente_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Obtener las coordenadas de la celda seleccionada
-            int fila = e.RowIndex;
-            int columna = e.ColumnIndex;
-
-            // Simular un disparo
-            Disparar(fila, columna);
-        }
-
-        private void Disparar(int fila, int columna)
-        {
-            // Lógica del juego para manejar un disparo
-            if (dataGridView2[columna, fila].Value.ToString() == "~") // Agua
-            {
-                dataGridView2[columna, fila].Value = "O"; // Fallo
-                lblEstadoJuego.Text = "Fallo!";
-            }
-            else if (dataGridView2[columna, fila].Value.ToString() == "B") // Barco
-            {
-                dataGridView2[columna, fila].Value = "X"; // Acertado
-                lblEstadoJuego.Text = "Acertaste!";
-            }
-        }
-
-        private void ColocarBarcos()
-        {
-            Random rand = new Random();
-            // Ejemplo de colocación de un barco de 4 casillas
-            for (int i = 0; i < 4; i++)
-            {
-                int fila = rand.Next(0, 10);
-                int columna = rand.Next(0, 10);
-                dataGridView1[columna, fila].Value = "B"; // "B" para Barco
-            }
-        }
-
         private void lblEstadoJuego_Click(object sender, EventArgs e)
         {
 
@@ -119,7 +117,6 @@ namespace SOProject
         {
             InicializarTablero(dataGridView1);
             InicializarTablero(dataGridView2);
-            ColocarBarcos();
             lblEstadoJuego.Text = "Game started!";
   
         }
