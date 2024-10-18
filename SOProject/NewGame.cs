@@ -74,7 +74,32 @@ namespace SOProject
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            int barcosColocados = 0; 
+            int totalBarcos = 5;
+
+            if (barcosColocados < totalBarcos)
+            {
+                // Verificar si la celda ya tiene un barco ("B") para evitar colocar otro en el mismo lugar
+                if (dataGridView1[e.ColumnIndex, e.RowIndex].Value == null || dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString() != "B")
+                {
+                    // Colocar barco en la celda seleccionada
+                    dataGridView1[e.ColumnIndex, e.RowIndex].Value = "B"; // "B" representa un barco
+                    dataGridView1[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Gray; // Color para indicar el barco
+
+                    // Incrementar la cantidad de barcos colocados
+                    barcosColocados++;
+
+                    // Verificar si se ha alcanzado el número máximo de barcos
+                    if (barcosColocados == totalBarcos)
+                    {
+                        MessageBox.Show("Jugador 1 ha colocado todos sus barcos.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ya hay un barco en esta posición. Selecciona otra celda.");
+                }
+            }
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -115,6 +140,10 @@ namespace SOProject
 
         private void start_Click(object sender, EventArgs e)
         {
+            dataGridView1.RowsDefaultCellStyle.BackColor = Color.White;
+            dataGridView1.BackColor = Color.White;
+            dataGridView2.RowsDefaultCellStyle.BackColor = Color.White;
+            dataGridView2.BackColor = Color.White;
             InicializarTablero(dataGridView1);
             InicializarTablero(dataGridView2);
             lblEstadoJuego.Text = "Game started!";
