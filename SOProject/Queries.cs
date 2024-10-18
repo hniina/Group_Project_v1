@@ -57,6 +57,11 @@ namespace SOProject
                 {
                     message = "4/" + gameid.Text; // The code for fetching the winner by game ID
                 }
+                else if (gamesPlayed.Checked)  // New case for Games Played by a Player
+                {
+                    message = "6/" + playerName.Text; // "6" represents the new query
+                }
+
 
                 if (!string.IsNullOrEmpty(message))
                 {
@@ -103,33 +108,51 @@ namespace SOProject
         {
 
         }
+        private void gamesPlayed_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void playerName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 
         private void connected_Click(object sender, EventArgs e)
         {
-            string message = "5/";
-            //We send the game ID
-            byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-            server.Send(msg);
+            try {
+                string message = "5/";
+                //We send the game ID
+                Console.WriteLine("Sending message: " + message);
+                byte[] msg = Encoding.ASCII.GetBytes(message);
+                server.Send(msg);
 
-            //We get the server answer
-            byte[] msg2 = new byte[1024];
-            int receivedBytes = server.Receive(msg2);
-            string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
+                //We get the server answer
+                byte[] msg2 = new byte[1024];
+                int receivedBytes = server.Receive(msg2);
+                string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
+               
+                // Process the server response and split it into players
+                string[] players = fullResponse.Split('/');
+             
 
-            // Process the server response and split it into players
-            string[] players = fullResponse.Split('/');
-            int numberOfPlayers = Convert.ToInt32(players[0]);
+                // Clear the DataGridView before populating it with new data
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear(); // Clear columns first
+                dataGridView1.Columns.Add("PlayerName", "Connected Players");
 
-            // Clear the DataGridView before populating it with new data
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear(); // Clear columns first
-            dataGridView1.Columns.Add("PlayerName", "Connected Players");
-
-            // Add rows for each player
-            for (int i = 1; i <= numberOfPlayers; i++)  // Start from 1, since 0 is the number of players
+                for (int i = 1; i < players.Length; i++)
+                {
+                    dataGridView1.Rows.Add(players[i]);  // Add each player
+                }
+            }
+            catch (SocketException ex)
             {
-                dataGridView1.Rows.Add(players[i]);  // Add player name to the row
+                MessageBox.Show("Error connecting to the server: " + ex.Message);
             }
         }
+
+
+       
     }
 }

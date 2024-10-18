@@ -229,7 +229,30 @@ char winner(MYSQL *conn, int gameID, char output[1024])
 	
 	mysql_free_result(result);
 }
+void GamesPlayedByPlayer(char playerName[80], char output[1024], MYSQL *conn) {
+	char query[300];
+	sprintf(query, "SELECT COUNT(PlayerGame.Games) AS GameCount "
+			"FROM Player JOIN PlayerGame ON Player.Id = PlayerGame.Player "
+			"WHERE Player.Name = '%s'", playerName);
 	
+	int err = mysql_query(conn, query);
+	if (err != 0) {
+		sprintf(output, "Error querying database %u %s\n", mysql_errno(conn), mysql_error(conn));
+		return;
+	}
+	MYSQL_RES *result = mysql_store_result(conn);
+	MYSQL_ROW row = mysql_fetch_row(result);
+	
+	if (row == NULL) {
+		sprintf(output, "Player not found or no games played.");
+	} else {
+		sprintf(output, "Player: %s, Games Played: %s", playerName, row[0]);
+	}
+	
+	mysql_free_result(result);
+}
+
+
 
 void SignIn( char username[80], char password[80],  char email[80],char output[80], MYSQL *conn){
 	char str_query[1024];
@@ -322,7 +345,7 @@ void LogIn( char username[80],char password[80], char output[80], MYSQL *conn, i
 
 void GiveMeConnected (ConnectedList *lista, char conectados [300]) {
 	//Pone en conectados los nombres de todos los conectados separados por /. 
-	//Primero pone el nº de conectados.
+	//Primero pone el nÂº de conectados.
 	pthread_mutex_lock(&mutex);
 	
 	sprintf(conectados, "%d", lista->num);
@@ -407,6 +430,20 @@ void *Client(int *socket){
 			case 5:
 				GiveMeConnected(&Connlist, output);
 				break;
+				
+			case 6:
+				p = strtok(NULL, "/");
+				if (p != NULL) {
+					char playerName[80];
+					strcpy(playerName, p);
+					GamesPlayedByPlayer(playerName, output, conn); // Make sure the server-side function works as expected
+				} else {
+					sprintf(output, "Invalid player name.");
+				}
+				break;
+				
+				
+			
 			default:
 					printf("Invalid option received\n");
 					terminar = 1;
