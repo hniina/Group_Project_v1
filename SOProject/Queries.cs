@@ -148,20 +148,7 @@ namespace SOProject
             }
             catch (SocketException ex)
             {
-<<<<<<< Updated upstream
                 MessageBox.Show("Error connecting to the server: " + ex.Message);
-=======
-                dataGridView1[0, 0].Value = "Name";
-                string name=Convert.ToString(Encoding.ASCII.GetString(msg2).Split('/')[i]);
-                dataGridView1[i, 0].Value = name;
-                dataGridView1.ColumnCount = n + 1;
-                dataGridView1.RowCount = 1;
-                dataGridView1.RowHeadersVisible = false;
-                dataGridView1.ColumnHeadersVisible = false;
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                i++;
-
->>>>>>> Stashed changes
             }
         }
     }
