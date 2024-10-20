@@ -38,7 +38,7 @@ namespace SOProject
             pictureBox6.AllowDrop = true;
 
             dataGridView1.ColumnCount = 9;
-            dataGridView1.RowCount=9;
+            dataGridView1.RowCount = 9;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.ColumnHeadersVisible = false;
@@ -62,10 +62,10 @@ namespace SOProject
             dataGridView1[8, 0].Value = "8";
             foreach (DataGridViewColumn column in dataGridView1.Columns)
             {
-                column.Width = 50; 
+                column.Width = 50;
             }
 
-            dataGridView1.RowTemplate.Height = 50; 
+            dataGridView1.RowTemplate.Height = 50;
 
             dataGridView2.ColumnCount = 9;
             dataGridView2.RowCount = 9;
@@ -123,13 +123,12 @@ namespace SOProject
         {
 
         }
-       
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             PictureBox ship = sender as PictureBox;
             {
-                ship.DoDragDrop (ship.Image, DragDropEffects.Move); 
+                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
             }
         }
 
@@ -204,38 +203,88 @@ namespace SOProject
                 }
             };
 
-                // Evento para colocar el barco en el DataGridView
-    pictureBox1.MouseUp += (ss, ee) => {
-        if (ee.Button == MouseButtons.Left)
+            // Evento para colocar el barco en el DataGridView
+            pictureBox1.MouseUp += (ss, ee) => {
+                if (ee.Button == MouseButtons.Left)
+                {
+                    // Definir cuántas celdas ocupa el PictureBox
+                    int columnasOcupadas = 3; // Cambia esto según el tamaño del barco
+                    int filasOcupadas = 1; // Cambia esto según el tamaño del barco
+
+                    // Calcular la posición final
+                    Point posicionFinal = pictureBox1.Location;
+
+                    // Obtener la celda más cercana
+                    int columnaObjetivo = posicionFinal.X / dg.Columns[0].Width;
+                    int filaObjetivo = posicionFinal.Y / dg.Rows[0].Height;
+
+                    // Asegurarse de que el PictureBox no salga de los límites del DataGridView
+                    if (columnaObjetivo + columnasOcupadas <= dg.ColumnCount && filaObjetivo + filasOcupadas <= dg.RowCount)
+                    {
+                        // Calcular la posición donde se debe colocar el PictureBox
+                        pictureBox1.Location = new Point(columnaObjetivo * dg.Columns[0].Width, filaObjetivo * dg.Rows[0].Height);
+
+                        // Ajustar el tamaño del PictureBox para que ocupe varias celdas
+                        pictureBox1.Size = new Size(columnasOcupadas * dg.Columns[0].Width, filasOcupadas * dg.Rows[0].Height);
+                    }
+                    else
+                    {
+                        // Si no se puede colocar, vuelve a la última posición válida (opcional)
+                        // pictureBox1.Location = lastPoint; 
+                    }
+                }
+            };
+
+            AddDragDropEvents(pictureBox2, dg, 2, 1);
+            AddDragDropEvents(pictureBox3, dg, 4, 1);
+            AddDragDropEvents(pictureBox4, dg, 3, 1);
+            AddDragDropEvents(pictureBox5, dg, 5, 1);
+            AddDragDropEvents(pictureBox6, dg, 1, 1);
+        }
+
+        private void AddDragDropEvents(PictureBox ship, DataGridView dg, int columnasOcupadas, int filasOcupadas)
         {
-            // Definir cuántas celdas ocupa el PictureBox
-            int columnasOcupadas = 3; // Cambia esto según el tamaño del barco
-            int filasOcupadas = 1; // Cambia esto según el tamaño del barco
-
-            // Calcular la posición final
-            Point posicionFinal = pictureBox1.Location;
-
-            // Obtener la celda más cercana
-            int columnaObjetivo = posicionFinal.X / dg.Columns[0].Width;
-            int filaObjetivo = posicionFinal.Y / dg.Rows[0].Height;
-
-            // Asegurarse de que el PictureBox no salga de los límites del DataGridView
-            if (columnaObjetivo + columnasOcupadas <= dg.ColumnCount && filaObjetivo + filasOcupadas <= dg.RowCount)
+            ship.MouseDown += (ss, ee) =>
             {
-                // Calcular la posición donde se debe colocar el PictureBox
-                pictureBox1.Location = new Point(columnaObjetivo * dg.Columns[0].Width, filaObjetivo * dg.Rows[0].Height);
+                if (ee.Button == MouseButtons.Left)
+                {
+                    firstPoint = Control.MousePosition;
+                }
+                else if (ee.Button == MouseButtons.Right)
+                {
+                    Image img = (Image)ship.Image.Clone();
+                    img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    ship.Image = img;
+                }
+            };
 
-                // Ajustar el tamaño del PictureBox para que ocupe varias celdas
-                pictureBox1.Size = new Size(columnasOcupadas * dg.Columns[0].Width, filasOcupadas * dg.Rows[0].Height);
-            }
-            else
+            ship.MouseMove += (ss, ee) =>
             {
-                // Si no se puede colocar, vuelve a la última posición válida (opcional)
-                // pictureBox1.Location = lastPoint; 
-            }
+                if (ee.Button == MouseButtons.Left)
+                {
+                    Point temp = Control.MousePosition;
+                    ship.Location = new Point(
+                        ship.Location.X + (temp.X - firstPoint.X),
+                        ship.Location.Y + (temp.Y - firstPoint.Y));
+                    firstPoint = temp;
+                }
+            };
+
+            ship.MouseUp += (ss, ee) =>
+            {
+                if (ee.Button == MouseButtons.Left)
+                {
+                    Point posicionFinal = ship.Location;
+                    int columnaObjetivo = posicionFinal.X / dg.Columns[0].Width;
+                    int filaObjetivo = posicionFinal.Y / dg.Rows[0].Height;
+
+                    if (columnaObjetivo + columnasOcupadas <= dg.ColumnCount && filaObjetivo + filasOcupadas <= dg.RowCount)
+                    {
+                        ship.Location = new Point(columnaObjetivo * dg.Columns[0].Width, filaObjetivo * dg.Rows[0].Height);
+                        ship.Size = new Size(columnasOcupadas * dg.Columns[0].Width, filasOcupadas * dg.Rows[0].Height);
+                    }
+                }
+            };
         }
-    };
-        }
-        
     }
 }
