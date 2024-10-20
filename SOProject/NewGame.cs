@@ -183,12 +183,7 @@ namespace SOProject
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_DragDrop(object sender, DragEventArgs e)
+       private void pictureBox1_DragDrop(object sender, DragEventArgs e)
         {
 
         }
@@ -217,7 +212,54 @@ namespace SOProject
         {
 
         }
+       
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            PictureBox ship = sender as PictureBox;
+            {
+                ship.DoDragDrop (ship.Image, DragDropEffects.Move); 
+            }
+        }
 
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            PictureBox ship = sender as PictureBox;
+            {
+                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
+            }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            PictureBox ship = sender as PictureBox;
+            {
+                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
+            }
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            PictureBox ship = sender as PictureBox;
+            {
+                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
+            }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            PictureBox ship = sender as PictureBox;
+            {
+                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
+            }
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            PictureBox ship = sender as PictureBox;
+            {
+                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
+            }
+        }
     }
 }

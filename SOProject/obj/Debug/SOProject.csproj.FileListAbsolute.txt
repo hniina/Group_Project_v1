@@ -38,3 +38,4 @@ C:\virtualBox\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.CoreCompileI
 C:\virtualBox\Group_Project_v1\SOProject\obj\Debug\SOProject.exe
 C:\virtualBox\Group_Project_v1\SOProject\obj\Debug\SOProject.pdb
 C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.NewGame.resources
+C:\virtualBox\Group_Project_v1\SOProject\obj\Debug\SOProject.NewGame.resources
