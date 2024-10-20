@@ -21,8 +21,58 @@ namespace SOProject
             this.server = s;
         }
 
+        private void HabilitarArrastrarBarcos()
+        {
+            pictureBox1.MouseDown += Ship_MouseDown;
+            pictureBox2.MouseDown += Ship_MouseDown;
+            pictureBox3.MouseDown += Ship_MouseDown;
+            pictureBox4.MouseDown += Ship_MouseDown;
+            pictureBox5.MouseDown += Ship_MouseDown;
+            pictureBox6.MouseDown += Ship_MouseDown;
+        }
+
+        private void Ship_MouseDown(object sender, MouseEventArgs e)
+        {
+            PictureBox ship = sender as PictureBox;
+            ship.DoDragDrop(ship, DragDropEffects.Move);
+        }
+
+        private void dataGridView1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(PictureBox)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
+        {
+            // Obtener el PictureBox que se está arrastrando
+            PictureBox barco = (PictureBox)e.Data.GetData(typeof(PictureBox));
+
+            // Obtener la posición en el DataGridView
+            Point dropPoint = dataGridView1.PointToClient(new Point(e.X, e.Y));
+            var hitTestInfo = dataGridView1.HitTest(dropPoint.X, dropPoint.Y);
+
+            if (hitTestInfo.RowIndex >= 0 && hitTestInfo.ColumnIndex >= 0)
+            {
+                // Colocar la imagen del barco en la celda correspondiente
+                dataGridView1.Rows[hitTestInfo.RowIndex].Cells[hitTestInfo.ColumnIndex].Value = barco.Image;
+            }
+        }
         private void NewGame_Load(object sender, EventArgs e)
         {
+            pictureBox1.AllowDrop = true;
+            pictureBox2.AllowDrop = true;
+            pictureBox3.AllowDrop = true;
+            pictureBox4.AllowDrop = true;
+            pictureBox5.AllowDrop = true;
+            pictureBox6.AllowDrop = true;
+
             dataGridView1.ColumnCount = 9;
             dataGridView1.RowCount=9;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -107,47 +157,67 @@ namespace SOProject
 
         }
 
-        private void InicializarTablero(DataGridView tablero)
-        {
-            tablero.ColumnCount = 9;
-            tablero.RowCount = 9;
-
-            // Adjust cells
-            foreach (DataGridViewColumn col in tablero.Columns)
-            {
-                col.Width = 30; //Columns
-            }
-
-            foreach (DataGridViewRow row in tablero.Rows)
-            {
-                row.Height = 30; //Rows
-            }
-
-            // Fill the gaps with water 
-            for (int i = 1; i < 9; i++)
-            {
-                for (int j = 1; j < 9; j++)
-                {
-                    tablero[j, i].Value = "~"; // Water
-                }
-            }
-
-        }
-        private void lblEstadoJuego_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void start_Click(object sender, EventArgs e)
         {
             dataGridView1.RowsDefaultCellStyle.BackColor = Color.White;
             dataGridView1.BackColor = Color.White;
             dataGridView2.RowsDefaultCellStyle.BackColor = Color.White;
             dataGridView2.BackColor = Color.White;
-            InicializarTablero(dataGridView1);
-            InicializarTablero(dataGridView2);
-            lblEstadoJuego.Text = "Game started!";
-  
+            HabilitarArrastrarBarcos();
+
+
         }
+
+        private void dataGridView1_DragDrop1(object sender, DragEventArgs e)
+        {
+            PictureBox barco = (PictureBox)e.Data.GetData(typeof(PictureBox));
+
+            // Obtener la posición de la celda en la que se soltó el barco
+            Point dropPoint = dataGridView1.PointToClient(new Point(e.X, e.Y));
+            var hitTestInfo = dataGridView1.HitTest(dropPoint.X, dropPoint.Y);
+
+            if (hitTestInfo.RowIndex >= 0 && hitTestInfo.ColumnIndex >= 0)
+            {
+                // Colocar la imagen del barco en la celda correspondiente
+                dataGridView1.Rows[hitTestInfo.RowIndex].Cells[hitTestInfo.ColumnIndex].Value = barco.Image;
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_DragDrop(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_DragDrop(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+
     }
 }
