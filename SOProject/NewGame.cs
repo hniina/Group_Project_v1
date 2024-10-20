@@ -13,7 +13,13 @@ namespace SOProject
 {
     public partial class NewGame : Form
     {
+
         Socket server;
+
+        //Punto de referencia para arrastrar los barcos sobre el tablero local
+        private Point firstPoint = new Point();
+        private Point lastPoint = new Point();
+
         public NewGame(Socket s)
         {
             InitializeComponent();
@@ -21,51 +27,9 @@ namespace SOProject
             this.server = s;
         }
 
-        private void HabilitarArrastrarBarcos()
-        {
-            pictureBox1.MouseDown += Ship_MouseDown;
-            pictureBox2.MouseDown += Ship_MouseDown;
-            pictureBox3.MouseDown += Ship_MouseDown;
-            pictureBox4.MouseDown += Ship_MouseDown;
-            pictureBox5.MouseDown += Ship_MouseDown;
-            pictureBox6.MouseDown += Ship_MouseDown;
-        }
-
-        private void Ship_MouseDown(object sender, MouseEventArgs e)
-        {
-            PictureBox ship = sender as PictureBox;
-            ship.DoDragDrop(ship, DragDropEffects.Move);
-        }
-
-        private void dataGridView1_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(PictureBox)))
-            {
-                e.Effect = DragDropEffects.Move;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-        }
-
-        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
-        {
-            // Obtener el PictureBox que se está arrastrando
-            PictureBox barco = (PictureBox)e.Data.GetData(typeof(PictureBox));
-
-            // Obtener la posición en el DataGridView
-            Point dropPoint = dataGridView1.PointToClient(new Point(e.X, e.Y));
-            var hitTestInfo = dataGridView1.HitTest(dropPoint.X, dropPoint.Y);
-
-            if (hitTestInfo.RowIndex >= 0 && hitTestInfo.ColumnIndex >= 0)
-            {
-                // Colocar la imagen del barco en la celda correspondiente
-                dataGridView1.Rows[hitTestInfo.RowIndex].Cells[hitTestInfo.ColumnIndex].Value = barco.Image;
-            }
-        }
         private void NewGame_Load(object sender, EventArgs e)
         {
+
             pictureBox1.AllowDrop = true;
             pictureBox2.AllowDrop = true;
             pictureBox3.AllowDrop = true;
@@ -96,6 +60,12 @@ namespace SOProject
             dataGridView1[6, 0].Value = "6";
             dataGridView1[7, 0].Value = "7";
             dataGridView1[8, 0].Value = "8";
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                column.Width = 50; 
+            }
+
+            dataGridView1.RowTemplate.Height = 50; 
 
             dataGridView2.ColumnCount = 9;
             dataGridView2.RowCount = 9;
@@ -120,36 +90,13 @@ namespace SOProject
             dataGridView2[6, 0].Value = "6";
             dataGridView2[7, 0].Value = "7";
             dataGridView2[8, 0].Value = "8";
-        }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int barcosColocados = 0; 
-            int totalBarcos = 5;
-
-            if (barcosColocados < totalBarcos)
+            foreach (DataGridViewColumn column in dataGridView2.Columns)
             {
-                // Verificar si la celda ya tiene un barco ("B") para evitar colocar otro en el mismo lugar
-                if (dataGridView1[e.ColumnIndex, e.RowIndex].Value == null || dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString() != "B")
-                {
-                    // Colocar barco en la celda seleccionada
-                    dataGridView1[e.ColumnIndex, e.RowIndex].Value = "B"; // "B" representa un barco
-                    dataGridView1[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Gray; // Color para indicar el barco
-
-                    // Incrementar la cantidad de barcos colocados
-                    barcosColocados++;
-
-                    // Verificar si se ha alcanzado el número máximo de barcos
-                    if (barcosColocados == totalBarcos)
-                    {
-                        MessageBox.Show("Jugador 1 ha colocado todos sus barcos.");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Ya hay un barco en esta posición. Selecciona otra celda.");
-                }
+                column.Width = 50;
             }
+
+            dataGridView2.RowTemplate.Height = 50;
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -163,47 +110,11 @@ namespace SOProject
             dataGridView1.BackColor = Color.White;
             dataGridView2.RowsDefaultCellStyle.BackColor = Color.White;
             dataGridView2.BackColor = Color.White;
-            HabilitarArrastrarBarcos();
-
-
-        }
-
-        private void dataGridView1_DragDrop1(object sender, DragEventArgs e)
-        {
-            PictureBox barco = (PictureBox)e.Data.GetData(typeof(PictureBox));
-
-            // Obtener la posición de la celda en la que se soltó el barco
-            Point dropPoint = dataGridView1.PointToClient(new Point(e.X, e.Y));
-            var hitTestInfo = dataGridView1.HitTest(dropPoint.X, dropPoint.Y);
-
-            if (hitTestInfo.RowIndex >= 0 && hitTestInfo.ColumnIndex >= 0)
-            {
-                // Colocar la imagen del barco en la celda correspondiente
-                dataGridView1.Rows[hitTestInfo.RowIndex].Cells[hitTestInfo.ColumnIndex].Value = barco.Image;
-            }
-        }
-
-       private void pictureBox1_DragDrop(object sender, DragEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_DragEnter(object sender, DragEventArgs e)
-        {
+            SetShips(dataGridView1);
 
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_DragDrop(object sender, DragEventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_DragEnter(object sender, DragEventArgs e)
         {
 
         }
@@ -261,5 +172,70 @@ namespace SOProject
                 ship.DoDragDrop(ship.Image, DragDropEffects.Move);
             }
         }
+
+        private void SetShips(DataGridView dg)
+        {
+            // Rotar el barco de 90 grados al hacer clic derecho
+            pictureBox1.MouseDown += (ss, ee) => {
+                if (ee.Button == MouseButtons.Left)
+                {
+                    firstPoint = Control.MousePosition;
+                }
+                else if (ee.Button == MouseButtons.Right)
+                {
+                    // Gira la imagen del barco
+                    Image img = (Image)pictureBox1.Image.Clone(); // Clonar para evitar modificar el original
+                    img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    pictureBox1.Image = img;
+                }
+            };
+
+            // Mover el barco mientras mantienes presionado el botón izquierdo
+            pictureBox1.MouseMove += (ss, ee) =>
+            {
+                if (ee.Button == MouseButtons.Left)
+                {
+                    Point temp = Control.MousePosition;
+                    // Calcular el nuevo lugar para el PictureBox
+                    pictureBox1.Location = new Point(
+                        pictureBox1.Location.X + (temp.X - firstPoint.X),
+                        pictureBox1.Location.Y + (temp.Y - firstPoint.Y));
+                    firstPoint = temp; // Actualiza la posición inicial
+                }
+            };
+
+                // Evento para colocar el barco en el DataGridView
+    pictureBox1.MouseUp += (ss, ee) => {
+        if (ee.Button == MouseButtons.Left)
+        {
+            // Definir cuántas celdas ocupa el PictureBox
+            int columnasOcupadas = 3; // Cambia esto según el tamaño del barco
+            int filasOcupadas = 1; // Cambia esto según el tamaño del barco
+
+            // Calcular la posición final
+            Point posicionFinal = pictureBox1.Location;
+
+            // Obtener la celda más cercana
+            int columnaObjetivo = posicionFinal.X / dg.Columns[0].Width;
+            int filaObjetivo = posicionFinal.Y / dg.Rows[0].Height;
+
+            // Asegurarse de que el PictureBox no salga de los límites del DataGridView
+            if (columnaObjetivo + columnasOcupadas <= dg.ColumnCount && filaObjetivo + filasOcupadas <= dg.RowCount)
+            {
+                // Calcular la posición donde se debe colocar el PictureBox
+                pictureBox1.Location = new Point(columnaObjetivo * dg.Columns[0].Width, filaObjetivo * dg.Rows[0].Height);
+
+                // Ajustar el tamaño del PictureBox para que ocupe varias celdas
+                pictureBox1.Size = new Size(columnasOcupadas * dg.Columns[0].Width, filasOcupadas * dg.Rows[0].Height);
+            }
+            else
+            {
+                // Si no se puede colocar, vuelve a la última posición válida (opcional)
+                // pictureBox1.Location = lastPoint; 
+            }
+        }
+    };
+        }
+        
     }
 }
