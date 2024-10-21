@@ -14,7 +14,6 @@ namespace SOProject
             Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Connect());
             Application.Run(new NewGame(server));
         }
     }

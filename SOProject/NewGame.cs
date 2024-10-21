@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,73 +31,6 @@ namespace SOProject
         private void NewGame_Load(object sender, EventArgs e)
         {
 
-            pictureBox1.AllowDrop = true;
-            pictureBox2.AllowDrop = true;
-            pictureBox3.AllowDrop = true;
-            pictureBox4.AllowDrop = true;
-            pictureBox5.AllowDrop = true;
-            pictureBox6.AllowDrop = true;
-
-            dataGridView1.ColumnCount = 9;
-            dataGridView1.RowCount = 9;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.ColumnHeadersVisible = false;
-
-            dataGridView1[0, 1].Value = "A";
-            dataGridView1[0, 2].Value = "B";
-            dataGridView1[0, 3].Value = "C";
-            dataGridView1[0, 4].Value = "D";
-            dataGridView1[0, 5].Value = "E";
-            dataGridView1[0, 6].Value = "F";
-            dataGridView1[0, 7].Value = "G";
-            dataGridView1[0, 8].Value = "H";
-
-            dataGridView1[1, 0].Value = "1";
-            dataGridView1[2, 0].Value = "2";
-            dataGridView1[3, 0].Value = "3";
-            dataGridView1[4, 0].Value = "4";
-            dataGridView1[5, 0].Value = "5";
-            dataGridView1[6, 0].Value = "6";
-            dataGridView1[7, 0].Value = "7";
-            dataGridView1[8, 0].Value = "8";
-            foreach (DataGridViewColumn column in dataGridView1.Columns)
-            {
-                column.Width = 50;
-            }
-
-            dataGridView1.RowTemplate.Height = 50;
-
-            dataGridView2.ColumnCount = 9;
-            dataGridView2.RowCount = 9;
-            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView2.RowHeadersVisible = false;
-            dataGridView2.ColumnHeadersVisible = false;
-
-            dataGridView2[0, 1].Value = "A";
-            dataGridView2[0, 2].Value = "B";
-            dataGridView2[0, 3].Value = "C";
-            dataGridView2[0, 4].Value = "D";
-            dataGridView2[0, 5].Value = "E";
-            dataGridView2[0, 6].Value = "F";
-            dataGridView2[0, 7].Value = "G";
-            dataGridView2[0, 8].Value = "H";
-
-            dataGridView2[1, 0].Value = "1";
-            dataGridView2[2, 0].Value = "2";
-            dataGridView2[3, 0].Value = "3";
-            dataGridView2[4, 0].Value = "4";
-            dataGridView2[5, 0].Value = "5";
-            dataGridView2[6, 0].Value = "6";
-            dataGridView2[7, 0].Value = "7";
-            dataGridView2[8, 0].Value = "8";
-
-            foreach (DataGridViewColumn column in dataGridView2.Columns)
-            {
-                column.Width = 50;
-            }
-
-            dataGridView2.RowTemplate.Height = 50;
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -106,11 +40,17 @@ namespace SOProject
 
         private void start_Click(object sender, EventArgs e)
         {
-            dataGridView1.RowsDefaultCellStyle.BackColor = Color.White;
-            dataGridView1.BackColor = Color.White;
-            dataGridView2.RowsDefaultCellStyle.BackColor = Color.White;
-            dataGridView2.BackColor = Color.White;
-            SetShips(dataGridView1);
+            InitializeComponent();
+
+            // Configura el PictureBox para ser arrastrado
+            pictureBox1.MouseDown += new MouseEventHandler(pictureBox1_MouseDown);
+
+            // Configura el Panel para aceptar el Drop
+            panel1.DragEnter += new DragEventHandler(panel1_DragEnter);
+            panel1.DragDrop += new DragEventHandler(panel1_DragDrop);
+
+            // Habilitar el panel para que acepte drop
+            panel1.AllowDrop = true;
 
         }
 
@@ -172,23 +112,86 @@ namespace SOProject
             }
         }
 
-        private void SetShips(DataGridView dg)
-        {
-            // Rotar el barco de 90 grados al hacer clic derecho
-            pictureBox1.MouseDown += (ss, ee) => {
-                if (ee.Button == MouseButtons.Left)
-                {
-                    firstPoint = Control.MousePosition;
-                }
-                else if (ee.Button == MouseButtons.Right)
-                {
-                    // Gira la imagen del barco
-                    Image img = (Image)pictureBox1.Image.Clone(); // Clonar para evitar modificar el original
-                    img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    pictureBox1.Image = img;
-                }
-            };
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            System.Drawing.Graphics graphics = e.Graphics;
+            Pen mypen1 = new Pen(Color.Black);
+            int i = 0;
+            while (i<=225)
+            {
+                graphics.DrawLine(mypen1, Convert.ToSingle(0), Convert.ToSingle(i), Convert.ToSingle(225), Convert.ToSingle(i));
+                i=i+25;
+            }
+
+            int j= 0;
+            while (j <=225)
+            {
+                graphics.DrawLine(mypen1, Convert.ToSingle(j), Convert.ToSingle(0), Convert.ToSingle(j), Convert.ToSingle(225));
+                j = j + 25;
+            }
+            Font font = new Font("Arial", 12);
+            graphics.DrawString("A",font, Brushes.Black,0, 25);
+            graphics.DrawString("B", font, Brushes.Black, 0, 50);
+            graphics.DrawString("C", font, Brushes.Black, 0, 75);
+            graphics.DrawString("D", font, Brushes.Black, 0, 100);
+            graphics.DrawString("E", font, Brushes.Black, 0, 125);
+            graphics.DrawString("F", font, Brushes.Black, 0, 150);
+            graphics.DrawString("G", font, Brushes.Black, 0, 175);
+            graphics.DrawString("H", font, Brushes.Black, 0, 200);
+
+            graphics.DrawString("1", font, Brushes.Black, 25,0);
+            graphics.DrawString("2", font, Brushes.Black, 50,0);
+            graphics.DrawString("3", font, Brushes.Black, 75, 0);
+            graphics.DrawString("4", font, Brushes.Black, 100,0);
+            graphics.DrawString("5", font, Brushes.Black, 125,0);
+            graphics.DrawString("6", font, Brushes.Black, 150,0);
+            graphics.DrawString("7", font, Brushes.Black, 175,0);
+            graphics.DrawString("8", font, Brushes.Black, 200,0);
+
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            System.Drawing.Graphics graphics = e.Graphics;
+            Pen mypen1 = new Pen(Color.Black);
+            int i = 0;
+            while (i <= 225)
+            {
+                graphics.DrawLine(mypen1, Convert.ToSingle(0), Convert.ToSingle(i), Convert.ToSingle(225), Convert.ToSingle(i));
+                i = i + 25;
+            }
+
+            int j = 0;
+            while (j <= 225)
+            {
+                graphics.DrawLine(mypen1, Convert.ToSingle(j), Convert.ToSingle(0), Convert.ToSingle(j), Convert.ToSingle(225));
+                j = j + 25;
+            }
+
+            Font font = new Font("Arial", 12);
+            graphics.DrawString("A", font, Brushes.Black, 0, 25);
+            graphics.DrawString("B", font, Brushes.Black, 0, 50);
+            graphics.DrawString("C", font, Brushes.Black, 0, 75);
+            graphics.DrawString("D", font, Brushes.Black, 0, 100);
+            graphics.DrawString("E", font, Brushes.Black, 0, 125);
+            graphics.DrawString("F", font, Brushes.Black, 0, 150);
+            graphics.DrawString("G", font, Brushes.Black, 0, 175);
+            graphics.DrawString("H", font, Brushes.Black, 0, 200);
+
+            graphics.DrawString("1", font, Brushes.Black, 25, 0);
+            graphics.DrawString("2", font, Brushes.Black, 50, 0);
+            graphics.DrawString("3", font, Brushes.Black, 75, 0);
+            graphics.DrawString("4", font, Brushes.Black, 100, 0);
+            graphics.DrawString("5", font, Brushes.Black, 125, 0);
+            graphics.DrawString("6", font, Brushes.Black, 150, 0);
+            graphics.DrawString("7", font, Brushes.Black, 175, 0);
+            graphics.DrawString("8", font, Brushes.Black, 200, 0);
+        }
+
+        private void pictureBox1_MouseDown_1(object sender, MouseEventArgs e)
+        {
             // Mover el barco mientras mantienes presionado el botón izquierdo
             pictureBox1.MouseMove += (ss, ee) =>
             {
@@ -202,89 +205,45 @@ namespace SOProject
                     firstPoint = temp; // Actualiza la posición inicial
                 }
             };
-
-            // Evento para colocar el barco en el DataGridView
-            pictureBox1.MouseUp += (ss, ee) => {
-                if (ee.Button == MouseButtons.Left)
-                {
-                    // Definir cuántas celdas ocupa el PictureBox
-                    int columnasOcupadas = 3; // Cambia esto según el tamaño del barco
-                    int filasOcupadas = 1; // Cambia esto según el tamaño del barco
-
-                    // Calcular la posición final
-                    Point posicionFinal = pictureBox1.Location;
-
-                    // Obtener la celda más cercana
-                    int columnaObjetivo = posicionFinal.X / dg.Columns[0].Width;
-                    int filaObjetivo = posicionFinal.Y / dg.Rows[0].Height;
-
-                    // Asegurarse de que el PictureBox no salga de los límites del DataGridView
-                    if (columnaObjetivo + columnasOcupadas <= dg.ColumnCount && filaObjetivo + filasOcupadas <= dg.RowCount)
-                    {
-                        // Calcular la posición donde se debe colocar el PictureBox
-                        pictureBox1.Location = new Point(columnaObjetivo * dg.Columns[0].Width, filaObjetivo * dg.Rows[0].Height);
-
-                        // Ajustar el tamaño del PictureBox para que ocupe varias celdas
-                        pictureBox1.Size = new Size(columnasOcupadas * dg.Columns[0].Width, filasOcupadas * dg.Rows[0].Height);
-                    }
-                    else
-                    {
-                        // Si no se puede colocar, vuelve a la última posición válida (opcional)
-                        // pictureBox1.Location = lastPoint; 
-                    }
-                }
-            };
-
-            AddDragDropEvents(pictureBox2, dg, 2, 1);
-            AddDragDropEvents(pictureBox3, dg, 4, 1);
-            AddDragDropEvents(pictureBox4, dg, 3, 1);
-            AddDragDropEvents(pictureBox5, dg, 5, 1);
-            AddDragDropEvents(pictureBox6, dg, 1, 1);
         }
 
-        private void AddDragDropEvents(PictureBox ship, DataGridView dg, int columnasOcupadas, int filasOcupadas)
+        private void panel1_DragEnter(object sender, DragEventArgs e)
         {
-            ship.MouseDown += (ss, ee) =>
+            // Verifica que el objeto arrastrado es un PictureBox
+            if (e.Data.GetDataPresent(typeof(PictureBox)))
             {
-                if (ee.Button == MouseButtons.Left)
-                {
-                    firstPoint = Control.MousePosition;
-                }
-                else if (ee.Button == MouseButtons.Right)
-                {
-                    Image img = (Image)ship.Image.Clone();
-                    img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    ship.Image = img;
-                }
-            };
-
-            ship.MouseMove += (ss, ee) =>
+                // Permite la operación de soltar (mover)
+                e.Effect = DragDropEffects.Move;
+            }
+            else
             {
-                if (ee.Button == MouseButtons.Left)
-                {
-                    Point temp = Control.MousePosition;
-                    ship.Location = new Point(
-                        ship.Location.X + (temp.X - firstPoint.X),
-                        ship.Location.Y + (temp.Y - firstPoint.Y));
-                    firstPoint = temp;
-                }
-            };
+                // Si no es el objeto correcto, no permite la operación
+                e.Effect = DragDropEffects.None;
+            }
+        }
 
-            ship.MouseUp += (ss, ee) =>
+        private void panel1_DragDrop(object sender, DragEventArgs e)
+        {
+            PictureBox pictureBox = (PictureBox)e.Data.GetData(typeof(PictureBox));
+
+            // Obtener la posición donde fue soltado dentro del panel
+            Point dropLocation = panel1.PointToClient(new Point(e.X, e.Y));
+
+            // Tamaño de la celda del tablero
+            int cellSize = 40;
+
+            // Ajustar la posición a la celda más cercana (alinear)
+            int newX = (dropLocation.X / cellSize) * cellSize;
+            int newY = (dropLocation.Y / cellSize) * cellSize;
+
+            // Mover el PictureBox a la nueva ubicación ajustada
+            pictureBox.Location = new Point(newX, newY);
+
+            // Añadir el PictureBox al panel si no está ya dentro
+            if (!panel1.Controls.Contains(pictureBox))
             {
-                if (ee.Button == MouseButtons.Left)
-                {
-                    Point posicionFinal = ship.Location;
-                    int columnaObjetivo = posicionFinal.X / dg.Columns[0].Width;
-                    int filaObjetivo = posicionFinal.Y / dg.Rows[0].Height;
-
-                    if (columnaObjetivo + columnasOcupadas <= dg.ColumnCount && filaObjetivo + filasOcupadas <= dg.RowCount)
-                    {
-                        ship.Location = new Point(columnaObjetivo * dg.Columns[0].Width, filaObjetivo * dg.Rows[0].Height);
-                        ship.Size = new Size(columnasOcupadas * dg.Columns[0].Width, filasOcupadas * dg.Rows[0].Height);
-                    }
-                }
-            };
+                panel1.Controls.Add(pictureBox);
+            }
         }
     }
 }
