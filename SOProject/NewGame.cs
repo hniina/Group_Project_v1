@@ -17,15 +17,44 @@ namespace SOProject
 
         Socket server;
 
-        //Punto de referencia para arrastrar los barcos sobre el tablero local
-        private Point firstPoint = new Point();
-        private Point lastPoint = new Point();
+        private const int CellSize = 25;
+        // Margen del tablero (espacio para las letras y números en el borde)
+        private const int BoardOffsetX = 25; // Offset para el margen izquierdo
+        private const int BoardOffsetY = 25; // Offset para el margen superior
+        private const int GridSize = 200;    // Tamaño total de la cuadrícula (8 celdas de 25 px)
 
         public NewGame(Socket s)
         {
             InitializeComponent();
 
             this.server = s;
+
+            // Configurar el panel para permitir operaciones de soltar
+            panel1.AllowDrop = true;
+
+            // Conectar eventos para arrastrar y soltar en el panel
+            panel1.DragEnter += Panel1_DragEnter;
+            panel1.DragDrop += Panel1_DragDrop;
+
+            // Configurar cada PictureBox (barco) para iniciar el arrastre
+            pictureBox1.MouseDown += PictureBox_MouseDown;
+            pictureBox1.MouseDown += RotatePictureBox;
+            pictureBox2.MouseDown += PictureBox_MouseDown;
+            pictureBox2.MouseDown += RotatePictureBox;
+            pictureBox4.MouseDown += PictureBox_MouseDown;
+            pictureBox4.MouseDown += RotatePictureBox;
+            pictureBox5.MouseDown += PictureBox_MouseDown;
+            pictureBox5.MouseDown += RotatePictureBox;
+            pictureBox6.MouseDown += PictureBox_MouseDown;
+            pictureBox6.MouseDown += RotatePictureBox;
+
+            // Hacer que cada PictureBox permita arrastre
+            pictureBox1.AllowDrop = true;
+            pictureBox2.AllowDrop = true;
+            pictureBox4.AllowDrop = true;
+            pictureBox5.AllowDrop = true;
+            pictureBox6.AllowDrop = true;
+
         }
 
         private void NewGame_Load(object sender, EventArgs e)
@@ -40,76 +69,7 @@ namespace SOProject
 
         private void start_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
 
-            // Configura el PictureBox para ser arrastrado
-            pictureBox1.MouseDown += new MouseEventHandler(pictureBox1_MouseDown);
-
-            // Configura el Panel para aceptar el Drop
-            panel1.DragEnter += new DragEventHandler(panel1_DragEnter);
-            panel1.DragDrop += new DragEventHandler(panel1_DragDrop);
-
-            // Habilitar el panel para que acepte drop
-            panel1.AllowDrop = true;
-
-        }
-
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            PictureBox ship = sender as PictureBox;
-            {
-                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
-            }
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            PictureBox ship = sender as PictureBox;
-            {
-                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
-            }
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            PictureBox ship = sender as PictureBox;
-            {
-                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
-            }
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            PictureBox ship = sender as PictureBox;
-            {
-                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
-            }
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            PictureBox ship = sender as PictureBox;
-            {
-                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
-            }
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            PictureBox ship = sender as PictureBox;
-            {
-                ship.DoDragDrop(ship.Image, DragDropEffects.Move);
-            }
         }
 
 
@@ -190,60 +150,81 @@ namespace SOProject
             graphics.DrawString("8", font, Brushes.Black, 200, 0);
         }
 
-        private void pictureBox1_MouseDown_1(object sender, MouseEventArgs e)
+        private void PictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            // Mover el barco mientras mantienes presionado el botón izquierdo
-            pictureBox1.MouseMove += (ss, ee) =>
+            if (e.Button == MouseButtons.Left)
             {
-                if (ee.Button == MouseButtons.Left)
-                {
-                    Point temp = Control.MousePosition;
-                    // Calcular el nuevo lugar para el PictureBox
-                    pictureBox1.Location = new Point(
-                        pictureBox1.Location.X + (temp.X - firstPoint.X),
-                        pictureBox1.Location.Y + (temp.Y - firstPoint.Y));
-                    firstPoint = temp; // Actualiza la posición inicial
-                }
-            };
+                // Inicia el proceso de arrastre con el PictureBox actual
+                PictureBox pictureBox = sender as PictureBox;
+                pictureBox.DoDragDrop(pictureBox, DragDropEffects.Move);
+            }
         }
 
-        private void panel1_DragEnter(object sender, DragEventArgs e)
+        // Evento DragEnter del panel para permitir el arrastre
+        private void Panel1_DragEnter(object sender, DragEventArgs e)
         {
-            // Verifica que el objeto arrastrado es un PictureBox
+            // Verificar que el objeto arrastrado es un PictureBox
             if (e.Data.GetDataPresent(typeof(PictureBox)))
             {
-                // Permite la operación de soltar (mover)
-                e.Effect = DragDropEffects.Move;
+                e.Effect = DragDropEffects.Move; // Permitir el movimiento
             }
             else
             {
-                // Si no es el objeto correcto, no permite la operación
-                e.Effect = DragDropEffects.None;
+                e.Effect = DragDropEffects.None; // No permitir otros tipos de objetos
             }
         }
 
-        private void panel1_DragDrop(object sender, DragEventArgs e)
+        // Evento DragDrop del panel para soltar y ajustar el PictureBox en la cuadrícula
+        private void Panel1_DragDrop(object sender, DragEventArgs e)
         {
+            // Obtener el PictureBox que fue soltado
             PictureBox pictureBox = (PictureBox)e.Data.GetData(typeof(PictureBox));
 
-            // Obtener la posición donde fue soltado dentro del panel
+            // Convertir la posición del mouse al sistema de coordenadas del panel
             Point dropLocation = panel1.PointToClient(new Point(e.X, e.Y));
 
-            // Tamaño de la celda del tablero
-            int cellSize = 40;
+            // Ajustar la posición dentro de las celdas de la cuadrícula
+            int adjustedX = ((dropLocation.X - BoardOffsetX) / CellSize) * CellSize + BoardOffsetX;
+            int adjustedY = ((dropLocation.Y - BoardOffsetY) / CellSize) * CellSize + BoardOffsetY;
 
-            // Ajustar la posición a la celda más cercana (alinear)
-            int newX = (dropLocation.X / cellSize) * cellSize;
-            int newY = (dropLocation.Y / cellSize) * cellSize;
-
-            // Mover el PictureBox a la nueva ubicación ajustada
-            pictureBox.Location = new Point(newX, newY);
-
-            // Añadir el PictureBox al panel si no está ya dentro
-            if (!panel1.Controls.Contains(pictureBox))
+            // Chequear que la posición ajustada esté dentro del área del tablero
+            if (adjustedX >= BoardOffsetX && adjustedX < BoardOffsetX + GridSize &&
+                adjustedY >= BoardOffsetY && adjustedY < BoardOffsetY + GridSize)
             {
-                panel1.Controls.Add(pictureBox);
+                // Centrar el barco en la celda
+                int offsetX = (CellSize - pictureBox.Width) / 2;
+                int offsetY = (CellSize - pictureBox.Height) / 2;
+
+                // Establecer la posición final
+                pictureBox.Location = new Point(adjustedX + offsetX, adjustedY + offsetY);
+
+                // Agregar el PictureBox al panel si no está ya en él
+                if (!panel1.Controls.Contains(pictureBox))
+                {
+                    panel1.Controls.Add(pictureBox);
+                }
+            }
+            else
+            {
+                // Opción: mensaje si el barco se coloca fuera de los límites
+                MessageBox.Show("¡Coloca el barco dentro de la cuadrícula!");
             }
         }
+
+        private void RotatePictureBox(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right) // Verificar si es clic derecho
+            {
+                PictureBox pictureBox = sender as PictureBox;
+
+                // Intercambiar el ancho y el alto para rotar
+                int temp = pictureBox.Width;
+                pictureBox.Width = pictureBox.Height;
+                pictureBox.Height = temp;
+            }
+        }
+
     }
+
 }
+
