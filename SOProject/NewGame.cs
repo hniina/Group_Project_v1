@@ -221,6 +221,9 @@ namespace SOProject
                 int temp = pictureBox.Width;
                 pictureBox.Width = pictureBox.Height;
                 pictureBox.Height = temp;
+
+                pictureBox.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+
             }
         }
 
