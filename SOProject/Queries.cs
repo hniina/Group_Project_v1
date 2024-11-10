@@ -30,8 +30,7 @@ namespace SOProject
             this.server = s;
             CheckForIllegalCrossThreadCalls = false;
 
-            ThreadStart ts = delegate {GetList();};
-
+            ThreadStart ts = delegate { GetList(); };
             attend = new Thread(ts);
             attend.Start();
         }
