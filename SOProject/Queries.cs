@@ -15,17 +15,25 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Microsoft.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Threading;
 
 namespace SOProject
 {
     public partial class Queries : Form
     {
         Socket server;
+        public Thread attend;
         public Queries(Socket s)
         {
             InitializeComponent();
 
             this.server = s;
+            CheckForIllegalCrossThreadCalls = false;
+
+            ThreadStart ts = delegate {GetList();};
+
+            attend = new Thread(ts);
+            attend.Start();
         }
 
         private void Queries_Load(object sender, EventArgs e)
@@ -120,7 +128,20 @@ namespace SOProject
 
         private void connected_Click(object sender, EventArgs e)
         {
-            try {
+
+        }
+
+        private void newgame_Click(object sender, EventArgs e)
+        {
+            NewGame  ng = new NewGame(server);
+            ng.ShowDialog();
+            
+        }
+
+        private void GetList()
+        {
+            try
+            {
                 string message = "5/";
                 //We send the game ID
                 Console.WriteLine("Sending message: " + message);
@@ -131,10 +152,10 @@ namespace SOProject
                 byte[] msg2 = new byte[1024];
                 int receivedBytes = server.Receive(msg2);
                 string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
-               
+
                 // Process the server response and split it into players
                 string[] players = fullResponse.Split('/');
-             
+
 
                 // Clear the DataGridView before populating it with new data
                 dataGridView1.Rows.Clear();
@@ -150,13 +171,7 @@ namespace SOProject
             {
                 MessageBox.Show("Error connecting to the server: " + ex.Message);
             }
-        }
 
-        private void newgame_Click(object sender, EventArgs e)
-        {
-            NewGame  ng = new NewGame(server);
-            ng.ShowDialog();
-            
         }
     }
 }
