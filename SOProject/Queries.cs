@@ -22,7 +22,7 @@ namespace SOProject
     public partial class Queries : Form
     {
         Socket server;
-        public Thread attend;
+        Thread atender;
         public Queries(Socket s)
         {
             InitializeComponent();
@@ -30,9 +30,6 @@ namespace SOProject
             this.server = s;
             CheckForIllegalCrossThreadCalls = false;
 
-            ThreadStart ts = delegate { GetList(); };
-            attend = new Thread(ts);
-            attend.Start();
         }
 
         private void Queries_Load(object sender, EventArgs e)
@@ -141,8 +138,7 @@ namespace SOProject
         {
             try
             {
-                string message = "5/";
-                //We send the game ID
+               //We send the game ID
                 Console.WriteLine("Sending message: " + message);
                 byte[] msg = Encoding.ASCII.GetBytes(message);
                 server.Send(msg);
@@ -172,5 +168,42 @@ namespace SOProject
             }
 
         }
+
+        private void AtenderServidor()
+        {
+            while (true)
+            {
+                //Recibimos mensaje del servidor
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                int codigo = Convert.ToInt32(trozos[0]);
+                string mensaje = mensaje = trozos[1].Split('\0')[0];
+
+                switch (codigo)
+                {
+                    case 1:  // respuesta a longitud
+
+                        MessageBox.Show("La longitud de tu nombre es: " + mensaje);
+                        break;
+                    case 2:      //respuesta a si mi nombre es bonito
+
+                        if (mensaje == "SI")
+                            MessageBox.Show("Tu nombre ES bonito.");
+                        else
+                            MessageBox.Show("Tu nombre NO bonito. Lo siento.");
+                        break;
+                    case 3:       //Recibimos la respuesta de si soy alto
+
+                        MessageBox.Show(mensaje);
+                        break;
+                    case 4:     //Recibimos notificacion
+
+                        //contLbl.Text = mensaje;
+                        break;
+                }
+            }
+        }
+    }
     }
 }

@@ -24,7 +24,7 @@ namespace SOProject
         private void button1_Click(object sender, EventArgs e)
         {
             IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 50085);
+            IPEndPoint ipep = new IPEndPoint(direc, 50093);
 
             //We create the socket
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
