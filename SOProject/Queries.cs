@@ -22,13 +22,17 @@ namespace SOProject
     public partial class Queries : Form
     {
         Socket server;
-        Thread atender;
+        public Thread atender;
         public Queries(Socket s)
         {
             InitializeComponent();
 
             this.server = s;
             CheckForIllegalCrossThreadCalls = false;
+            ThreadStart ts = delegate { AtenderServidor(); };
+
+            atender = new Thread(ts);
+            atender.Start();
 
         }
 
@@ -138,10 +142,6 @@ namespace SOProject
         {
             try
             {
-               //We send the game ID
-                Console.WriteLine("Sending message: " + message);
-                byte[] msg = Encoding.ASCII.GetBytes(message);
-                server.Send(msg);
 
                 //We get the server answer
                 byte[] msg2 = new byte[1024];
@@ -182,28 +182,69 @@ namespace SOProject
 
                 switch (codigo)
                 {
-                    case 1:  // respuesta a longitud
+                    case 1:
+                        StringBuilder responseBuilder = new StringBuilder();
+                        do
+                        {
+                            responseBuilder.Append(Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2)));
+                        }
+                        while (server.Receive(msg2) == msg2.Length);
 
-                        MessageBox.Show("La longitud de tu nombre es: " + mensaje);
+                        string fullResponse = responseBuilder.ToString().Trim();
+
+                        MessageBox.Show(fullResponse);
                         break;
-                    case 2:      //respuesta a si mi nombre es bonito
+                    case 2:
+                        StringBuilder responseBuild = new StringBuilder();
+                        do
+                        {
+                            responseBuild.Append(Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2)));
+                        }
+                        while (server.Receive(msg2) == msg2.Length);
 
-                        if (mensaje == "SI")
-                            MessageBox.Show("Tu nombre ES bonito.");
-                        else
-                            MessageBox.Show("Tu nombre NO bonito. Lo siento.");
+                        string Response = responseBuild.ToString().Trim();
+
+                        MessageBox.Show(Response);
                         break;
-                    case 3:       //Recibimos la respuesta de si soy alto
+                    case 3:
+                        StringBuilder responseB = new StringBuilder();
+                        do
+                        {
+                            responseB.Append(Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2)));
+                        }
+                        while (server.Receive(msg2) == msg2.Length);
 
-                        MessageBox.Show(mensaje);
+                        string fullResp = responseB.ToString().Trim();
+
+                        MessageBox.Show(fullResp);
                         break;
-                    case 4:     //Recibimos notificacion
+                    case 4:
+                        try
+                        {
+                            string answer = Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2));
 
-                        //contLbl.Text = mensaje;
+                            //Process the server response and split it into players
+                            string[] players = answer.Split('/');
+
+
+                            //Clear the DataGridView before populating it with new data
+                            dataGridView1.Rows.Clear();
+                            dataGridView1.Columns.Clear(); // Clear columns first
+                            dataGridView1.Columns.Add("PlayerName", "Connected Players");
+
+                            for (int i = 1; i < players.Length; i++)
+                            {
+                                dataGridView1.Rows.Add(players[i]);  // Add each player
+                            }
+                        }
+                        catch (SocketException ex)
+                        {
+                            MessageBox.Show("Error connecting to the server: " + ex.Message);
+                        }
                         break;
                 }
             }
         }
     }
-    }
+    
 }
