@@ -36,7 +36,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.connected = new System.Windows.Forms.Button();
             this.playerName = new System.Windows.Forms.TextBox();
             this.newgame = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -127,16 +126,6 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Connected:";
             // 
-            // connected
-            // 
-            this.connected.Location = new System.Drawing.Point(33, 275);
-            this.connected.Name = "connected";
-            this.connected.Size = new System.Drawing.Size(240, 28);
-            this.connected.TabIndex = 8;
-            this.connected.Text = "Show connected players";
-            this.connected.UseVisualStyleBackColor = true;
-            this.connected.Click += new System.EventHandler(this.connected_Click);
-            // 
             // playerName
             // 
             this.playerName.Location = new System.Drawing.Point(366, 136);
@@ -163,7 +152,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.newgame);
             this.Controls.Add(this.playerName);
-            this.Controls.Add(this.connected);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
@@ -191,7 +179,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button connected;
         private System.Windows.Forms.TextBox playerName;
         private System.Windows.Forms.Button newgame;
     }

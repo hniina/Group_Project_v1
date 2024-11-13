@@ -126,48 +126,43 @@ namespace SOProject
 
         }
 
-        private void connected_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void newgame_Click(object sender, EventArgs e)
         {
             NewGame  ng = new NewGame(server);
             ng.ShowDialog();
-            
-        }
-
-        private void GetList()
-        {
-            try
-            {
-
-                //We get the server answer
-                byte[] msg2 = new byte[1024];
-                int receivedBytes = server.Receive(msg2);
-                string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
-
-                // Process the server response and split it into players
-                string[] players = fullResponse.Split('/');
-
-
-                // Clear the DataGridView before populating it with new data
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear(); // Clear columns first
-                dataGridView1.Columns.Add("PlayerName", "Connected Players");
-
-                for (int i = 1; i < players.Length; i++)
-                {
-                    dataGridView1.Rows.Add(players[i]);  // Add each player
-                }
-            }
-            catch (SocketException ex)
-            {
-                MessageBox.Show("Error connecting to the server: " + ex.Message);
-            }
 
         }
+
+        //private void GetList()
+        //{
+//            try
+//            {
+
+//                //We get the server answer
+//                byte[] msg2 = new byte[1024];
+//        int receivedBytes = server.Receive(msg2);
+//        string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
+
+//        // Process the server response and split it into players
+//        string[] players = fullResponse.Split('/');
+
+
+//        // Clear the DataGridView before populating it with new data
+//        dataGridView1.Rows.Clear();
+//                dataGridView1.Columns.Clear(); // Clear columns first
+//                dataGridView1.Columns.Add("PlayerName", "Connected Players");
+
+//                for (int i = 1; i<players.Length; i++)
+//                {
+//                    dataGridView1.Rows.Add(players[i]);  // Add each player
+//                }
+//}
+//            catch (SocketException ex)
+//            {
+//                MessageBox.Show("Error connecting to the server: " + ex.Message);
+//            }
+
+        //}
 
         private void AtenderServidor()
         {
@@ -212,30 +207,19 @@ namespace SOProject
                         break;
 
                     case "4":
-                       
-                            int receivedB = server.Receive(response);
-                            string fResponse = Encoding.ASCII.GetString(response, 0, receivedBytes);
+                        // Process the server response and split it into players
+                        string[] players = Encoding.ASCII.GetString(response, 0, server.Receive(response)).Split('/');
 
-                            string[] parts = fResponse.Split(new char[] { '/' }, 2); // Dividimos en dos partes: "5/" y el mensaje
 
-                            // Comprobar si la división ha sido exitosa y que el prefijo es el esperado ("5")
-                            if (parts.Length > 1 && parts[0] == "4")  // Aquí suponemos que el servidor devuelve "5/" como prefijo
-                            {
-                                string playersData = parts[1];  // Contenido después del "5/", que contiene los jugadores
+                        // Clear the DataGridView before populating it with new data
+                        dataGridView1.Rows.Clear();
+                        dataGridView1.Columns.Clear(); // Clear columns first
+                        dataGridView1.Columns.Add("PlayerName", "Connected Players");
 
-                                // Dividir la cadena de jugadores por el separador "/"
-                                string[] players = playersData.Split('/');
-
-                                // Clear the DataGridView before populating it with new data
-                                dataGridView1.Rows.Clear();
-                            dataGridView1.Columns.Clear(); // Clear columns first
-                            dataGridView1.Columns.Add("PlayerName", "Connected Players");
-
-                            for (int i = 1; i < players.Length; i++)
-                            {
-                                dataGridView1.Rows.Add(players[i]);  // Add each player
-                            }
-                           }
+                        for (int i = 1; i < players.Length; i++)
+                        {
+                            dataGridView1.Rows.Add(players[i]);  // Add each player
+                        }
                         break;
                             
                     }
