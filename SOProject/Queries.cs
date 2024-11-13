@@ -173,62 +173,61 @@ namespace SOProject
         {
             while (true)
             {
-                //Recibimos mensaje del servidor
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
-                int codigo = Convert.ToInt32(trozos[0]);
-                string mensaje = mensaje = trozos[1].Split('\0')[0];
+                StringBuilder responseBuilder = new StringBuilder();
+                byte[] response = new byte[1024];
+                int receivedBytes = 0;
 
-                switch (codigo)
+                switch (Encoding.ASCII.GetString(response).Split('/')[0])
                 {
-                    case 1:
-                        StringBuilder responseBuilder = new StringBuilder();
+                    case "1":
+
+                    case "2":
+
+                    case "3":
+                        
                         do
                         {
-                            responseBuilder.Append(Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2)));
+                            receivedBytes = server.Receive(response);
+                            responseBuilder.Append(Encoding.ASCII.GetString(response, 0, receivedBytes));
                         }
-                        while (server.Receive(msg2) == msg2.Length);
+                        while (receivedBytes == response.Length);
 
-                        string fullResponse = responseBuilder.ToString().Trim();
+                        // Paso 2: Convertir el mensaje completo a string
+                        string fullResponse = responseBuilder.ToString();
 
-                        MessageBox.Show(fullResponse);
-                        break;
-                    case 2:
-                        StringBuilder responseBuild = new StringBuilder();
-                        do
+                        // Paso 3: Separar el prefijo y el contenido del mensaje con Split('/')
+                        string[] partes = fullResponse.Split(new char[] { '/' }, 2); // Divide en máximo 2 partes
+
+                        if (partes.Length > 1)
                         {
-                            responseBuild.Append(Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2)));
+                            string comando = partes[0];  // "1" o cualquier otro número
+                            string mensaje = partes[1];  // El contenido que queremos después de "1/"
+
+                            string fullResp = responseBuilder.ToString().Trim();
+
+                            MessageBox.Show(fullResp);
                         }
-                        while (server.Receive(msg2) == msg2.Length);
 
-                        string Response = responseBuild.ToString().Trim();
 
-                        MessageBox.Show(Response);
                         break;
-                    case 3:
-                        StringBuilder responseB = new StringBuilder();
-                        do
-                        {
-                            responseB.Append(Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2)));
-                        }
-                        while (server.Receive(msg2) == msg2.Length);
 
-                        string fullResp = responseB.ToString().Trim();
+                    case "4":
+                       
+                            int receivedB = server.Receive(response);
+                            string fResponse = Encoding.ASCII.GetString(response, 0, receivedBytes);
 
-                        MessageBox.Show(fullResp);
-                        break;
-                    case 4:
-                        try
-                        {
-                            string answer = Encoding.ASCII.GetString(msg2, 0, server.Receive(msg2));
+                            string[] parts = fResponse.Split(new char[] { '/' }, 2); // Dividimos en dos partes: "5/" y el mensaje
 
-                            //Process the server response and split it into players
-                            string[] players = answer.Split('/');
+                            // Comprobar si la división ha sido exitosa y que el prefijo es el esperado ("5")
+                            if (parts.Length > 1 && parts[0] == "4")  // Aquí suponemos que el servidor devuelve "5/" como prefijo
+                            {
+                                string playersData = parts[1];  // Contenido después del "5/", que contiene los jugadores
 
+                                // Dividir la cadena de jugadores por el separador "/"
+                                string[] players = playersData.Split('/');
 
-                            //Clear the DataGridView before populating it with new data
-                            dataGridView1.Rows.Clear();
+                                // Clear the DataGridView before populating it with new data
+                                dataGridView1.Rows.Clear();
                             dataGridView1.Columns.Clear(); // Clear columns first
                             dataGridView1.Columns.Add("PlayerName", "Connected Players");
 
@@ -236,13 +235,10 @@ namespace SOProject
                             {
                                 dataGridView1.Rows.Add(players[i]);  // Add each player
                             }
-                        }
-                        catch (SocketException ex)
-                        {
-                            MessageBox.Show("Error connecting to the server: " + ex.Message);
-                        }
+                           }
                         break;
-                }
+                            
+                    }
             }
         }
     }
