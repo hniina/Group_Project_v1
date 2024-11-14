@@ -164,15 +164,20 @@ namespace SOProject
 
         //}
 
-        private void AtenderServidor()
+        private void AtenderServidor() //receive ALL the messages from the server!!
         {
             while (true)
             {
                 StringBuilder responseBuilder = new StringBuilder();
                 byte[] response = new byte[1024];
                 int receivedBytes = 0;
+                server.Receive(response);
+                string[] trozos = Encoding.ASCII.GetString(response).Split('/');
+                string codigo = (trozos[0]);
+                string mensaje = mensaje = trozos[1].Split('\0')[0];
 
-                switch (Encoding.ASCII.GetString(response).Split('/')[0])
+
+                switch (codigo)
                 {
                     case "1":
 
@@ -196,7 +201,7 @@ namespace SOProject
                         if (partes.Length > 1)
                         {
                             string comando = partes[0];  // "1" o cualquier otro número
-                            string mensaje = partes[1];  // El contenido que queremos después de "1/"
+                            string message = partes[1];  // El contenido que queremos después de "1/"
 
                             string fullResp = responseBuilder.ToString().Trim();
 

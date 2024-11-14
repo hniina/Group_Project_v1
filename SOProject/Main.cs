@@ -7,20 +7,28 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Threading;
 
 namespace SOProject
 {
     public partial class Main : Form
     {
         Socket server;
+        private Thread atender;
         public Main(Socket s)
         {
             InitializeComponent();
 
             this.server = s;
+            CheckForIllegalCrossThreadCalls = false;
+            ThreadStart ts = delegate { AtenderServidor(); };
+
+            atender = new Thread(ts);
+            atender.Start();
         }
 
         private void signupbutton_Click(object sender, EventArgs e)
@@ -79,6 +87,50 @@ namespace SOProject
         private void Main_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void AtenderServidor() //receive ALL the messages from the server!!
+        {
+            while (true)
+            {
+                //Recibimos mensaje del servidor
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                string codigo = (trozos[0]);
+                string mensaje = mensaje = trozos[1].Split('\0')[0];
+
+                switch (codigo) 
+                { 
+                    
+                    case "6":
+                        switch (mensaje)
+                        {
+                            case "0":
+
+                                MessageBox.Show("The userame does not exist.");
+                                break;
+
+                            case "1":
+                                MessageBox.Show("Login error. Please, try again.");
+                                break;
+
+                            case "2":
+                                MessageBox.Show("The password is not correct.");
+                                break;
+
+                            case "3":
+
+                                MessageBox.Show("Login successful");
+
+                                Queries q = new Queries(server);
+                                q.ShowDialog();
+                                break;
+                        }
+                        break;
+
+                }
+            }
         }
     }
 }

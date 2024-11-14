@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SOProject;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 
 namespace SOProject
 {
@@ -24,7 +26,8 @@ namespace SOProject
         private void button1_Click(object sender, EventArgs e)
         {
             IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 50043);
+            IPEndPoint ipep = new IPEndPoint(direc, 50103);
+            
 
             //We create the socket
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
