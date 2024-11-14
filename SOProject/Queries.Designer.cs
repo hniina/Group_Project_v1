@@ -38,6 +38,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.playerName = new System.Windows.Forms.TextBox();
             this.newgame = new System.Windows.Forms.Button();
+            this.label_users_connected = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -145,11 +147,32 @@
             this.newgame.UseVisualStyleBackColor = true;
             this.newgame.Click += new System.EventHandler(this.newgame_Click);
             // 
+            // label_users_connected
+            // 
+            this.label_users_connected.AutoSize = true;
+            this.label_users_connected.Location = new System.Drawing.Point(176, 9);
+            this.label_users_connected.Name = "label_users_connected";
+            this.label_users_connected.Size = new System.Drawing.Size(14, 16);
+            this.label_users_connected.TabIndex = 11;
+            this.label_users_connected.Text = "0";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(57, 275);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(193, 33);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Connected List";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label_users_connected);
             this.Controls.Add(this.newgame);
             this.Controls.Add(this.playerName);
             this.Controls.Add(this.label2);
@@ -181,5 +204,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox playerName;
         private System.Windows.Forms.Button newgame;
+        private System.Windows.Forms.Label label_users_connected;
+        private System.Windows.Forms.Button button1;
     }
 }

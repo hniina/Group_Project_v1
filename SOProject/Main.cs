@@ -93,12 +93,11 @@ namespace SOProject
         {
             while (true)
             {
-                //Recibimos mensaje del servidor
                 byte[] msg2 = new byte[80];
                 server.Receive(msg2);
                 string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
                 string codigo = (trozos[0]);
-                string mensaje = mensaje = trozos[1].Split('\0')[0];
+                string mensaje =trozos[1].Split('\0')[0];
 
                 switch (codigo) 
                 { 

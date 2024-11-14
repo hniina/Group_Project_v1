@@ -59,39 +59,25 @@ namespace SOProject
 
                 if (PlayerGame.Checked)
                 {
-                    message = "3/"; // The code for fetching players in each game
+                    message = "3/";               
+                    // Enviamos al servidor el nombre tecleado
+                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
+                    server.Send(msg);
+
                 }
                 else if (winner.Checked)
                 {
                     message = "4/" + gameid.Text; // The code for fetching the winner by game ID
+                                                  // Enviamos al servidor el nombre tecleado
+                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
+                    server.Send(msg);
                 }
                 else if (gamesPlayed.Checked)  // New case for Games Played by a Player
                 {
                     message = "6/" + playerName.Text; // "6" represents the new query
-                }
-
-
-                if (!string.IsNullOrEmpty(message))
-                {
-                    // Send the message to the server
-                    byte[] msg = Encoding.ASCII.GetBytes(message);
+                                                      // Enviamos al servidor el nombre tecleado
+                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
-
-                    // the answer from the server
-                    StringBuilder responseBuilder = new StringBuilder();
-                    byte[] response = new byte[512];
-                    int receivedBytes = 0;
-
-                    do
-                    {
-                        receivedBytes = server.Receive(response);
-                        responseBuilder.Append(Encoding.ASCII.GetString(response, 0, receivedBytes));
-                    }
-                    while (receivedBytes == response.Length);
-
-                    string fullResponse = responseBuilder.ToString().Trim();
-
-                    MessageBox.Show(fullResponse);
                 }
             }
             catch (SocketException ex)
@@ -133,102 +119,64 @@ namespace SOProject
 
         }
 
-        //private void GetList()
-        //{
-//            try
-//            {
-
-//                //We get the server answer
-//                byte[] msg2 = new byte[1024];
-//        int receivedBytes = server.Receive(msg2);
-//        string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
-
-//        // Process the server response and split it into players
-//        string[] players = fullResponse.Split('/');
-
-
-//        // Clear the DataGridView before populating it with new data
-//        dataGridView1.Rows.Clear();
-//                dataGridView1.Columns.Clear(); // Clear columns first
-//                dataGridView1.Columns.Add("PlayerName", "Connected Players");
-
-//                for (int i = 1; i<players.Length; i++)
-//                {
-//                    dataGridView1.Rows.Add(players[i]);  // Add each player
-//                }
-//}
-//            catch (SocketException ex)
-//            {
-//                MessageBox.Show("Error connecting to the server: " + ex.Message);
-//            }
-
-        //}
-
         private void AtenderServidor() //receive ALL the messages from the server!!
         {
             while (true)
             {
-                StringBuilder responseBuilder = new StringBuilder();
-                byte[] response = new byte[1024];
-                int receivedBytes = 0;
-                server.Receive(response);
-                string[] trozos = Encoding.ASCII.GetString(response).Split('/');
-                string codigo = (trozos[0]);
+                //Recibimos mensaje del servidor
+                byte[] msg2 = new byte[512];
+                server.Receive(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                string codigo =(trozos[0]);
                 string mensaje = mensaje = trozos[1].Split('\0')[0];
 
-
-                switch (codigo)
+                switch (Encoding.ASCII.GetString(msg2).Split('/')[0])
                 {
                     case "1":
+                        string formattedMessage = mensaje.Replace(",", "\n");
+                        MessageBox.Show(formattedMessage);
+                        break;
 
                     case "2":
-
+                        MessageBox.Show(mensaje);
+                        break;
                     case "3":
-                        
-                        do
-                        {
-                            receivedBytes = server.Receive(response);
-                            responseBuilder.Append(Encoding.ASCII.GetString(response, 0, receivedBytes));
-                        }
-                        while (receivedBytes == response.Length);
-
-                        // Paso 2: Convertir el mensaje completo a string
-                        string fullResponse = responseBuilder.ToString();
-
-                        // Paso 3: Separar el prefijo y el contenido del mensaje con Split('/')
-                        string[] partes = fullResponse.Split(new char[] { '/' }, 2); // Divide en máximo 2 partes
-
-                        if (partes.Length > 1)
-                        {
-                            string comando = partes[0];  // "1" o cualquier otro número
-                            string message = partes[1];  // El contenido que queremos después de "1/"
-
-                            string fullResp = responseBuilder.ToString().Trim();
-
-                            MessageBox.Show(fullResp);
-                        }
-
-
+                        MessageBox.Show(mensaje);
                         break;
 
                     case "4":
-                        // Process the server response and split it into players
-                        string[] players = Encoding.ASCII.GetString(response, 0, server.Receive(response)).Split('/');
+                        int m = Convert.ToInt32(mensaje.Split(',')[0]);
 
+                        label_users_connected.Text = "Users connected:";
+                        label_users_connected.Text = label_users_connected.Text + " " + Convert.ToString(m);
 
-                        // Clear the DataGridView before populating it with new data
                         dataGridView1.Rows.Clear();
                         dataGridView1.Columns.Clear(); // Clear columns first
                         dataGridView1.Columns.Add("PlayerName", "Connected Players");
 
-                        for (int i = 1; i < players.Length; i++)
+
+                        string name;
+
+                        for (int i = 0; i < m; i++)
                         {
-                            dataGridView1.Rows.Add(players[i]);  // Add each player
+                            name = Convert.ToString(Encoding.ASCII.GetString(msg2).Split(',')[i]);
+ 
+
+                            dataGridView1.Rows.Add(name);
+
                         }
+
                         break;
-                            
-                    }
+
+                }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string message = "5/";
+            byte[] msg = Encoding.ASCII.GetBytes(message);
+            server.Send(msg);
         }
     }
     
