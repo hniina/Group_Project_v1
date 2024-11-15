@@ -134,7 +134,7 @@ namespace SOProject
                 string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
                 string[] trozos = message.Split('/');
                 string codigo =(trozos[0]);
-                string mensaje = trozos[1];
+                string mensaje = (trozos[1]);
 
                 switch (codigo)
                 {
@@ -186,6 +186,7 @@ namespace SOProject
         }
 
         //(public) funcion para poner datos en el datagrid desde el otro form y llamarla
+
     }
     
 }

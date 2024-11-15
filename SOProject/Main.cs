@@ -53,35 +53,6 @@ namespace SOProject
             string soutput = "2/" + usernameText.Text + "/" + passwordText.Text;
             byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText.Text + "/" + passwordText.Text);
             server.Send(output);
-
-            byte[] input = new byte[1024];
-            server.Receive(input);
-
-
-            switch (Encoding.ASCII.GetString(input, 0, 1))
-            {
-                case "0":
-
-                    MessageBox.Show("The userame does not exist.");
-                    break;
-
-                case "1":
-                    MessageBox.Show("Login error. Please, try again.");
-                    break;
-
-                case "2":
-                    MessageBox.Show("The password is not correct.");
-                    break;
-
-                case "3":
-                    
-                    MessageBox.Show("Login successful");
-
-                    Queries q = new Queries(server);
-                    q.ShowDialog();
-                    break;
-
-            }
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -98,12 +69,11 @@ namespace SOProject
                 string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
                 string[] trozos = message.Split('/');
                 string codigo = (trozos[0]);
-
+                string mensaje = trozos[1];
                 switch (codigo) 
                 { 
                     
                     case "6":
-                        string mensaje = trozos[1];
                         switch (mensaje)
                         {
                             case "0":
@@ -122,9 +92,9 @@ namespace SOProject
                             case "3":
 
                                 MessageBox.Show("Login successful");
-
                                 Queries q = new Queries(server);
                                 q.ShowDialog();
+                                atender.Abort();
                                 break;
                         }
                         break;
