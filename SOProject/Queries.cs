@@ -126,11 +126,12 @@ namespace SOProject
                 //Recibimos mensaje del servidor
                 byte[] msg2 = new byte[512];
                 server.Receive(msg2);
-                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
+                string[] trozos = message.Split('/');
                 string codigo =(trozos[0]);
-                string mensaje = mensaje = trozos[1].Split('\0')[0];
+                string mensaje = trozos[1];
 
-                switch (Encoding.ASCII.GetString(msg2).Split('/')[0])
+                switch (codigo)
                 {
                     case "1":
                         string formattedMessage = mensaje.Replace(",", "\n");
@@ -178,6 +179,8 @@ namespace SOProject
             byte[] msg = Encoding.ASCII.GetBytes(message);
             server.Send(msg);
         }
+
+        //(public) funcion para poner datos en el datagrid desde el otro form y llamarla
     }
     
 }
