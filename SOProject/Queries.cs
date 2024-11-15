@@ -125,7 +125,12 @@ namespace SOProject
             {
                 //Recibimos mensaje del servidor
                 byte[] msg2 = new byte[512];
-                server.Receive(msg2);
+                int receivedbytes = server.Receive(msg2);
+                if (receivedbytes == 0)
+                {
+                    Console.WriteLine("No data received."); //Making sure the message is not empty;
+                    return;
+                }
                 string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
                 string[] trozos = message.Split('/');
                 string codigo =(trozos[0]);
