@@ -185,6 +185,7 @@
             this.Controls.Add(this.gameid);
             this.Name = "Queries";
             this.Text = "Queries";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Queries_FormClosing);
             this.Load += new System.EventHandler(this.Queries_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

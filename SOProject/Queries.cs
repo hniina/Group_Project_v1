@@ -16,23 +16,20 @@ using System.Xml.Linq;
 using Microsoft.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Threading;
+using System.Net;
 
 namespace SOProject
 {
     public partial class Queries : Form
     {
+        int nForm;
         Socket server;
         public Thread atender;
-        public Queries(Socket s)
+        public Queries(int nForm,Socket s)
         {
             InitializeComponent();
-
+            this.nForm = nForm;
             this.server = s;
-            CheckForIllegalCrossThreadCalls = false;
-            ThreadStart ts = delegate { AtenderServidor(); };
-
-            atender = new Thread(ts);
-            atender.Start();
 
         }
 
@@ -59,7 +56,7 @@ namespace SOProject
 
                 if (PlayerGame.Checked)
                 {
-                    message = "3/";               
+                    message = "3/" + nForm+ "/";               
                     // Enviamos al servidor el nombre tecleado
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
@@ -67,14 +64,14 @@ namespace SOProject
                 }
                 else if (winner.Checked)
                 {
-                    message = "4/" + gameid.Text; // The code for fetching the winner by game ID
+                    message = "4/"+ nForm +"/" + gameid.Text; // The code for fetching the winner by game ID
                                                   // Enviamos al servidor el nombre tecleado
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
                 }
                 else if (gamesPlayed.Checked)  // New case for Games Played by a Player
                 {
-                    message = "6/" + playerName.Text; // "6" represents the new query
+                    message = "6/" + nForm + "/" + playerName.Text; // "6" represents the new query
                                                       // Enviamos al servidor el nombre tecleado
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
@@ -119,65 +116,6 @@ namespace SOProject
 
         }
 
-        private void AtenderServidor() //receive ALL the messages from the server!!
-        {
-            while (true)
-            {
-                //Recibimos mensaje del servidor
-                byte[] msg2 = new byte[512];
-                int receivedbytes = server.Receive(msg2);
-                if (receivedbytes == 0)
-                {
-                    Console.WriteLine("No data received."); //Making sure the message is not empty;
-                    return;
-                }
-                string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                string[] trozos = message.Split('/');
-                string codigo =(trozos[0]);
-                string mensaje = (trozos[1]);
-
-                switch (codigo)
-                {
-                    case "1":
-                        string formattedMessage = mensaje.Replace(",", "\n");
-                        MessageBox.Show(formattedMessage);
-                        break;
-
-                    case "2":
-                        MessageBox.Show(mensaje);
-                        break;
-                    case "3":
-                        MessageBox.Show(mensaje);
-                        break;
-
-                    case "4":
-                        int m = Convert.ToInt32(mensaje.Split(',')[0]);
-
-                        label_users_connected.Text = "Users connected:";
-                        label_users_connected.Text = label_users_connected.Text + " " + Convert.ToString(m);
-
-                        dataGridView1.Rows.Clear();
-                        dataGridView1.Columns.Clear(); // Clear columns first
-                        dataGridView1.Columns.Add("PlayerName", "Connected Players");
-
-
-                        string name;
-
-                        for (int i = 0; i < m; i++)
-                        {
-                            name = Convert.ToString(Encoding.ASCII.GetString(msg2).Split(',')[i]);
- 
-
-                            dataGridView1.Rows.Add(name);
-
-                        }
-
-                        break;
-
-                }
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             string message = "5/";
@@ -186,6 +124,63 @@ namespace SOProject
         }
 
         //(public) funcion para poner datos en el datagrid desde el otro form y llamarla
+
+        public void query1 (string message)
+        {
+            string formattedMessage = message.Replace(",", "\n");
+            MessageBox.Show(formattedMessage);
+        }
+
+        public void query2(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        public void query3(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        public void ConnectedList(string mensaje)
+        {
+            try
+            {
+                //We get the server answer
+                byte[] msg2 = new byte[1024];
+                int receivedBytes = server.Receive(msg2);
+                string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
+
+                // Process the server response and split it into players
+                string[] players = fullResponse.Split('/');
+
+
+                // Clear the DataGridView before populating it with new data
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear(); // Clear columns first
+                dataGridView1.Columns.Add("PlayerName", "Connected Players");
+
+                for (int i = 1; i < players.Length; i++)
+                {
+                    dataGridView1.Rows.Add(players[i]);  // Add each player
+                }
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show("Error connecting to the server: " + ex.Message);
+            }
+
+
+        }
+
+        private void Queries_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            server.Shutdown(SocketShutdown.Both);
+            server.Close();
+
+            MessageBox.Show("Disconnected");
+            this.Close();
+        }
+
 
     }
     

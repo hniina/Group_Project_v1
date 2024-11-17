@@ -18,7 +18,11 @@ namespace SOProject
     public partial class Main : Form
     {
         Socket server;
-        private Thread atender;
+        Thread atender;
+
+        delegate void DelegadoParaPonerTexto(string texto);
+
+        List<Queries> formularios = new List<Queries>();
         public Main(Socket s)
         {
             InitializeComponent();
@@ -64,16 +68,42 @@ namespace SOProject
         {
             while (true)
             {
-                byte[] msg2 = new byte[80];
+                //Recibimos mensaje del servidor
+                byte[] msg2 = new byte[1024];
                 server.Receive(msg2);
-                string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                string[] trozos = message.Split('/');
-                string codigo = (trozos[0]);
-                string mensaje = trozos[1];
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                string codigo =(trozos[0]);
+                string mensaje;
+                int nform;
+
                 switch (codigo) 
-                { 
-                    
+                {
+                    case "1": //query 1
+                        nform = Convert.ToInt32(trozos[1]);
+                        mensaje = trozos[2].Split('\0')[0];
+                        formularios[nform].query1(mensaje);
+                        break;
+
+                    case "2":
+                        nform = Convert.ToInt32(trozos[1]);
+                        mensaje = trozos[2].Split('\0')[0];
+                        formularios[nform].query2(mensaje);
+                        break;
+                    case "3":
+                        nform = Convert.ToInt32(trozos[1]);
+                        mensaje = trozos[2].Split('\0')[0];
+                        formularios[nform].query3(mensaje);
+                        break;
+
+                    case "4":
+                        nform = Convert.ToInt32(trozos[1]);
+                        mensaje = trozos[2].Split('\0')[0];
+                        formularios[nform].ConnectedList(mensaje);
+                        break;
+
+
                     case "6":
+                        mensaje = trozos[1];
                         switch (mensaje)
                         {
                             case "0":
@@ -92,15 +122,33 @@ namespace SOProject
                             case "3":
 
                                 MessageBox.Show("Login successful");
-                                Queries q = new Queries(server);
-                                q.ShowDialog();
-                                atender.Abort();
+                                ThreadStart ts = delegate { PonerEnMarchaFormulario(); };
+                                Thread T = new Thread(ts);
+                                T.Start();
                                 break;
                         }
                         break;
 
                 }
             }
+        }
+
+        private void PonerEnMarchaFormulario()
+        {
+            int cont=formularios.Count;
+            Queries q = new Queries(cont,server);
+            q.ShowDialog();
+            formularios.Add(q);
+        }
+
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            server.Shutdown(SocketShutdown.Both);
+            server.Close();
+
+            MessageBox.Show("Disconnected");
+            this.Close();
         }
     }
 }
