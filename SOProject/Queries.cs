@@ -28,14 +28,13 @@ namespace SOProject
         public Queries(int nForm,Socket s)
         {
             InitializeComponent();
-            this.nForm = nForm;
             this.server = s;
+            this.nForm = nForm;
 
         }
 
         private void Queries_Load(object sender, EventArgs e)
         {
-
         }
 
         private void PlayerGame_CheckedChanged(object sender, EventArgs e)
@@ -56,23 +55,23 @@ namespace SOProject
 
                 if (PlayerGame.Checked)
                 {
-                    message = "3/" + nForm+ "/";               
+                    message = "3/" + nForm + "/";
                     // Enviamos al servidor el nombre tecleado
+                    MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
-
                 }
                 else if (winner.Checked)
                 {
-                    message = "4/"+ nForm +"/" + gameid.Text; // The code for fetching the winner by game ID
-                                                  // Enviamos al servidor el nombre tecleado
+                    message = "4/" + nForm + "/" + gameid.Text; // The code for fetching the winner by game ID
+                    MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
                 }
                 else if (gamesPlayed.Checked)  // New case for Games Played by a Player
                 {
                     message = "6/" + nForm + "/" + playerName.Text; // "6" represents the new query
-                                                      // Enviamos al servidor el nombre tecleado
+                    MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
                 }
@@ -82,10 +81,9 @@ namespace SOProject
                 // If there's a socket exception, show an error message
                 MessageBox.Show("Error connecting to the server: " + ex.Message);
             }
-
         }
 
-        private void label1_Click(object sender, EventArgs e)
+            private void label1_Click(object sender, EventArgs e)
         {
 
         }
