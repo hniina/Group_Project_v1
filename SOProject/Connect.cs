@@ -30,7 +30,7 @@ namespace SOProject
         private void button1_Click(object sender, EventArgs e)
         {
             IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 50178);
+            IPEndPoint ipep = new IPEndPoint(direc, 50179);
             
 
             //We create the socket

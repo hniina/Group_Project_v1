@@ -75,7 +75,6 @@ namespace SOProject
             switch (message)
             {
                 case "0":
-
                     MessageBox.Show("The userame does not exist.");
                     break;
 
