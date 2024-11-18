@@ -22,14 +22,12 @@ namespace SOProject
 {
     public partial class Queries : Form
     {
-        int nForm;
         Socket server;
         public Thread atender;
-        public Queries(int nForm,Socket s)
+        public Queries(Socket s)
         {
             InitializeComponent();
             this.server = s;
-            this.nForm = nForm;
 
         }
 
@@ -55,7 +53,7 @@ namespace SOProject
 
                 if (PlayerGame.Checked)
                 {
-                    message = "3/" + nForm + "/";
+                    message = "3/";
                     // Enviamos al servidor el nombre tecleado
                     MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
@@ -63,14 +61,14 @@ namespace SOProject
                 }
                 else if (winner.Checked)
                 {
-                    message = "4/" + nForm + "/" + gameid.Text; // The code for fetching the winner by game ID
+                    message = "4/" +gameid.Text; // The code for fetching the winner by game ID
                     MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
                 }
                 else if (gamesPlayed.Checked)  // New case for Games Played by a Player
                 {
-                    message = "6/" + nForm + "/" + playerName.Text; // "6" represents the new query
+                    message = "6/" + playerName.Text; // "6" represents the new query
                     MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
                     server.Send(msg);

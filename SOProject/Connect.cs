@@ -30,7 +30,7 @@ namespace SOProject
         private void button1_Click(object sender, EventArgs e)
         {
             IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 50177);
+            IPEndPoint ipep = new IPEndPoint(direc, 50178);
             
 
             //We create the socket
@@ -80,39 +80,32 @@ namespace SOProject
                 string[] trozos = message.Split('/');
                 string codigo = trozos[0];
                 string mensaje;
-
-                int nform;
+                Queries q = new Queries(server);
 
                 switch (codigo)
                 {
                     case "1": //query 1
-                        nform = Convert.ToInt32(trozos[1]);
                         mensaje = trozos[2].Split('\0')[0];
-                        forms[nform].query1(mensaje);
+                        q.query1(mensaje);
                         break;
 
                     case "2": //query 2
-                        nform = Convert.ToInt32(trozos[1]);
                         mensaje = trozos[2].Split('\0')[0];
-                        forms[nform].query2(mensaje);
+                        q.query2(mensaje);
                         break;
                     case "3": //query 3
-                        nform = Convert.ToInt32(trozos[1]);
-                        mensaje = trozos[2].Split('\0')[0];
-                        forms[nform].query3(mensaje);
+                        mensaje = trozos[1].Split('\0')[0];
+                        q.query3(mensaje);
                         break;
 
                     case "4": //Connected List (not working yet)
-                        nform = Convert.ToInt32(trozos[1]);
-                        mensaje = trozos[2].Split('\0')[0];
-                        forms[nform].ConnectedList(mensaje);
+                        mensaje = trozos[1].Split('\0')[0];
                         break;
 
 
                     case "6": //Login
-                        nform = Convert.ToInt32(trozos[1]);
-                        mensaje = trozos[2].Split('\0')[0];
-                        formularios[nform].LogIn(mensaje);
+                        Main m = new Main(server);
+                        m.LogIn(trozos[1]);
                         break;
                 }
 
@@ -122,8 +115,7 @@ namespace SOProject
 
         private void PonerEnMarchaFormulario()
         {
-            int cont = formularios.Count;
-            Main m = new Main (cont, server);
+            Main m = new Main (server);
             m.ShowDialog();
             formularios.Add(m);
         }

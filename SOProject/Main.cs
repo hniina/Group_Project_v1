@@ -18,20 +18,17 @@ namespace SOProject
 {
     public partial class Main : Form
     {
-        int numF;
         Socket server;
         Thread atender;
 
 
         delegate void DelegadoParaPonerTexto(string texto);
-        List<Queries> forms = new List<Queries>();
 
-        public Main(int numF,Socket s)
+        public Main(Socket s)
         {
             InitializeComponent();
 
             this.server = s;
-            this.numF = numF;
         }
 
         private void signupbutton_Click(object sender, EventArgs e)
@@ -53,7 +50,7 @@ namespace SOProject
 
         private void loginbutton_Click(object sender, EventArgs e)
         {
-            string soutput = "2/" + numF+ "/" + usernameText.Text + "/" + passwordText.Text;
+            string soutput = "2/" + usernameText.Text + "/" + passwordText.Text;
             byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText.Text + "/" + passwordText.Text);
 
             MessageBox.Show("Enviando mensaje: " + soutput);  // Debugging line
@@ -102,10 +99,8 @@ namespace SOProject
 
         public void PonerEnMarchaForm()
         {
-                int contador = forms.Count;
-                Queries q = new Queries(contador, server);
+                Queries q = new Queries(server);
                 q.ShowDialog();
-                forms.Add(q);
         }
     }
 }
