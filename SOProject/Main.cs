@@ -20,6 +20,7 @@ namespace SOProject
     {
         Socket server;
         Thread atender;
+
         delegate void DelegadoParaPonerTexto(string texto);
 
         public Main(Socket s)
@@ -27,6 +28,10 @@ namespace SOProject
             InitializeComponent();
 
             this.server = s;
+            CheckForIllegalCrossThreadCalls = false;
+            ThreadStart ts = delegate { AtenderServidor(); };
+            atender = new Thread(ts);
+            atender.Start();
         }
 
         private void signupbutton_Click(object sender, EventArgs e)
@@ -68,36 +73,64 @@ namespace SOProject
             this.Close();
         }
 
-        public void LogIn(string message)
+        private void AtenderServidor() //receive ALL the messages from the server!!
         {
-            switch (message)
+            Queries q = new Queries(server);
+            while (true)
             {
-                case "0":
-                    MessageBox.Show("The userame does not exist.");
-                    break;
+                byte[] msg2 = new byte[512];
+                server.Receive(msg2);
+                string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
+                string[] trozos = message.Split('/');
+                string codigo = (trozos[0]);
+                string mensaje; 
 
-                case "1":
-                    MessageBox.Show("Login error. Please, try again.");
-                    break;
+                switch (codigo)
+                {
+                    case "1": //query 1
+                        mensaje = trozos[1].Split('\0')[0];
+                        q.query1(mensaje);
+                        break;
 
-                case "2":
-                    MessageBox.Show("The password is not correct.");
-                    break;
+                    case "2": //query 2
+                        mensaje = trozos[1].Split('\0')[0];
+                        q.query2(mensaje);
+                        break;
+                    case "3": //query 3
+                        mensaje = trozos[1].Split('\0')[0];
+                        q.query3(mensaje);
+                        break;
 
-                case "3":
+                    case "4": //Connected List (not working yet)
+                        mensaje = trozos[1].Split('\0')[0];
+                        break;
 
-                    MessageBox.Show("Login successful");
-                    ThreadStart ts = delegate { PonerEnMarchaForm(); };
-                    Thread T = new Thread(ts);
-                    T.Start();
-                    break;
+
+                    case "6": //Login
+                        switch (trozos[1].Split('\0')[0])
+                        {
+                            case "0":
+                                MessageBox.Show("The userame does not exist.");
+                                break;
+
+                            case "1":
+                                MessageBox.Show("Login error. Please, try again.");
+                                break;
+
+                            case "2":
+                                MessageBox.Show("The password is not correct.");
+                                break;
+
+                            case "3":
+
+                                MessageBox.Show("Login successful");
+                                q.ShowDialog();
+                                break;
+                        }
+                        break;
+                }
+
             }
-        }
-
-        public void PonerEnMarchaForm()
-        {
-                Queries q = new Queries(server);
-                q.ShowDialog();
         }
     }
 }
