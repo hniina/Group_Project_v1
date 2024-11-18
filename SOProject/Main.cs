@@ -20,8 +20,6 @@ namespace SOProject
     {
         Socket server;
         Thread atender;
-
-
         delegate void DelegadoParaPonerTexto(string texto);
 
         public Main(Socket s)

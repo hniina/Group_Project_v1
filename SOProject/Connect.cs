@@ -20,8 +20,6 @@ namespace SOProject
         Socket server;
         Thread atender;
         delegate void DelegadoParaPonerTexto(string texto);
-        List<Main> formularios = new List<Main>();
-        List<Queries> forms = new List<Queries>();
         public Connect()
         {
             InitializeComponent();
@@ -117,7 +115,6 @@ namespace SOProject
         {
             Main m = new Main (server);
             m.ShowDialog();
-            formularios.Add(m);
         }
 
     }
