@@ -20,7 +20,6 @@ namespace SOProject
     {
         Socket server;
         Thread atender;
-
         delegate void DelegadoParaPonerTexto(string texto);
 
         public Main(Socket s)
@@ -46,7 +45,6 @@ namespace SOProject
         {
             server.Shutdown(SocketShutdown.Both);
             server.Close();
-
             MessageBox.Show("Disconnected");
             this.Close();
         }
@@ -55,8 +53,6 @@ namespace SOProject
         {
             string soutput = "2/" + usernameText.Text + "/" + passwordText.Text;
             byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText.Text + "/" + passwordText.Text);
-
-            MessageBox.Show("Enviando mensaje: " + soutput);  // Debugging line
             server.Send(output);
         }
 
@@ -76,60 +72,77 @@ namespace SOProject
         private void AtenderServidor() //receive ALL the messages from the server!!
         {
             Queries q = new Queries(server);
-            while (true)
+            try
             {
-                byte[] msg2 = new byte[512];
-                server.Receive(msg2);
-                string message = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                string[] trozos = message.Split('/');
-                string codigo = (trozos[0]);
-                string mensaje; 
-
-                switch (codigo)
+                while (true)
                 {
-                    case "1": //query 1
-                        mensaje = trozos[1].Split('\0')[0];
-                        q.query1(mensaje);
-                        break;
+                    //Recibimos mensaje del servidor
+                    byte[] msg2 = new byte[512];
+                    server.Receive(msg2);
+                    string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                    string codigo = (trozos[0]);
+                    string mensaje = mensaje = trozos[1].Split('\0')[0];
 
-                    case "2": //query 2
-                        mensaje = trozos[1].Split('\0')[0];
-                        q.query2(mensaje);
-                        break;
-                    case "3": //query 3
-                        mensaje = trozos[1].Split('\0')[0];
-                        q.query3(mensaje);
-                        break;
+                    switch (codigo)
+                    {
+                        case "1": //query 1
+                            mensaje = trozos[1].Split('\0')[0];
+                            q.query1(mensaje);
+                            break;
 
-                    case "4": //Connected List (not working yet)
-                        mensaje = trozos[1].Split('\0')[0];
-                        break;
+                        case "2": //query 2
+                            mensaje = trozos[1].Split('\0')[0];
+                            q.query2(mensaje);
+                            break;
+                        case "3": //query 3
+                            mensaje = trozos[1].Split('\0')[0];
+                            q.query3(mensaje);
+                            break;
+
+                        case "4": //Connected List (not working yet)
+                            mensaje = trozos[1].Split('\0')[0];
+                            break;
 
 
-                    case "6": //Login
-                        switch (trozos[1].Split('\0')[0])
-                        {
-                            case "0":
-                                MessageBox.Show("The userame does not exist.");
-                                break;
+                        case "6": //Login
+                            int code = Convert.ToInt32(mensaje);
+                            switch (code)
+                            {
+                                case 0:
+                                    MessageBox.Show("The userame does not exist.");
+                                    break;
+                                case 1:
+                                    MessageBox.Show("The data was not found in the database");
+                                    break;
 
-                            case "1":
-                                MessageBox.Show("Login error. Please, try again.");
-                                break;
+                                case 2:
+                                    MessageBox.Show("Login error. Please, try again.");
+                                    break;
 
-                            case "2":
-                                MessageBox.Show("The password is not correct.");
-                                break;
+                                case 3:
 
-                            case "3":
-
-                                MessageBox.Show("Login successful");
-                                q.ShowDialog();
-                                break;
-                        }
-                        break;
+                                    MessageBox.Show("Login successful");
+                                    q.ShowDialog();
+                                    break;
+                                case 4:
+                                    MessageBox.Show("The password is not correct.");
+                                    break;
+                                default:
+                                    MessageBox.Show(Convert.ToString(mensaje));
+                                    break;
+                            }
+                            break;
+                    }
                 }
+            }
 
+            catch (SocketException ex)
+            {
+                MessageBox.Show($"Socket error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error: {ex.Message}");
             }
         }
     }
