@@ -23,12 +23,10 @@ namespace SOProject
     public partial class Queries : Form
     {
         Socket server;
-        public Thread atender;
         public Queries(Socket s)
         {
             InitializeComponent();
             this.server = s;
-
         }
 
         private void Queries_Load(object sender, EventArgs e)
@@ -116,15 +114,14 @@ namespace SOProject
         {
             string message = "5/";
             byte[] msg = Encoding.ASCII.GetBytes(message);
-            server.Send(msg);
+            server.Send(msg);   
         }
 
         //(public) funcion para poner datos en el datagrid desde el otro form y llamarla
 
-        public void query1 (string message)
+        public void query1 ()
         {
-            string formattedMessage = message.Replace(",", "\n");
-            MessageBox.Show(formattedMessage);
+            MessageBox.Show("Working");
         }
 
         public void query2(string message)

@@ -20,6 +20,7 @@ namespace SOProject
     {
         Socket server;
         Thread atender;
+        Queries q;
         delegate void DelegadoParaPonerTexto(string texto);
 
         public Main(Socket s)
@@ -71,23 +72,28 @@ namespace SOProject
 
         private void AtenderServidor() //receive ALL the messages from the server!!
         {
-            Queries q = new Queries(server);
             try
             {
                 while (true)
                 {
                     //Recibimos mensaje del servidor
-                    byte[] msg2 = new byte[512];
+                    byte[] msg2 = new byte[1024];
                     server.Receive(msg2);
+                    int receivedbytes = server.Receive(msg2);
+                    if (receivedbytes == 0)
+                    {
+                        MessageBox.Show("No data received."); //Making sure the message is not empty;
+                        return;
+                    }
                     string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
                     string codigo = (trozos[0]);
-                    string mensaje = mensaje = trozos[1].Split('\0')[0];
+                    string mensaje; 
 
                     switch (codigo)
                     {
                         case "1": //query 1
-                            mensaje = trozos[1].Split('\0')[0];
-                            q.query1(mensaje);
+                            mensaje=Encoding.ASCII.GetString(msg2).Trim('\0');
+                            q.query1();
                             break;
 
                         case "2": //query 2
@@ -102,9 +108,14 @@ namespace SOProject
                         case "4": //Connected List (not working yet)
                             mensaje = trozos[1].Split('\0')[0];
                             break;
-
+                        case "5":
+                            SignUp sg = new SignUp(server);
+                            mensaje = trozos[1].Split('\0')[0];
+                            sg.SignUpFunction(mensaje);
+                            break;
 
                         case "6": //Login
+                            mensaje= trozos[1].Split('\0')[0];
                             int code = Convert.ToInt32(mensaje);
                             switch (code)
                             {
@@ -122,6 +133,7 @@ namespace SOProject
                                 case 3:
 
                                     MessageBox.Show("Login successful");
+                                    q = new Queries(server);
                                     q.ShowDialog();
                                     break;
                                 case 4:
@@ -132,7 +144,13 @@ namespace SOProject
                                     break;
                             }
                             break;
+
+
+                        default:
+                            MessageBox.Show("Something went wrong :(");
+                            break;
                     }
+
                 }
             }
 

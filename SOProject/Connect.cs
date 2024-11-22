@@ -17,7 +17,7 @@ namespace SOProject
 {
     public partial class Connect : Form
     {
-        Socket server;
+        public Socket server;
         public Connect()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace SOProject
         private void button1_Click(object sender, EventArgs e)
         {
             IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 50182);
+            IPEndPoint ipep = new IPEndPoint(direc, 50185);
             
 
             //We create the socket
