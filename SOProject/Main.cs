@@ -28,10 +28,12 @@ namespace SOProject
             InitializeComponent();
 
             this.server = s;
-            CheckForIllegalCrossThreadCalls = false;
+            q= new Queries(s);
+            //CheckForIllegalCrossThreadCalls = false;
             ThreadStart ts = delegate { AtenderServidor(); };
             atender = new Thread(ts);
             atender.Start();
+            Console.WriteLine("Hilo iniciado...");
         }
 
         private void signupbutton_Click(object sender, EventArgs e)
@@ -65,7 +67,6 @@ namespace SOProject
         {
             server.Shutdown(SocketShutdown.Both);
             server.Close();
-
             MessageBox.Show("Disconnected");
             this.Close();
         }
@@ -76,24 +77,21 @@ namespace SOProject
             {
                 while (true)
                 {
+                    Console.WriteLine("I am executing this while");
                     //Recibimos mensaje del servidor
                     byte[] msg2 = new byte[1024];
-                    server.Receive(msg2);
-                    int receivedbytes = server.Receive(msg2);
-                    if (receivedbytes == 0)
-                    {
-                        MessageBox.Show("No data received."); //Making sure the message is not empty;
-                        return;
-                    }
-                    string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                    //server.Receive(msg2);
+                    int receivedbytes = server.Receive(msg2);                    
+                    string[] trozos = Encoding.ASCII.GetString(msg2, 0, receivedbytes).Split('/');
+                    //string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
                     string codigo = (trozos[0]);
                     string mensaje; 
 
                     switch (codigo)
                     {
                         case "1": //query 1
-                            mensaje=Encoding.ASCII.GetString(msg2).Trim('\0');
-                            q.query1();
+                            string mess = trozos[1].Split('\0')[0];
+                            q.query1(mess);
                             break;
 
                         case "2": //query 2
@@ -105,8 +103,9 @@ namespace SOProject
                             q.query3(mensaje);
                             break;
 
-                        case "4": //Connected List (not working yet)
+                        case "4": //Connected List 
                             mensaje = trozos[1].Split('\0')[0];
+                            q.ConnectedList(mensaje);
                             break;
                         case "5":
                             SignUp sg = new SignUp(server);
@@ -131,10 +130,11 @@ namespace SOProject
                                     break;
 
                                 case 3:
-
                                     MessageBox.Show("Login successful");
-                                    q = new Queries(server);
-                                    q.ShowDialog();
+
+                                    // Aquí es donde abres el formulario Queries
+                                    Invoke(new Action(OpenQueriesForm));
+                                    break;
                                     break;
                                 case 4:
                                     MessageBox.Show("The password is not correct.");
@@ -162,6 +162,13 @@ namespace SOProject
             {
                 MessageBox.Show($"Unexpected error: {ex.Message}");
             }
+        }
+
+        private void OpenQueriesForm()
+        {
+            // Solo se ejecuta si el login fue exitoso
+            Queries q = new Queries(server);
+            q.Show();
         }
     }
 }

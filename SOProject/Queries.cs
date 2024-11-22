@@ -52,26 +52,23 @@ namespace SOProject
                 if (PlayerGame.Checked)
                 {
                     message = "3/";
-                    // Enviamos al servidor el nombre tecleado
-                    MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                    server.Send(msg);
+
                 }
                 else if (winner.Checked)
                 {
                     message = "4/" +gameid.Text; // The code for fetching the winner by game ID
-                    MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                    server.Send(msg);
+
                 }
                 else if (gamesPlayed.Checked)  // New case for Games Played by a Player
                 {
                     message = "6/" + playerName.Text; // "6" represents the new query
-                    MessageBox.Show("Enviando mensaje: " + message);  // Debugging line
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                    server.Send(msg);
+
                 }
+                byte[] msg = Encoding.ASCII.GetBytes(message);
+                server.Send(msg);
+                Console.WriteLine($"Mensaje enviado: {message}");
             }
+
             catch (SocketException ex)
             {
                 // If there's a socket exception, show an error message
@@ -119,49 +116,86 @@ namespace SOProject
 
         //(public) funcion para poner datos en el datagrid desde el otro form y llamarla
 
-        public void query1 ()
+
+        public void query1(string message)
         {
-            MessageBox.Show("Working");
+            bool messageShown = false;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<string>(query1), message);
+            }
+            else
+            {
+                if (!messageShown) // Si no se ha mostrado el mensaje antes
+                {
+                    string formattedMessage = message.Replace(",", "\n");
+                    MessageBox.Show(formattedMessage);
+                    messageShown = true; // Marcar que ya se ha mostrado el mensaje
+                }
+            }
         }
 
         public void query2(string message)
         {
-            MessageBox.Show(message);
+            bool messageShown = false;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<string>(query2), message);
+            }
+            else
+            {
+                if (!messageShown) // Si no se ha mostrado el mensaje antes
+                {
+                    MessageBox.Show(message);
+                    messageShown = true; // Marcar que ya se ha mostrado el mensaje
+                }
+            }
         }
 
         public void query3(string message)
         {
-            MessageBox.Show(message);
+            bool messageShown = false;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<string>(query3), message);
+            }
+            else
+            {
+                if (!messageShown) // Si no se ha mostrado el mensaje antes
+                {
+                    MessageBox.Show(message);
+                    messageShown = true; // Marcar que ya se ha mostrado el mensaje
+                }
+            }
         }
 
         public void ConnectedList(string mensaje)
         {
-            try
+            if (this.InvokeRequired)
             {
-                //We get the server answer
-                byte[] msg2 = new byte[1024];
-                int receivedBytes = server.Receive(msg2);
-                string fullResponse = Encoding.ASCII.GetString(msg2, 0, receivedBytes);
-
-                // Process the server response and split it into players
-                string[] players = fullResponse.Split('/');
-
-
-                // Clear the DataGridView before populating it with new data
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear(); // Clear columns first
-                dataGridView1.Columns.Add("PlayerName", "Connected Players");
-
-                for (int i = 1; i < players.Length; i++)
+                this.Invoke(new Action<string>(ConnectedList), mensaje);
+            }
+            else
+            {
+                try
                 {
-                    dataGridView1.Rows.Add(players[i]);  // Add each player
+                    string[] trozos = mensaje.Split(',');
+                    string connected = trozos[0];
+                    label_users_connected.Text = connected;
+
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Columns.Clear(); // Clear columns first
+                    dataGridView1.Columns.Add("PlayerName", "Connected Players");
+                    for (int i = 1; i < trozos.Length; i++)
+                    {
+                        dataGridView1.Rows.Add(trozos[i]);
+                    }
+                }
+                catch (SocketException ex)
+                {
+                    MessageBox.Show("Error connecting to the server: " + ex.Message);
                 }
             }
-            catch (SocketException ex)
-            {
-                MessageBox.Show("Error connecting to the server: " + ex.Message);
-            }
-
 
         }
 
@@ -174,7 +208,10 @@ namespace SOProject
             this.Close();
         }
 
+        private void label_users_connected_Click(object sender, EventArgs e)
+        {
 
+        }
     }
     
 }

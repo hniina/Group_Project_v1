@@ -155,6 +155,7 @@
             this.label_users_connected.Size = new System.Drawing.Size(14, 16);
             this.label_users_connected.TabIndex = 11;
             this.label_users_connected.Text = "0";
+            this.label_users_connected.Click += new System.EventHandler(this.label_users_connected_Click);
             // 
             // button1
             // 
