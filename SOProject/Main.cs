@@ -80,16 +80,16 @@ namespace SOProject
                     Console.WriteLine("I am executing this while");
                     //Recibimos mensaje del servidor
                     byte[] msg2 = new byte[1024];
-                    //server.Receive(msg2);
+                    Array.Clear(msg2, 0, msg2.Length);
                     int receivedbytes = server.Receive(msg2);                    
                     string[] trozos = Encoding.ASCII.GetString(msg2, 0, receivedbytes).Split('/');
-                    //string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
                     string codigo = (trozos[0]);
                     string mensaje; 
 
                     switch (codigo)
                     {
                         case "1": //query 1
+                            Console.WriteLine("I am executing query1");
                             string mess = trozos[1].Split('\0')[0];
                             q.query1(mess);
                             break;
@@ -105,6 +105,7 @@ namespace SOProject
 
                         case "4": //Connected List 
                             mensaje = trozos[1].Split('\0')[0];
+                            Console.WriteLine("Llamando a ConnectedList...");
                             q.ConnectedList(mensaje);
                             break;
                         case "5":
@@ -135,7 +136,6 @@ namespace SOProject
                                     // Aquí es donde abres el formulario Queries
                                     Invoke(new Action(OpenQueriesForm));
                                     break;
-                                    break;
                                 case 4:
                                     MessageBox.Show("The password is not correct.");
                                     break;
@@ -143,11 +143,6 @@ namespace SOProject
                                     MessageBox.Show(Convert.ToString(mensaje));
                                     break;
                             }
-                            break;
-
-
-                        default:
-                            MessageBox.Show("Something went wrong :(");
                             break;
                     }
 
@@ -164,11 +159,19 @@ namespace SOProject
             }
         }
 
+        private Queries queriesForm = null; // Instancia única del formulario
+
         private void OpenQueriesForm()
         {
-            // Solo se ejecuta si el login fue exitoso
-            Queries q = new Queries(server);
-            q.Show();
+            if (queriesForm == null || queriesForm.IsDisposed)
+            {
+                queriesForm = new Queries(server);
+                queriesForm.Show();
+            }
+            else
+            {
+                Console.WriteLine("El formulario Queries ya está abierto.");
+            }
         }
     }
 }

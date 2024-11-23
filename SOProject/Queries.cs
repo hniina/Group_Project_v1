@@ -154,23 +154,19 @@ namespace SOProject
 
         public void query3(string message)
         {
-            bool messageShown = false;
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action<string>(query3), message);
             }
             else
             {
-                if (!messageShown) // Si no se ha mostrado el mensaje antes
-                {
-                    MessageBox.Show(message);
-                    messageShown = true; // Marcar que ya se ha mostrado el mensaje
-                }
+                MessageBox.Show(message);
             }
         }
 
         public void ConnectedList(string mensaje)
         {
+            Console.WriteLine("ConnectedList ejecutado con: " + mensaje);
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action<string>(ConnectedList), mensaje);
@@ -196,7 +192,6 @@ namespace SOProject
                     MessageBox.Show("Error connecting to the server: " + ex.Message);
                 }
             }
-
         }
 
         private void Queries_FormClosing(object sender, FormClosingEventArgs e)
