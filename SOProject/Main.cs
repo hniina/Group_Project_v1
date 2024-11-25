@@ -81,10 +81,10 @@ namespace SOProject
                     //Recibimos mensaje del servidor
                     byte[] msg2 = new byte[1024];
                     Array.Clear(msg2, 0, msg2.Length);
-                    int receivedbytes = server.Receive(msg2);                    
-                    string[] trozos = Encoding.ASCII.GetString(msg2, 0, receivedbytes).Split('/');
+                    server.Receive(msg2);
+                    string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
                     string codigo = (trozos[0]);
-                    string mensaje; 
+                    string mensaje;
 
                     switch (codigo)
                     {
