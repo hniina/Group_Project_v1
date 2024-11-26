@@ -71,7 +71,7 @@ namespace SOProject
             this.Close();
         }
 
-        private void AtenderServidor() //receive ALL the messages from the server!!
+        public void AtenderServidor() //receive ALL the messages from the server!!
         {
             try
             {
@@ -103,11 +103,11 @@ namespace SOProject
                             q.query3(mensaje);
                             break;
 
-                        case "4": //Connected List 
-                            mensaje = trozos[1].Split('\0')[0];
-                            Console.WriteLine("Llamando a ConnectedList...");
-                            q.ConnectedList(mensaje);
-                            break;
+                        //case "4": //Connected List 
+                        //    mensaje = trozos[1].Split('\0')[0];
+                        //    Console.WriteLine("Llamando a ConnectedList...");
+                        //    q.ConnectedList(mensaje);                            
+                        //    break;
                         case "5":
                             SignUp sg = new SignUp(server);
                             mensaje = trozos[1].Split('\0')[0];
@@ -116,7 +116,7 @@ namespace SOProject
 
                         case "6": //Login
                             mensaje= trozos[1].Split('\0')[0];
-                            int code = Convert.ToInt32(mensaje);
+                            int code = Convert.ToInt32(mensaje.Split('/')[0]);
                             switch (code)
                             {
                                 case 0:
@@ -135,6 +135,8 @@ namespace SOProject
 
                                     // Aquí es donde abres el formulario Queries
                                     Invoke(new Action(OpenQueriesForm));
+                                    string Clist = trozos[3];
+                                    q.ConnectedList(Clist);
                                     break;
                                 case 4:
                                     MessageBox.Show("The password is not correct.");
