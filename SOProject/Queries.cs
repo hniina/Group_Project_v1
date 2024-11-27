@@ -23,10 +23,22 @@ namespace SOProject
     public partial class Queries : Form
     {
         Socket server;
-        public Queries(Socket s)
+        Thread atender;
+        NewGame game;
+        string conectados;
+        string myname;
+        delegate void hide_window_delegate();
+        public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
             this.server = s;
+            ThreadStart ts = delegate { AtenderServidor(); };
+            atender = new Thread(ts);
+            atender.Start();
+            Console.WriteLine("Hilo iniciado...");
+            this.conectados = conectados;
+            ConnectedList(conectados);
+            this.myname = myname;
         }
 
         private void Queries_Load(object sender, EventArgs e)
@@ -83,7 +95,31 @@ namespace SOProject
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int RowSelection = e.RowIndex;
+            if (RowSelection >= 0)
+            {
+                string name = dataGridView1[0, RowSelection].Value.ToString();
+                if (name==myname)
+                {
+                    MessageBox.Show("You can't invite yourself.");
+                }
+                else
+                {
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to invite" + " " + dataGridView1[0, RowSelection].Value.ToString(), "You're about to invite this person", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        MessageBox.Show("You have invited" + " " + dataGridView1[0, RowSelection].Value.ToString());
+                        string message = "7/" + myname + "/" + name;
+                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
+                        server.Send(msg);
+                    }
+                }
+            }
 
+            else
+            {
+                MessageBox.Show("You must select a valid row.");
+            }
         }
 
         private void gameid_TextChanged(object sender, EventArgs e)
@@ -119,49 +155,18 @@ namespace SOProject
 
         public void query1(string message)
         {
-            bool messageShown = false;
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action<string>(query1), message);
-            }
-            else
-            {
-                if (!messageShown) // Si no se ha mostrado el mensaje antes
-                {
-                    string formattedMessage = message.Replace(",", "\n");
-                    MessageBox.Show(formattedMessage);
-                    messageShown = true; // Marcar que ya se ha mostrado el mensaje
-                }
-            }
+            string formattedMessage = message.Replace(",", "\n");
+            MessageBox.Show(formattedMessage);
         }
 
         public void query2(string message)
         {
-            bool messageShown = false;
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action<string>(query2), message);
-            }
-            else
-            {
-                if (!messageShown) // Si no se ha mostrado el mensaje antes
-                {
-                    MessageBox.Show(message);
-                    messageShown = true; // Marcar que ya se ha mostrado el mensaje
-                }
-            }
+            MessageBox.Show(message);
         }
 
         public void query3(string message)
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action<string>(query3), message);
-            }
-            else
-            {
-                MessageBox.Show(message);
-            }
+            MessageBox.Show(message);
         }
 
         public void ConnectedList(string mensaje)
@@ -206,6 +211,97 @@ namespace SOProject
         private void label_users_connected_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public void AtenderServidor() //receive ALL the messages from the server!!
+        {
+            try
+            {
+                while (true)
+                {
+                    Console.WriteLine("I am executing this while");
+                    //Recibimos mensaje del servidor
+                    byte[] msg2 = new byte[1024];
+                    Array.Clear(msg2, 0, msg2.Length);
+                    server.Receive(msg2);
+                    string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                    string codigo = (trozos[0]);
+                    string mensaje;
+
+                    switch (codigo)
+                    {
+                        case "1": //query 1
+                            string mess = trozos[1].Split('\0')[0];
+                            query1(mess);
+                            break;
+
+                        case "2": //query 2
+                            mensaje = trozos[1].Split('\0')[0];
+                            query2(mensaje);
+                            break;
+                        case "3": //query 3
+                            mensaje = trozos[1].Split('\0')[0];
+                            query3(mensaje);
+                            break;
+
+                        case "4": //Connected List 
+                            mensaje = trozos[1].Split('\0')[0];
+                            Console.WriteLine("Llamando a ConnectedList...");
+                            ConnectedList(mensaje);
+                            break;
+                        case "7": //invitaion
+                            string invites = trozos[1];
+                            string message = trozos[2];
+                            DialogResult dialogResult = MessageBox.Show(message, "You're about to accept this game", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                string accepted = "8/" + invites + "/" + "1/";
+                                byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
+                                server.Send(msg);
+                                game = new NewGame(server);
+                                this.Invoke(new hide_window_delegate(this.Hide), new object[] { });
+                                this.Invoke(new Action(() =>
+                                {
+                                    using (var game = new Form())
+                                    {
+                                        game.ShowDialog();
+                                    }
+                                }));
+
+                            }
+                            else
+                            {
+                                string accepted = "8/" + invites + "/" + "0";
+                                byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
+                                server.Send(msg);
+                            }
+                            break;
+                        case "8":
+                            int aceptado = Convert.ToInt32(trozos[1]);
+                            string invitation = trozos[2];
+                            if (aceptado == 0)
+                            {
+                                MessageBox.Show(invitation);
+                                NewGame juego = new NewGame(server);
+                                juego.ShowDialog();
+                            }
+                            else
+                            {
+                                MessageBox.Show(invitation);
+                            }
+                            break;
+                    }
+                }
+            }
+
+            catch (SocketException ex)
+            {
+                MessageBox.Show($"Socket error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error: {ex.Message}");
+            }
         }
     }
     

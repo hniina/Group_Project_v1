@@ -68,6 +68,45 @@ namespace SOProject
                {
                     byte[] register = System.Text.Encoding.ASCII.GetBytes("1/" + email.Text + "/" + Username_TextBox.Text + "/" + password_TextBox.Text);
                     server.Send(register);
+
+                    byte[] msg2 = new byte[1024];
+                    server.Receive(msg2);
+                    string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                    int codigo = Convert.ToInt32(trozos[0]);
+                    string mensaje = trozos[1].Split('\0')[0];
+
+                    switch (Convert.ToInt32(mensaje))
+                    {
+                        case 0:
+                            MessageBox.Show("The email is already registered. Use another one.");
+                            break;
+
+                        case 1:
+                            MessageBox.Show("This username already exists. Please, choose another one.");
+                            break;
+
+                        case 2:
+                            MessageBox.Show("The email must have between 15 and 80 characters.");
+                            break;
+
+                        case 3:
+                            MessageBox.Show("Your username must have between 3 and 80 characters.");
+                            break;
+
+                        case 4:
+                            MessageBox.Show("Your passwrd must have between 8 and 20 characters");
+                            break;
+
+
+                        case 5:
+                            MessageBox.Show("Register was unsuccessful. Please, try again.");
+                            break;
+
+                        case 6:
+                            MessageBox.Show("New user registered successfully!");
+                            this.Hide();
+                            break;
+                    }
                 }
 
             }
@@ -79,92 +118,6 @@ namespace SOProject
 
         }
 
-        public void SignUpFunction(string mensaje)
-        {
-            switch (Convert.ToInt32(mensaje))
-            {
-                case 0:
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action<string>(SignUpFunction), mensaje);
-                    }
-                    else
-                    {
-                        MessageBox.Show("The email is already registered. Use another one.");
-                    }
-                    break;
-
-                case 1:
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action<string>(SignUpFunction), mensaje);
-                    }
-                    else
-                    {
-                        MessageBox.Show("This username already exists. Please, choose another one.");
-                    }
-                    break;
-
-                case 2:
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action<string>(SignUpFunction), mensaje);
-                    }
-                    else
-                    {
-                        MessageBox.Show("The email must have between 15 and 80 characters.");
-                    }
-                    break;
-
-                case 3:
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action<string>(SignUpFunction), mensaje);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Your username must have between 3 and 80 characters.");
-                    }
-                    break;
-
-
-                case 4:
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action<string>(SignUpFunction), mensaje);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Your passwrd must have between 8 and 20 characters");
-                    }
-                    break;
-
-
-                case 5:
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action<string>(SignUpFunction), mensaje);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Register was unsuccessful. Please, try again.");
-                    }
-                    break;
-
-                case 6:
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action<string>(SignUpFunction), mensaje);
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("New user registered successfully!");
-                        this.Hide();
-                    }
-                    break;
-            }
-        }
 
     }
 }

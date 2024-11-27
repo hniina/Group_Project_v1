@@ -19,21 +19,15 @@ namespace SOProject
     public partial class Main : Form
     {
         Socket server;
-        Thread atender;
-        Queries q;
-        delegate void DelegadoParaPonerTexto(string texto);
-
+        string lista;
+        string myname;
         public Main(Socket s)
         {
             InitializeComponent();
 
             this.server = s;
-            q= new Queries(s);
             //CheckForIllegalCrossThreadCalls = false;
-            ThreadStart ts = delegate { AtenderServidor(); };
-            atender = new Thread(ts);
-            atender.Start();
-            Console.WriteLine("Hilo iniciado...");
+
         }
 
         private void signupbutton_Click(object sender, EventArgs e)
@@ -57,6 +51,44 @@ namespace SOProject
             string soutput = "2/" + usernameText.Text + "/" + passwordText.Text;
             byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText.Text + "/" + passwordText.Text);
             server.Send(output);
+
+            byte[] msg2 = new byte[1024];
+            server.Receive(msg2);
+            string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+            int codigo = Convert.ToInt32(trozos[1]);
+
+            switch (codigo)
+            {
+                case 0:
+                    MessageBox.Show("The userame does not exist.");
+                    break;
+                case 1:
+                    MessageBox.Show("The data was not found in the database");
+                    break;
+
+                case 2:
+                    MessageBox.Show("Login error. Please, try again.");
+                    break;
+
+                case 3:
+                    MessageBox.Show("Login successful");
+
+                    lista = trozos[4];
+                    myname = trozos[2];
+                    Queries q = new Queries(server, lista, myname);
+                    q.ShowDialog();
+                    this.Hide();
+                    break;
+                case 4:
+                    MessageBox.Show("The password is not correct.");
+                    break;
+                case 5:
+                    MessageBox.Show("You are already logged in");
+                    break;
+                default:
+                    MessageBox.Show(Convert.ToString(codigo));
+                    break;
+            }
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -71,110 +103,6 @@ namespace SOProject
             this.Close();
         }
 
-        public void AtenderServidor() //receive ALL the messages from the server!!
-        {
-            try
-            {
-                while (true)
-                {
-                    Console.WriteLine("I am executing this while");
-                    //Recibimos mensaje del servidor
-                    byte[] msg2 = new byte[1024];
-                    Array.Clear(msg2, 0, msg2.Length);
-                    server.Receive(msg2);
-                    string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
-                    string codigo = (trozos[0]);
-                    string mensaje;
-
-                    switch (codigo)
-                    {
-                        case "1": //query 1
-                            Console.WriteLine("I am executing query1");
-                            string mess = trozos[1].Split('\0')[0];
-                            q.query1(mess);
-                            break;
-
-                        case "2": //query 2
-                            mensaje = trozos[1].Split('\0')[0];
-                            q.query2(mensaje);
-                            break;
-                        case "3": //query 3
-                            mensaje = trozos[1].Split('\0')[0];
-                            q.query3(mensaje);
-                            break;
-
-                        //case "4": //Connected List 
-                        //    mensaje = trozos[1].Split('\0')[0];
-                        //    Console.WriteLine("Llamando a ConnectedList...");
-                        //    q.ConnectedList(mensaje);                            
-                        //    break;
-                        case "5":
-                            SignUp sg = new SignUp(server);
-                            mensaje = trozos[1].Split('\0')[0];
-                            sg.SignUpFunction(mensaje);
-                            break;
-
-                        case "6": //Login
-                            mensaje= trozos[1].Split('\0')[0];
-                            int code = Convert.ToInt32(mensaje.Split('/')[0]);
-                            switch (code)
-                            {
-                                case 0:
-                                    MessageBox.Show("The userame does not exist.");
-                                    break;
-                                case 1:
-                                    MessageBox.Show("The data was not found in the database");
-                                    break;
-
-                                case 2:
-                                    MessageBox.Show("Login error. Please, try again.");
-                                    break;
-
-                                case 3:
-                                    MessageBox.Show("Login successful");
-
-                                    // Aquí es donde abres el formulario Queries
-                                    Invoke(new Action(OpenQueriesForm));
-                                    string Clist = trozos[3];
-                                    q.ConnectedList(Clist);
-                                    break;
-                                case 4:
-                                    MessageBox.Show("The password is not correct.");
-                                    break;
-                                default:
-                                    MessageBox.Show(Convert.ToString(mensaje));
-                                    break;
-                            }
-                            break;
-                    }
-
-                }
-            }
-
-            catch (SocketException ex)
-            {
-                MessageBox.Show($"Socket error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Unexpected error: {ex.Message}");
-            }
-        }
-
-        private Queries queriesForm = null; // Instancia única del formulario
-
-        private void OpenQueriesForm()
-        {
-            if (queriesForm == null || queriesForm.IsDisposed)
-            {
-                queriesForm = new Queries(server);
-                queriesForm.Show();
-            }
-            else
-            {
-                Console.WriteLine("El formulario Queries ya está abierto.");
-            }
-        }
     }
 }
 
