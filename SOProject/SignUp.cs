@@ -113,6 +113,7 @@ namespace SOProject
 
             catch (SocketException ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 MessageBox.Show("The connection with the sever failed");
             }
 

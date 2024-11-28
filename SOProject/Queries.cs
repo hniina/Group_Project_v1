@@ -138,7 +138,7 @@ namespace SOProject
 
         private void newgame_Click(object sender, EventArgs e)
         {
-            NewGame  ng = new NewGame(server);
+            NewGame  ng = new NewGame(server,myname);
             ng.ShowDialog();
 
         }
@@ -258,7 +258,7 @@ namespace SOProject
                                 string accepted = "8/" + invites + "/" + "1/";
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
-                                game = new NewGame(server);
+                                game = new NewGame(server, myname);
                                 this.Invoke(new hide_window_delegate(this.Hide), new object[] { });
                                 this.Invoke(new Action(() =>
                                 {
@@ -282,7 +282,7 @@ namespace SOProject
                             if (aceptado == 0)
                             {
                                 MessageBox.Show(invitation);
-                                NewGame juego = new NewGame(server);
+                                NewGame juego = new NewGame(server, myname);
                                 juego.ShowDialog();
                             }
                             else
