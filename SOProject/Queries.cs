@@ -28,6 +28,7 @@ namespace SOProject
         string conectados;
         string myname;
         delegate void hide_window_delegate();
+        int acceptedInvitation = 0;
         public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
@@ -138,8 +139,20 @@ namespace SOProject
 
         private void newgame_Click(object sender, EventArgs e)
         {
-            NewGame  ng = new NewGame(server,myname);
-            ng.ShowDialog();
+            if (acceptedInvitation == 1)
+            {
+                NewGame ng = new NewGame(server, myname);
+                ng.ShowDialog();
+            }
+
+            else
+            {
+                MessageBox.Show("You must invite someone and they have to accept your invitation to start a new game.");
+            }
+
+
+            
+
 
         }
 
@@ -255,21 +268,14 @@ namespace SOProject
                             DialogResult dialogResult = MessageBox.Show(message, "You're about to accept this game", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
-                                string accepted = "8/" + invites + "/" + "1/";
+                                string accepted = "8/" + invites + "/" + "1";                                
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
-                                game = new NewGame(server, myname);
-                                this.Invoke(new hide_window_delegate(this.Hide), new object[] { });
-                                this.Invoke(new Action(() =>
-                                {
-                                    using (var game = new Form())
-                                    {
-                                        game.ShowDialog();
-                                    }
-                                }));
+                                acceptedInvitation = 1;
+                                MessageBox.Show("You can now press the start button. Enjoy the game!");
 
                             }
-                            else
+                            else //not accepted
                             {
                                 string accepted = "8/" + invites + "/" + "0";
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
@@ -282,12 +288,11 @@ namespace SOProject
                             if (aceptado == 0)
                             {
                                 MessageBox.Show(invitation);
-                                NewGame juego = new NewGame(server, myname);
-                                juego.ShowDialog();
                             }
                             else
                             {
                                 MessageBox.Show(invitation);
+                                acceptedInvitation = 1;
                             }
                             break;
                     }
