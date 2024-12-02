@@ -29,6 +29,8 @@ namespace SOProject
         string myname;
         delegate void hide_window_delegate();
         int acceptedInvitation = 0;
+        string player1;
+        string player2;
         public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
@@ -112,7 +114,7 @@ namespace SOProject
                         MessageBox.Show("You have invited" + " " + dataGridView1[0, RowSelection].Value.ToString());
                         string message = "7/" + myname + "/" + name;
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                        server.Send(msg);
+                        server.Send(msg);                        
                     }
                 }
             }
@@ -141,7 +143,7 @@ namespace SOProject
         {
             if (acceptedInvitation == 1)
             {
-                NewGame ng = new NewGame(server, myname);
+                NewGame ng = new NewGame(server, player1, player2);
                 ng.ShowDialog();
             }
 
@@ -149,10 +151,6 @@ namespace SOProject
             {
                 MessageBox.Show("You must invite someone and they have to accept your invitation to start a new game.");
             }
-
-
-            
-
 
         }
 
@@ -162,9 +160,6 @@ namespace SOProject
             byte[] msg = Encoding.ASCII.GetBytes(message);
             server.Send(msg);   
         }
-
-        //(public) funcion para poner datos en el datagrid desde el otro form y llamarla
-
 
         public void query1(string message)
         {
@@ -273,6 +268,7 @@ namespace SOProject
                                 server.Send(msg);
                                 acceptedInvitation = 1;
                                 MessageBox.Show("You can now press the start button. Enjoy the game!");
+                                player2 = myname;
 
                             }
                             else //not accepted
@@ -293,6 +289,7 @@ namespace SOProject
                             {
                                 MessageBox.Show(invitation);
                                 acceptedInvitation = 1;
+                                player1 = myname;
                             }
                             break;
                     }

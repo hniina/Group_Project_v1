@@ -23,13 +23,15 @@ namespace SOProject
         private const int BoardOffsetY = 25; // Offset para el margen superior
         private const int GridSize = 200;    // Tamaño total de la cuadrícula (8 celdas de 25 px)
         public string PlayerName { get; private set; }
+        public string PlayerName2 { get; private set; }
 
-        public NewGame(Socket s, string PlayerName)
+        public NewGame(Socket s, string PlayerName1, string PlayerName2)
         {
             InitializeComponent();
             
             this.server = s;
-            this.PlayerName = PlayerName;
+            this.PlayerName = PlayerName1;
+            this.PlayerName2 = PlayerName2;
 
             // Configurar el panel para permitir operaciones de soltar
             panel1.AllowDrop = true;
