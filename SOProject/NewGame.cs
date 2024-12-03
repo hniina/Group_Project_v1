@@ -22,7 +22,7 @@ namespace SOProject
         private const int BoardOffsetX = 25; // Offset para el margen izquierdo
         private const int BoardOffsetY = 25; // Offset para el margen superior
         private const int GridSize = 200;    // Tamaño total de la cuadrícula (8 celdas de 25 px)
-        public string PlayerName { get; private set; }
+        public string PlayerName1 { get; private set; }
         public string PlayerName2 { get; private set; }
 
         public NewGame(Socket s, string PlayerName1, string PlayerName2)
@@ -30,7 +30,7 @@ namespace SOProject
             InitializeComponent();
             
             this.server = s;
-            this.PlayerName = PlayerName1;
+            this.PlayerName1 = PlayerName1;
             this.PlayerName2 = PlayerName2;
 
             // Configurar el panel para permitir operaciones de soltar
@@ -60,7 +60,7 @@ namespace SOProject
             pictureBox6.AllowDrop = true;
 
         }
-        
+
         private void NewGame_Load(object sender, EventArgs e)
         {
 
@@ -73,10 +73,10 @@ namespace SOProject
 
         private void start_Click(object sender, EventArgs e)
         {
-            string message = "9/" + PlayerName + "/start"; // to the server
+            string message = "9/" + PlayerName1 + "/" + PlayerName2; ; // to the server
             byte[] msg = Encoding.ASCII.GetBytes(message);
             server.Send(msg);
-            MessageBox.Show("Waiting for the other player to connect...");
+            MessageBox.Show("Waiting for the other player to place ships...");
         
 
         }

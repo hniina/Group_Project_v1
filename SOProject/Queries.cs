@@ -24,13 +24,12 @@ namespace SOProject
     {
         Socket server;
         Thread atender;
-        NewGame game;
         string conectados;
         string myname;
         delegate void hide_window_delegate();
         int acceptedInvitation = 0;
-        string player1;
-        string player2;
+        public string player1;
+        public string player2;
         public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
@@ -143,8 +142,16 @@ namespace SOProject
         {
             if (acceptedInvitation == 1)
             {
-                NewGame ng = new NewGame(server, player1, player2);
-                ng.ShowDialog();
+                Thread gameStartThread = new Thread(() =>
+                {
+                    string message = "9/" + myname + "/" + player2;
+                    byte[] msg = Encoding.ASCII.GetBytes(message);
+                    server.Send(msg); 
+                    
+                    NewGame ng = new NewGame(server, player1, player2);
+                    ng.ShowDialog();
+                });
+                gameStartThread.Start();
             }
 
             else
@@ -291,6 +298,18 @@ namespace SOProject
                                 acceptedInvitation = 1;
                                 player1 = myname;
                             }
+                            break;
+
+                        case "9": // start the game
+                            player1 = trozos[1];
+                            player2 = trozos[2];
+
+                            // Send "GAME START" message to both players
+                            string gameStartMessage = "GAME START/" + player1 + "/" + player2;
+                            byte[] startMsg = Encoding.ASCII.GetBytes(gameStartMessage);
+                            server.Send(startMsg);  // Send start message to both clients
+
+                            Console.WriteLine($"Game started between {player1} and {player2}.");
                             break;
                     }
                 }

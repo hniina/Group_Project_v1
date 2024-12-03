@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using System.Threading;
 using System.Security.Cryptography.X509Certificates;
 
 namespace SOProject
