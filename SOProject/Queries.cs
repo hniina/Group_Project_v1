@@ -30,6 +30,7 @@ namespace SOProject
         int acceptedInvitation = 0;
         public string player1;
         public string player2;
+        public int idgame;
         public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
@@ -144,11 +145,11 @@ namespace SOProject
             {
                 Thread gameStartThread = new Thread(() =>
                 {
-                    string message = "9/" + myname + "/" + player2;
+                    string message = "9/" + player1 + "/" + player2;
                     byte[] msg = Encoding.ASCII.GetBytes(message);
                     server.Send(msg); 
                     
-                    NewGame ng = new NewGame(server, player1, player2);
+                    NewGame ng = new NewGame(server, player1, player2,idgame);
                     ng.ShowDialog();
                 });
                 gameStartThread.Start();
@@ -324,7 +325,11 @@ namespace SOProject
                             }
                             break;
 
-                        case "9": // start the game
+                        case "9": //get id if you are the onw that invites
+                            idgame = Convert.ToInt32(trozos[1]);
+                            break;
+
+                        case "10": // start the game
                             player1 = trozos[1];
                             player2 = trozos[2];
 

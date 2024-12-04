@@ -25,13 +25,16 @@ namespace SOProject
         public string PlayerName1 { get; private set; }
         public string PlayerName2 { get; private set; }
 
-        public NewGame(Socket s, string PlayerName1, string PlayerName2)
+        int IDGame;
+
+        public NewGame(Socket s, string PlayerName1, string PlayerName2, int IDGame)
         {
             InitializeComponent();
             
             this.server = s;
             this.PlayerName1 = PlayerName1;
             this.PlayerName2 = PlayerName2;
+            this.IDGame = IDGame;
 
             // Configurar el panel para permitir operaciones de soltar
             panel1.AllowDrop = true;
