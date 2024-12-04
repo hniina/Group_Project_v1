@@ -200,8 +200,8 @@ namespace SOProject
                     label_users_connected.Text = connected;
 
                     dataGridView1.Rows.Clear();
-                    dataGridView1.Columns.Clear(); // Clear columns first
-                    dataGridView1.Columns.Add("PlayerName", "Connected Players");
+                    //dataGridView1.Columns.Clear(); // Clear columns first
+                    //dataGridView1.Columns.Add("PlayerName", "Connected Players"); Commented in order to prevent format exceptions
                     for (int i = 1; i < trozos.Length; i++)
                     {
                         dataGridView1.Rows.Add(trozos[i]);
@@ -216,11 +216,35 @@ namespace SOProject
 
         private void Queries_FormClosing(object sender, FormClosingEventArgs e)
         {
-            server.Shutdown(SocketShutdown.Both);
-            server.Close();
+            try
+            {
+                // Ensure the server is valid before proceeding
+                if (server != null)
+                {
+                    string mensaje = "0/"; // Message to notify server for player removal
+                    byte[] msg = Encoding.ASCII.GetBytes(mensaje);
 
-            MessageBox.Show("Disconnected");
-            this.Close();
+                    // Send the message
+                    server.Send(msg);
+
+                    // Gracefully shut down and close the socket
+                    server.Shutdown(SocketShutdown.Both);
+                    server.Close();
+                }
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show($"Socket error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Display the disconnect message, ensuring it always happens
+                MessageBox.Show("Disconnected");
+            }
         }
 
         private void label_users_connected_Click(object sender, EventArgs e)
@@ -317,11 +341,11 @@ namespace SOProject
 
             catch (SocketException ex)
             {
-                MessageBox.Show($"Socket error: {ex.Message}");
+                MessageBox.Show($"Socket error (Atender): {ex.Message}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Unexpected error: {ex.Message}");
+                MessageBox.Show($"Unexpected error (Atender): {ex.Message}");
             }
         }
     }

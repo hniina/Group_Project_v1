@@ -96,10 +96,28 @@ namespace SOProject
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            server.Shutdown(SocketShutdown.Both);
-            server.Close();
-            MessageBox.Show("Disconnected");
-            this.Close();
+            try
+            {
+                if (server != null && server.Connected)
+                {
+                    // Gracefully shut down the server connection
+                    server.Shutdown(SocketShutdown.Both);
+                    server.Close();
+                }
+                MessageBox.Show("Disconnected");
+            }
+            catch (SocketException ex)
+            {
+                //MessageBox.Show($"Socket error during shutdown: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                MessageBox.Show("Main window was clossed");
+            }
         }
 
     }
