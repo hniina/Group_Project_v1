@@ -24,13 +24,15 @@ namespace SOProject
     {
         Socket server;
         Thread atender;
+        delegate void DelegadoParaPonerTexto(string texto);
         string conectados;
         string myname;
         delegate void hide_window_delegate();
         int acceptedInvitation = 0;
-        public string player1;
-        public string player2;
+        public string invites;
+        public string invited;
         public int idgame;
+        NewGame ng;
         public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
@@ -143,7 +145,7 @@ namespace SOProject
         {
             if (acceptedInvitation == 1)
             {
-                ThreadStart ts = delegate { PonerEnMarchaFormulario(player1,player2,idgame); };
+                ThreadStart ts = delegate { PonerEnMarchaFormulario(invites,invited,idgame, myname); };
                 Thread T = new Thread(ts);
                 T.Start();
             }
@@ -293,7 +295,7 @@ namespace SOProject
                                 server.Send(msg);
                                 acceptedInvitation = 1;
                                 MessageBox.Show("You can now press the start button. Enjoy the game!");
-                                player2 = myname;
+                                invited = myname;
 
                             }
                             else //not accepted
@@ -314,7 +316,7 @@ namespace SOProject
                             {
                                 MessageBox.Show(invitation);
                                 acceptedInvitation = 1;
-                                player1 = myname;
+                                this.invites = myname;
                             }
                             break;
 
@@ -322,16 +324,9 @@ namespace SOProject
                             idgame = Convert.ToInt32(trozos[1]);
                             break;
 
-                        case "10": // start the game
-                            player1 = trozos[1];
-                            player2 = trozos[2];
-
-                            // Send "GAME START" message to both players
-                            string gameStartMessage = "GAME START/" + player1 + "/" + player2;
-                            byte[] startMsg = Encoding.ASCII.GetBytes(gameStartMessage);
-                            server.Send(startMsg);  // Send start message to both clients
-
-                            Console.WriteLine($"Game started between {player1} and {player2}.");
+                        case "10": // chat
+                            string chat = trozos[1];
+                            ng.UpdateChat(chat);
                             break;
                     }
                 }
@@ -347,16 +342,16 @@ namespace SOProject
             }
         }
 
-        private void PonerEnMarchaFormulario(string p1, string p2, int id)
+        private void PonerEnMarchaFormulario(string p1, string p2, int id, string myname)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action(() => PonerEnMarchaFormulario(p1, p2, id)));
+                Invoke(new Action(() => PonerEnMarchaFormulario(p1, p2, id,myname)));
             }
             else
             {
-                NewGame newgame = new NewGame(server, p1, p2, id);
-                newgame.ShowDialog();
+                ng = new NewGame(server, p1, p2, id,myname);
+                ng.ShowDialog();
             }
         }
     }

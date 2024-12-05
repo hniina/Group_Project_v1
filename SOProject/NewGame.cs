@@ -22,19 +22,20 @@ namespace SOProject
         private const int BoardOffsetX = 25; // Offset para el margen izquierdo
         private const int BoardOffsetY = 25; // Offset para el margen superior
         private const int GridSize = 200;    // Tamaño total de la cuadrícula (8 celdas de 25 px)
-        public string PlayerName1 { get; private set; }
-        public string PlayerName2 { get; private set; }
+        public string invites { get; private set; }
+        public string invited { get; private set; }
 
         int IDGame;
-
-        public NewGame(Socket s, string PlayerName1, string PlayerName2, int IDGame)
+        string myname;
+        public NewGame(Socket s, string invites, string invited, int IDGame,string myname)
         {
             InitializeComponent();
             
             this.server = s;
-            this.PlayerName1 = PlayerName1;
-            this.PlayerName2 = PlayerName2;
+            this.invites = invites;
+            this.invited = invited;
             this.IDGame = IDGame;
+            this.myname = myname;
 
             // Configurar el panel para permitir operaciones de soltar
             panel1.AllowDrop = true;
@@ -76,7 +77,7 @@ namespace SOProject
 
         private void start_Click(object sender, EventArgs e)
         {
-            string message = "9/" + PlayerName1 + "/" + PlayerName2; ; // to the server
+            string message = "9/" + invites + "/" + invited; ; // to the server
             byte[] msg = Encoding.ASCII.GetBytes(message);
             server.Send(msg);
             MessageBox.Show("Waiting for the other player to place ships...");
@@ -236,6 +237,45 @@ namespace SOProject
 
                 pictureBox.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
 
+            }
+        }
+
+        private void send_Click(object sender, EventArgs e)
+        {
+            string soutput;
+            if (myname != invites)
+            {
+                soutput = "10/" + invites + "/" + message.Text;
+            }
+            else
+            {
+                soutput = "10/" + invited + "/" + message.Text;
+            }
+            byte[] output = System.Text.Encoding.ASCII.GetBytes(soutput);
+            server.Send(output);
+        }
+
+        private void message_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public void UpdateChat(string message)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => UpdateChat(message)));
+            }
+            else
+            {
+                if (listBox1 != null)
+                {
+                    // Agregar el mensaje recibido al ListBox
+                    listBox1.Items.Add(message);
+
+                    // Autoscroll para mostrar siempre el último mensaje
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
             }
         }
 
