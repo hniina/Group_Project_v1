@@ -143,16 +143,9 @@ namespace SOProject
         {
             if (acceptedInvitation == 1)
             {
-                Thread gameStartThread = new Thread(() =>
-                {
-                    string message = "9/" + player1 + "/" + player2;
-                    byte[] msg = Encoding.ASCII.GetBytes(message);
-                    server.Send(msg); 
-                    
-                    NewGame ng = new NewGame(server, player1, player2,idgame);
-                    ng.ShowDialog();
-                });
-                gameStartThread.Start();
+                ThreadStart ts = delegate { PonerEnMarchaFormulario(player1,player2,idgame); };
+                Thread T = new Thread(ts);
+                T.Start();
             }
 
             else
@@ -351,6 +344,19 @@ namespace SOProject
             catch (Exception ex)
             {
                 MessageBox.Show($"Unexpected error (Atender): {ex.Message}");
+            }
+        }
+
+        private void PonerEnMarchaFormulario(string p1, string p2, int id)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => PonerEnMarchaFormulario(p1, p2, id)));
+            }
+            else
+            {
+                NewGame newgame = new NewGame(server, p1, p2, id);
+                newgame.ShowDialog();
             }
         }
     }
