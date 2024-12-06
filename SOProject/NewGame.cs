@@ -22,9 +22,8 @@ namespace SOProject
         private const int BoardOffsetX = 25; // Offset para el margen izquierdo
         private const int BoardOffsetY = 25; // Offset para el margen superior
         private const int GridSize = 200;    // Tamaño total de la cuadrícula (8 celdas de 25 px)
-        public string invites { get; private set; }
-        public string invited { get; private set; }
-
+        string invites;
+        string invited;
         int IDGame;
         string myname;
         public NewGame(Socket s, string invites, string invited, int IDGame,string myname)

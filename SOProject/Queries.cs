@@ -285,16 +285,17 @@ namespace SOProject
                             ConnectedList(mensaje);
                             break;
                         case "7": //invitaion
-                            string invites = trozos[1];
+                            string pinvites = trozos[1];
                             string message = trozos[2];
                             DialogResult dialogResult = MessageBox.Show(message, "You're about to accept this game", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
-                                string accepted = "8/" + invites + "/" + "1";                                
+                                string accepted = "8/" + pinvites + "/" + "1/"+myname;                                
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
                                 acceptedInvitation = 1;
                                 MessageBox.Show("You can now press the start button. Enjoy the game!");
+                                invites = pinvites;
                                 invited = myname;
 
                             }
@@ -307,7 +308,7 @@ namespace SOProject
                             break;
                         case "8":
                             int aceptado = Convert.ToInt32(trozos[1]);
-                            string invitation = trozos[2];
+                            string invitation = trozos[3];
                             if (aceptado == 0)
                             {
                                 MessageBox.Show(invitation);
@@ -316,7 +317,8 @@ namespace SOProject
                             {
                                 MessageBox.Show(invitation);
                                 acceptedInvitation = 1;
-                                this.invites = myname;
+                                invites = myname;
+                                invited = trozos[2];
                             }
                             break;
 
