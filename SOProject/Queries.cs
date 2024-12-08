@@ -353,7 +353,7 @@ namespace SOProject
             else
             {
                 ng = new NewGame(server, p1, p2, id,myname);
-                ng.ShowDialog();
+                ng.Show();
             }
         }
     }
