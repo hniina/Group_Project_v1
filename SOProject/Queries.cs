@@ -81,6 +81,12 @@ namespace SOProject
                     message = "6/" + playerName.Text; // "6" represents the new query
 
                 }
+
+                else if (mygames.Checked)
+                {
+                    message = "11/"+myname;
+
+                }
                 byte[] msg = Encoding.ASCII.GetBytes(message);
                 server.Send(msg);
                 Console.WriteLine($"Mensaje enviado: {message}");
@@ -179,7 +185,13 @@ namespace SOProject
         {
             MessageBox.Show(message);
         }
-
+        public void query4(string [] message)
+        {
+            string[] trimmedMessage = message.Skip(1).ToArray();
+            string combinedMessage = string.Join("/", trimmedMessage);
+            string formattedMessage = combinedMessage.Replace("/", "\n");
+            MessageBox.Show(formattedMessage);
+        }
         public void ConnectedList(string mensaje)
         {
             Console.WriteLine("ConnectedList ejecutado con: " + mensaje);
@@ -330,6 +342,9 @@ namespace SOProject
                             string chat = trozos[1];
                             ng.UpdateChat(chat);
                             break;
+                        case "11":
+                            query4(trozos);
+                            break;
                     }
                 }
             }
@@ -355,6 +370,11 @@ namespace SOProject
                 ng = new NewGame(server, p1, p2, id,myname);
                 ng.Show();
             }
+        }
+
+        private void mygames_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
     

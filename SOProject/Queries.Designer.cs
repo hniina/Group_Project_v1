@@ -35,12 +35,13 @@
             this.query = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.playerName = new System.Windows.Forms.TextBox();
             this.newgame = new System.Windows.Forms.Button();
             this.label_users_connected = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mygames = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,7 +92,7 @@
             // 
             // query
             // 
-            this.query.Location = new System.Drawing.Point(608, 178);
+            this.query.Location = new System.Drawing.Point(608, 219);
             this.query.Name = "query";
             this.query.Size = new System.Drawing.Size(134, 31);
             this.query.TabIndex = 4;
@@ -121,6 +122,13 @@
             this.dataGridView1.Size = new System.Drawing.Size(243, 240);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Connected players";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 190;
             // 
             // label2
             // 
@@ -170,18 +178,24 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Column1
+            // mygames
             // 
-            this.Column1.HeaderText = "Connected players";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 190;
+            this.mygames.AutoSize = true;
+            this.mygames.Location = new System.Drawing.Point(494, 176);
+            this.mygames.Name = "mygames";
+            this.mygames.Size = new System.Drawing.Size(168, 20);
+            this.mygames.TabIndex = 13;
+            this.mygames.TabStop = true;
+            this.mygames.Text = "Players I\'ve played with";
+            this.mygames.UseVisualStyleBackColor = true;
+            this.mygames.CheckedChanged += new System.EventHandler(this.mygames_CheckedChanged);
             // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.mygames);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label_users_connected);
             this.Controls.Add(this.newgame);
@@ -219,5 +233,6 @@
         private System.Windows.Forms.Label label_users_connected;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.RadioButton mygames;
     }
 }
