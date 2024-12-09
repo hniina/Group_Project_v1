@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\omistaja\\documents\\so\\group_project_v1\\soproject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\omistaja\\documents\\so\\group_project_v1\\soproject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\omistaja\\documents\\so\\group_project_v1\\soproject\\queries.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\omistaja\\documents\\so\\group_project_v1\\soproject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\omistaja\\documents\\so\\group_project_v1\\soproject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\omistaja\\documents\\so\\group_project_v1\\soproject\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,20 +54,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Queries.cs",
               "DocumentMoniker": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Queries.cs",
               "RelativeDocumentMoniker": "Queries.cs",
               "ToolTip": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Queries.cs",
               "RelativeToolTip": "Queries.cs",
-              "ViewState": "AgIAAFEBAAAAAAAAAAAuwF0BAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAIMBAAAAAAAAAAAWwI8BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-09T10:50:38.269Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Queries.cs [Design]",
               "DocumentMoniker": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Queries.cs",
               "RelativeDocumentMoniker": "Queries.cs",
@@ -75,7 +79,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "Connect.cs",
+              "DocumentMoniker": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Connect.cs",
+              "RelativeDocumentMoniker": "Connect.cs",
+              "ToolTip": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Connect.cs",
+              "RelativeToolTip": "Connect.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAuwB0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T13:43:47.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Queries.Designer.cs",
               "DocumentMoniker": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Queries.Designer.cs",
               "RelativeDocumentMoniker": "Queries.Designer.cs",
@@ -88,13 +105,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Main.cs",
               "DocumentMoniker": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Main.cs",
               "RelativeDocumentMoniker": "Main.cs",
               "ToolTip": "C:\\Users\\OMISTAJA\\Documents\\SO\\Group_Project_v1\\SOProject\\Main.cs",
               "RelativeToolTip": "Main.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAASwGwAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAuwGwAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-09T12:07:58.499Z",
               "EditorCaption": ""

@@ -197,10 +197,10 @@
             this.resultofthegame.AutoSize = true;
             this.resultofthegame.Location = new System.Drawing.Point(494, 211);
             this.resultofthegame.Name = "resultofthegame";
-            this.resultofthegame.Size = new System.Drawing.Size(330, 20);
+            this.resultofthegame.Size = new System.Drawing.Size(233, 20);
             this.resultofthegame.TabIndex = 14;
             this.resultofthegame.TabStop = true;
-            this.resultofthegame.Text = "Results of the games I played with a specific player";
+            this.resultofthegame.Text = "Game results with a specific player";
             this.resultofthegame.UseVisualStyleBackColor = true;
             this.resultofthegame.CheckedChanged += new System.EventHandler(this.resultofthegame_CheckedChanged);
             // 

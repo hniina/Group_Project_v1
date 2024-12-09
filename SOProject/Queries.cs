@@ -196,6 +196,17 @@ namespace SOProject
             string formattedMessage = combinedMessage.Replace("/", "\n");
             MessageBox.Show(formattedMessage);
         }
+
+        public void query5(string [] message)
+        {
+            Console.WriteLine("Received query 5 response: " + string.Join("/", message)); // Debugging message
+
+            string[] trimmedMessage = message.Skip(1).ToArray();
+            string combinedMessage = string.Join("/", trimmedMessage);
+            string formattedMessage = combinedMessage.Replace("/", "\n");
+            MessageBox.Show(formattedMessage);
+        }
+
         public void ConnectedList(string mensaje)
         {
             Console.WriteLine("ConnectedList ejecutado con: " + mensaje);
@@ -350,8 +361,7 @@ namespace SOProject
                             query4(trozos);
                             break;
                         case "12":
-                            mensaje = string.Join("\n", trozos.Skip(1));
-                            MessageBox.Show("Results with specified player:\n" + mensaje);
+                            query5(trozos);
                             break;
                     }
                 }
