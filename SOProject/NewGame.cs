@@ -280,7 +280,7 @@ namespace SOProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            // Ships placed -> send a message to the server!
         }
     }
 
