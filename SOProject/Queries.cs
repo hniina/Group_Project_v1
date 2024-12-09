@@ -87,6 +87,10 @@ namespace SOProject
                     message = "11/"+myname;
 
                 }
+                else if (resultofthegame.Checked)
+                { 
+                    message = "12/" + myname + "/" + Playername2.Text;
+                }
                 byte[] msg = Encoding.ASCII.GetBytes(message);
                 server.Send(msg);
                 Console.WriteLine($"Mensaje enviado: {message}");
@@ -345,6 +349,10 @@ namespace SOProject
                         case "11":
                             query4(trozos);
                             break;
+                        case "12":
+                            mensaje = string.Join("\n", trozos.Skip(1));
+                            MessageBox.Show("Results with specified player:\n" + mensaje);
+                            break;
                     }
                 }
             }
@@ -373,6 +381,16 @@ namespace SOProject
         }
 
         private void mygames_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void resultofthegame_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Playername2_TextChanged(object sender, EventArgs e)
         {
 
         }

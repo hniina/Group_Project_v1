@@ -42,6 +42,8 @@
             this.label_users_connected = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.mygames = new System.Windows.Forms.RadioButton();
+            this.resultofthegame = new System.Windows.Forms.RadioButton();
+            this.Playername2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,7 +94,7 @@
             // 
             // query
             // 
-            this.query.Location = new System.Drawing.Point(608, 219);
+            this.query.Location = new System.Drawing.Point(608, 286);
             this.query.Name = "query";
             this.query.Size = new System.Drawing.Size(134, 31);
             this.query.TabIndex = 4;
@@ -190,11 +192,34 @@
             this.mygames.UseVisualStyleBackColor = true;
             this.mygames.CheckedChanged += new System.EventHandler(this.mygames_CheckedChanged);
             // 
+            // resultofthegame
+            // 
+            this.resultofthegame.AutoSize = true;
+            this.resultofthegame.Location = new System.Drawing.Point(494, 211);
+            this.resultofthegame.Name = "resultofthegame";
+            this.resultofthegame.Size = new System.Drawing.Size(330, 20);
+            this.resultofthegame.TabIndex = 14;
+            this.resultofthegame.TabStop = true;
+            this.resultofthegame.Text = "Results of the games I played with a specific player";
+            this.resultofthegame.UseVisualStyleBackColor = true;
+            this.resultofthegame.CheckedChanged += new System.EventHandler(this.resultofthegame_CheckedChanged);
+            // 
+            // Playername2
+            // 
+            this.Playername2.Location = new System.Drawing.Point(366, 209);
+            this.Playername2.Name = "Playername2";
+            this.Playername2.Size = new System.Drawing.Size(122, 22);
+            this.Playername2.TabIndex = 15;
+            this.Playername2.Text = "Enter player Name";
+            this.Playername2.TextChanged += new System.EventHandler(this.Playername2_TextChanged);
+            // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Playername2);
+            this.Controls.Add(this.resultofthegame);
             this.Controls.Add(this.mygames);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label_users_connected);
@@ -234,5 +259,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.RadioButton mygames;
+        private System.Windows.Forms.RadioButton resultofthegame;
+        private System.Windows.Forms.TextBox Playername2;
     }
 }
