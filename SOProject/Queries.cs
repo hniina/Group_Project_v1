@@ -301,7 +301,7 @@ namespace SOProject
                             }
                             else //not accepted
                             {
-                                string accepted = "8/" + invites + "/" + "0";
+                                string accepted = "8/" + pinvites + "/" + "0/" + myname;
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
                             }
