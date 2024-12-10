@@ -207,6 +207,16 @@ namespace SOProject
             MessageBox.Show(formattedMessage);
         }
 
+        public void query6(string[] message) //List of games played in a given period of time
+        {
+            Console.WriteLine("Received query 5 response: " + string.Join("/", message)); // Debugging message
+
+            string[] trimmedMessage = message.Skip(1).ToArray();
+            string combinedMessage = string.Join("/", trimmedMessage);
+            string formattedMessage = combinedMessage.Replace("/", "\n");
+            MessageBox.Show(formattedMessage);
+        }
+
         public void ConnectedList(string mensaje)
         {
             Console.WriteLine("ConnectedList ejecutado con: " + mensaje);
@@ -401,6 +411,16 @@ namespace SOProject
         }
 
         private void Playername2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
 
         }
