@@ -17,6 +17,7 @@ using Microsoft.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Threading;
 using System.Net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace SOProject
 {
@@ -91,9 +92,21 @@ namespace SOProject
                 { 
                     message = "12/" + myname + "/" + Playername2.Text;
                 }
+                else if (dateQuery.Checked) // New case for games during selected dates
+                {
+                    DateTime startDate = monthCalendar1.SelectionStart;
+                    DateTime endDate = monthCalendar1.SelectionEnd;
+
+                    // changing format
+                    string formattedStartDate = startDate.ToString("yyyy-MM-dd");
+                    string formattedEndDate = endDate.ToString("yyyy-MM-dd");
+
+                    message = $"13/{formattedStartDate}/{formattedEndDate}";
+                }
+
                 byte[] msg = Encoding.ASCII.GetBytes(message);
                 server.Send(msg);
-                Console.WriteLine($"Mensaje enviado: {message}");
+                Console.WriteLine($"Message sent: {message}");
             }
 
             catch (SocketException ex)
@@ -209,12 +222,11 @@ namespace SOProject
 
         public void query6(string[] message) //List of games played in a given period of time
         {
-            Console.WriteLine("Received query 5 response: " + string.Join("/", message)); // Debugging message
+            Console.WriteLine("Received query 6 response: " + string.Join("/", message)); // Debugging message
 
-            string[] trimmedMessage = message.Skip(1).ToArray();
-            string combinedMessage = string.Join("/", trimmedMessage);
-            string formattedMessage = combinedMessage.Replace("/", "\n");
-            MessageBox.Show(formattedMessage);
+            string gamesMessage = string.Join("/", message.Skip(1).ToArray()).Split('\0')[0];
+            string formattedMessage = gamesMessage.Replace("/", "\n");
+            MessageBox.Show($"Games during the selected dates:\n{formattedMessage}");
         }
 
         public void ConnectedList(string mensaje)
@@ -372,6 +384,9 @@ namespace SOProject
                             break;
                         case "12":
                             query5(trozos);
+                            break;
+                        case "13":
+                            query6(trozos);
                             break;
                     }
                 }

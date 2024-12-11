@@ -44,7 +44,7 @@
             this.mygames = new System.Windows.Forms.RadioButton();
             this.resultofthegame = new System.Windows.Forms.RadioButton();
             this.Playername2 = new System.Windows.Forms.TextBox();
-            this.DateQuery = new System.Windows.Forms.RadioButton();
+            this.dateQuery = new System.Windows.Forms.RadioButton();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -215,17 +215,17 @@
             this.Playername2.Text = "Enter player Name";
             this.Playername2.TextChanged += new System.EventHandler(this.Playername2_TextChanged);
             // 
-            // DateQuery
+            // dateQuery
             // 
-            this.DateQuery.AutoSize = true;
-            this.DateQuery.Location = new System.Drawing.Point(323, 185);
-            this.DateQuery.Name = "DateQuery";
-            this.DateQuery.Size = new System.Drawing.Size(218, 20);
-            this.DateQuery.TabIndex = 16;
-            this.DateQuery.TabStop = true;
-            this.DateQuery.Text = "Games on the date (select date)";
-            this.DateQuery.UseVisualStyleBackColor = true;
-            this.DateQuery.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.dateQuery.AutoSize = true;
+            this.dateQuery.Location = new System.Drawing.Point(323, 185);
+            this.dateQuery.Name = "dateQuery";
+            this.dateQuery.Size = new System.Drawing.Size(282, 20);
+            this.dateQuery.TabIndex = 16;
+            this.dateQuery.TabStop = true;
+            this.dateQuery.Text = "Games on the date (please select a range)";
+            this.dateQuery.UseVisualStyleBackColor = true;
+            this.dateQuery.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // monthCalendar1
             // 
@@ -242,7 +242,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 517);
             this.Controls.Add(this.monthCalendar1);
-            this.Controls.Add(this.DateQuery);
+            this.Controls.Add(this.dateQuery);
             this.Controls.Add(this.Playername2);
             this.Controls.Add(this.resultofthegame);
             this.Controls.Add(this.mygames);
@@ -286,7 +286,7 @@
         private System.Windows.Forms.RadioButton mygames;
         private System.Windows.Forms.RadioButton resultofthegame;
         private System.Windows.Forms.TextBox Playername2;
-        private System.Windows.Forms.RadioButton DateQuery;
+        private System.Windows.Forms.RadioButton dateQuery;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
     }
 }
