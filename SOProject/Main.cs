@@ -120,6 +120,71 @@ namespace SOProject
             }
         }
 
+        private void usernameText_Enter(object sender, EventArgs e)
+        {
+            if (usernameText.Text == "Username")
+            {
+                usernameText.Text = String.Empty;
+                usernameText.ForeColor = Color.Black;
+            }
+        }
+
+        private void passwordText_Enter(object sender, EventArgs e)
+        {
+            if (passwordText.Text == "Password")
+            {
+                passwordText.Text = String.Empty;
+                passwordText.ForeColor = Color.Black;
+            }
+
+            if (passwordText.UseSystemPasswordChar == false)
+            {
+                passwordText.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void usernameText_Leave(object sender, EventArgs e)
+        {
+            if (usernameText.Text == String.Empty)
+            {
+                usernameText.Text = "Username";
+                usernameText.ForeColor = Color.Silver;
+            }
+        }
+
+        private void passwordText_Leave(object sender, EventArgs e)
+        {
+            if (passwordText.Text == String.Empty)
+            {
+                passwordText.Text = "Password";
+                passwordText.ForeColor = Color.Silver;
+                passwordText.UseSystemPasswordChar = false;
+
+            }
+
+            else
+            {
+                passwordText.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                passwordText.UseSystemPasswordChar = false;
+            }
+
+            else
+            {
+                passwordText.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void passwordText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

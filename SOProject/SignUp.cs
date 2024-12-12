@@ -34,7 +34,7 @@ namespace SOProject
 
         private void email_TextChanged(object sender, EventArgs e)
         {
-
+           
         }
 
         private void Username_TextBox_TextChanged(object sender, EventArgs e)
@@ -44,12 +44,18 @@ namespace SOProject
 
         private void password_TextBox_TextChanged(object sender, EventArgs e)
         {
-
+            if (checkBox1.Checked == false)
+            {
+                password_TextBox.UseSystemPasswordChar = true;
+            }
         }
 
         private void ConfirmPassword_TextBox_TextChanged(object sender, EventArgs e)
         {
-
+            if (checkBox1.Checked == false)
+            {
+                ConfirmPassword_TextBox.UseSystemPasswordChar = true;
+            }
         }
 
         private void acceptbutton_Click(object sender, EventArgs e)
@@ -119,7 +125,128 @@ namespace SOProject
 
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                password_TextBox.UseSystemPasswordChar = false;
+            }
 
+            else
+            {
+                password_TextBox.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+            {
+                ConfirmPassword_TextBox.UseSystemPasswordChar = false;
+            }
+
+            else
+            {
+                ConfirmPassword_TextBox.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void email_Leave(object sender, EventArgs e)
+        {
+            if (email.Text == String.Empty)
+            {
+                email.Text = "Email";
+                email.ForeColor = Color.Silver;
+            }
+        }
+
+        private void Username_TextBox_Leave(object sender, EventArgs e)
+        {
+            if (Username_TextBox.Text == String.Empty)
+            {
+                Username_TextBox.Text = "Username";
+                Username_TextBox.ForeColor = Color.Silver;
+            }
+        }
+
+        private void password_TextBox_Leave(object sender, EventArgs e)
+        {
+            if (password_TextBox.Text == String.Empty)
+            {
+                password_TextBox.Text = "Password";
+                password_TextBox.ForeColor = Color.Silver;
+                password_TextBox.UseSystemPasswordChar = false;
+
+            }
+
+            else
+            {
+                password_TextBox.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void ConfirmPassword_TextBox_Leave(object sender, EventArgs e)
+        {
+            if (ConfirmPassword_TextBox.Text == String.Empty)
+            {
+                ConfirmPassword_TextBox.Text = "Confirm Password";
+                ConfirmPassword_TextBox.ForeColor = Color.Silver;
+                password_TextBox.UseSystemPasswordChar = false;
+
+            }
+
+            else
+            {
+                password_TextBox.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void Username_TextBox_Enter(object sender, EventArgs e)
+        {
+            if (Username_TextBox.Text == "Username")
+            {
+                Username_TextBox.Text = String.Empty;
+                Username_TextBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void password_TextBox_Enter(object sender, EventArgs e)
+        {
+            if (password_TextBox.Text == "Password")
+            {
+                password_TextBox.Text = String.Empty;
+                password_TextBox.ForeColor = Color.Black;
+            }
+
+            if (password_TextBox.UseSystemPasswordChar == false)
+            {
+                password_TextBox.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void email_Enter(object sender, EventArgs e)
+        {
+            if (email.Text == "Email")
+            {
+                email.Text = String.Empty;
+                email.ForeColor = Color.Black;
+            }
+        }
+
+        private void ConfirmPassword_TextBox_Enter(object sender, EventArgs e)
+        {
+
+            if (ConfirmPassword_TextBox.Text == "Confirm Password")
+            {
+                ConfirmPassword_TextBox.Text = String.Empty;
+                ConfirmPassword_TextBox.ForeColor = Color.Black;
+            }
+
+            if (ConfirmPassword_TextBox.UseSystemPasswordChar == false)
+            {
+                ConfirmPassword_TextBox.UseSystemPasswordChar = true;
+            }
+        }
     }
 }
 
