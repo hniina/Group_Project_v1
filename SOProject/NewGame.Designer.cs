@@ -42,7 +42,7 @@ namespace SOProject
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.message = new System.Windows.Forms.TextBox();
             this.send = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Done = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -153,22 +153,22 @@ namespace SOProject
             this.send.UseVisualStyleBackColor = true;
             this.send.Click += new System.EventHandler(this.send_Click);
             // 
-            // button1
+            // Done
             // 
-            this.button1.Location = new System.Drawing.Point(217, 382);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 45);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Done!";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Done.Location = new System.Drawing.Point(217, 382);
+            this.Done.Name = "Done";
+            this.Done.Size = new System.Drawing.Size(139, 45);
+            this.Done.TabIndex = 15;
+            this.Done.Text = "Done!";
+            this.Done.UseVisualStyleBackColor = true;
+            this.Done.Click += new System.EventHandler(this.Done_button);
             // 
             // NewGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Done);
             this.Controls.Add(this.send);
             this.Controls.Add(this.message);
             this.Controls.Add(this.listBox1);
@@ -205,6 +205,6 @@ namespace SOProject
         private ListBox listBox1;
         private TextBox message;
         private Button send;
-        private Button button1;
+        private Button Done;
     }
 }

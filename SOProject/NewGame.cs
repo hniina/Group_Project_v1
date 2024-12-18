@@ -80,7 +80,7 @@ namespace SOProject
             byte[] msg = Encoding.ASCII.GetBytes(message);
             server.Send(msg);
             MessageBox.Show("Waiting for the other player to place ships...");
-        
+
 
         }
 
@@ -278,9 +278,12 @@ namespace SOProject
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Done_button(object sender, EventArgs e)
         {
-            // Ships placed -> send a message to the server!
+            string message = $"{myname}";
+            byte[] msg = Encoding.ASCII.GetBytes(message);
+            server.Send(msg);
+            MessageBox.Show("Waiting for the other player to press DONE...");
         }
     }
 

@@ -372,8 +372,10 @@ namespace SOProject
                             break;
 
                         case "9": //get id if you are the onw that invites
-                            idgame = Convert.ToInt32(trozos[1]);
-                            break;
+                            int gameID = Convert.ToInt32(trozos[1]);
+                            MessageBox.Show($"Game Created! ID: {gameID} \n Set all ships and press DONE!\"");
+                            
+                        break;
 
                         case "10": // chat
                             string chat = trozos[1];
