@@ -200,48 +200,67 @@ namespace SOProject
             int adjustedX = ((dropLocation.X - BoardOffsetX) / CellSize) * CellSize + BoardOffsetX;
             int adjustedY = ((dropLocation.Y - BoardOffsetY) / CellSize) * CellSize + BoardOffsetY;
 
-            // Convertir a coordenadas de fila y columna
+            // Calcular la posición de la fila y la columna
             int col = (adjustedX - BoardOffsetX) / CellSize;
             int row = (adjustedY - BoardOffsetY) / CellSize;
 
-            // Verificar si la celda está dentro de los límites válidos (no debe tocar las filas y columnas de letras y números)
-            if (col == 0 || row == 0 || col >= 8 || row >= 8)
+            // Verificar si la celda está en la fila o columna de letras/números (no permite colocar barcos allí)
+            if (row == 0 || col == 0)
             {
-                MessageBox.Show("¡Coloca el barco dentro de las celdas válidas del tablero!");
+                MessageBox.Show("¡No puedes colocar los barcos en la fila de números o la columna de letras!");
                 return;
             }
 
-            // Verificar si la celda está ocupada
-            if (board[row, col] == 1)
+            // Calcular cuántas celdas ocupa la PictureBox
+            int widthInCells = (pictureBox.Width + CellSize - 1) / CellSize; // Redondear hacia arriba
+            int heightInCells = (pictureBox.Height + CellSize - 1) / CellSize; // Redondear hacia arriba
+
+            // Verificar si todas las celdas que ocupa la PictureBox están libres
+            for (int i = 0; i < heightInCells; i++)
             {
-                MessageBox.Show("¡Esta celda ya está ocupada!");
-                return;
-            }
-
-            // Verificar si la posición es válida dentro del tablero
-            if (adjustedX >= BoardOffsetX && adjustedX < BoardOffsetX + GridSize &&
-                adjustedY >= BoardOffsetY && adjustedY < BoardOffsetY + GridSize)
-            {
-                // Centrar el barco en la celda
-                int offsetX = (CellSize - pictureBox.Width) / 2;
-                int offsetY = (CellSize - pictureBox.Height) / 2;
-
-                // Establecer la posición final del PictureBox
-                pictureBox.Location = new Point(adjustedX + offsetX, adjustedY + offsetY);
-
-                // Agregar el PictureBox al panel si no está ya en él
-                if (!panel1.Controls.Contains(pictureBox))
+                for (int j = 0; j < widthInCells; j++)
                 {
-                    panel1.Controls.Add(pictureBox);
-                }
+                    int currentRow = row + i;
+                    int currentCol = col + j;
 
-                // Marcar la celda como ocupada en la matriz
-                board[row, col] = 1;
+                    // Verificar que las celdas no estén fuera de los límites
+                    if (currentRow >= 8 || currentCol >= 8)
+                    {
+                        MessageBox.Show("¡El barco se sale del tablero!");
+                        return;
+                    }
+
+                    // Verificar si la celda ya está ocupada
+                    if (board[currentRow, currentCol] == 1)
+                    {
+                        MessageBox.Show("¡Una o más celdas están ocupadas por otro barco!");
+                        return;
+                    }
+                }
             }
-            else
+
+            // Ahora que hemos validado que no haya celdas ocupadas, colocar el barco
+            int offsetX = (CellSize - pictureBox.Width) / 2;
+            int offsetY = (CellSize - pictureBox.Height) / 2;
+
+            // Establecer la posición final del PictureBox
+            pictureBox.Location = new Point(adjustedX + offsetX, adjustedY + offsetY);
+
+            // Agregar el PictureBox al panel si no está ya en él
+            if (!panel1.Controls.Contains(pictureBox))
             {
-                // Opción: mensaje si el barco se coloca fuera de los límites
-                MessageBox.Show("¡Coloca el barco dentro del área válida!");
+                panel1.Controls.Add(pictureBox);
+            }
+
+            // Marcar las celdas que la PictureBox ocupa como ocupadas en la matriz
+            for (int i = 0; i < heightInCells; i++)
+            {
+                for (int j = 0; j < widthInCells; j++)
+                {
+                    int currentRow = row + i;
+                    int currentCol = col + j;
+                    board[currentRow, currentCol] = 1;  // Marcar la celda como ocupada
+                }
             }
         }
 
