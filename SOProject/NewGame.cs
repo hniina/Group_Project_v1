@@ -26,6 +26,7 @@ namespace SOProject
         string invited;
         int IDGame;
         string myname;
+        private int[,] board = new int[8, 8]; // Representa el tablero como una matriz de 8x8
         public NewGame(Socket s, string invites, string invited, int IDGame,string myname)
         {
             InitializeComponent();
@@ -199,7 +200,25 @@ namespace SOProject
             int adjustedX = ((dropLocation.X - BoardOffsetX) / CellSize) * CellSize + BoardOffsetX;
             int adjustedY = ((dropLocation.Y - BoardOffsetY) / CellSize) * CellSize + BoardOffsetY;
 
-            // Chequear que la posición ajustada esté dentro del área del tablero
+            // Convertir a coordenadas de fila y columna
+            int col = (adjustedX - BoardOffsetX) / CellSize;
+            int row = (adjustedY - BoardOffsetY) / CellSize;
+
+            // Verificar si la celda está dentro de los límites válidos (no debe tocar las filas y columnas de letras y números)
+            if (col == 0 || row == 0 || col >= 8 || row >= 8)
+            {
+                MessageBox.Show("¡Coloca el barco dentro de las celdas válidas del tablero!");
+                return;
+            }
+
+            // Verificar si la celda está ocupada
+            if (board[row, col] == 1)
+            {
+                MessageBox.Show("¡Esta celda ya está ocupada!");
+                return;
+            }
+
+            // Verificar si la posición es válida dentro del tablero
             if (adjustedX >= BoardOffsetX && adjustedX < BoardOffsetX + GridSize &&
                 adjustedY >= BoardOffsetY && adjustedY < BoardOffsetY + GridSize)
             {
@@ -207,7 +226,7 @@ namespace SOProject
                 int offsetX = (CellSize - pictureBox.Width) / 2;
                 int offsetY = (CellSize - pictureBox.Height) / 2;
 
-                // Establecer la posición final
+                // Establecer la posición final del PictureBox
                 pictureBox.Location = new Point(adjustedX + offsetX, adjustedY + offsetY);
 
                 // Agregar el PictureBox al panel si no está ya en él
@@ -215,13 +234,17 @@ namespace SOProject
                 {
                     panel1.Controls.Add(pictureBox);
                 }
+
+                // Marcar la celda como ocupada en la matriz
+                board[row, col] = 1;
             }
             else
             {
                 // Opción: mensaje si el barco se coloca fuera de los límites
-                MessageBox.Show("¡Coloca el barco dentro de la cuadrícula!");
+                MessageBox.Show("¡Coloca el barco dentro del área válida!");
             }
         }
+
 
         private void RotatePictureBox(object sender, MouseEventArgs e)
         {
@@ -280,11 +303,53 @@ namespace SOProject
 
         private void Done_button(object sender, EventArgs e)
         {
-            string message = $"{myname}";
-            byte[] msg = Encoding.ASCII.GetBytes(message);
+            string boardData = PrepareBoardData();
+
+            // Preparar mensaje para el servidor
+            string mensaje = $"14/{myname}/{boardData}";
+            MessageBox.Show(mensaje);
+            byte[] msg = Encoding.ASCII.GetBytes(mensaje);
+
+            // Enviar mensaje
             server.Send(msg);
-            MessageBox.Show("Waiting for the other player to press DONE...");
+            MessageBox.Show("Sent. Waiting for the other player...");
         }
+
+        private string PrepareBoardData()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            // Recorrer la matriz de 8x8
+            for (int i = 0; i < 8; i++)
+            {
+                // Crear una lista para almacenar los valores de cada fila
+                List<string> rowValues = new List<string>();
+
+                for (int j = 0; j < 8; j++)
+                {
+                    // Agregar el valor de cada celda (0 o 1)
+                    rowValues.Add(board[i, j].ToString());
+                }
+
+                // Unir los valores de la fila con comas y agregar la fila al StringBuilder
+                sb.Append(string.Join(",", rowValues));
+
+                // Agregar una barra (/) para separar las filas
+                sb.Append("/");
+
+            }
+
+            // Eliminar la última barra (/) al final
+            if (sb.Length > 0)
+            {
+                sb.Length--;  // Eliminar la última barra
+            }
+
+            return sb.ToString();
+        }
+
+
+
     }
 
 }
