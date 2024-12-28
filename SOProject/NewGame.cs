@@ -37,6 +37,15 @@ namespace SOProject
             this.IDGame = IDGame;
             this.myname = myname;
 
+            // add Game ID and players name 
+            Label playerInfo = new Label
+            {
+                Text = $"Game ID: {IDGame}\nPlayer 1: {invites}\nPlayer 2: {invited}",
+                Location = new Point(send.Location.X, send.Location.Y + 40),
+                AutoSize = true
+            };
+            this.Controls.Add(playerInfo);
+
             // Configurar el panel para permitir operaciones de soltar
             panel1.AllowDrop = true;
 
@@ -366,6 +375,42 @@ namespace SOProject
 
             return sb.ToString();
         }
+
+        public void SetGameID(int gameID)
+        {
+            this.IDGame = gameID;
+            foreach (Control control in this.Controls)
+            {
+                if (control is Label && control.Text.Contains("Game ID"))
+                {
+                    control.Text = $"Game ID: {gameID}\nPlayer 1: {invites}\nPlayer 2: {invited}";
+                    break;
+                }
+            }
+        }
+
+        public void UpdatePlayerInfo(string player1, string player2)
+        {
+            this.invites = player1;
+            this.invited = player2;
+
+            foreach (Control control in this.Controls)
+            {
+                if (control is Label && control.Text.Contains("Player 1"))
+                {
+                    control.Text = $"Game ID: {IDGame}\nPlayer 1: {player1}\nPlayer 2: {player2}";
+                    break;
+                }
+            }
+        }
+
+        public void ShowPlaceShipsMessage()
+        {
+            MessageBox.Show("Set all ships and press DONE!");
+        }
+
+
+
 
 
 

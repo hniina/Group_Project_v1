@@ -373,9 +373,17 @@ namespace SOProject
 
                         case "9": //get id if you are the onw that invites
                             int gameID = Convert.ToInt32(trozos[1]);
-                            MessageBox.Show($"Game Created! ID: {gameID} \n Set all ships and press DONE!\"");
-                            
-                        break;
+                            string player1 = trozos[2];
+                            string player2 = trozos[3];
+
+                            if (ng != null)
+                            {
+                                ng.SetGameID(gameID);
+                                ng.UpdatePlayerInfo(player1, player2);
+                                ng.ShowPlaceShipsMessage();
+                            }
+
+                            break;
 
                         case "10": // chat
                             string chat = trozos[1];
