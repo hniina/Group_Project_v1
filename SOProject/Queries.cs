@@ -34,6 +34,7 @@ namespace SOProject
         public string invited;
         public int idgame;
         NewGame ng;
+        ChatRoom room;
         public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
@@ -123,31 +124,31 @@ namespace SOProject
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int RowSelection = e.RowIndex;
-            if (RowSelection >= 0)
-            {
-                string name = dataGridView1[0, RowSelection].Value.ToString();
-                if (name==myname)
-                {
-                    MessageBox.Show("You can't invite yourself.");
-                }
-                else
-                {
-                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to invite" + " " + dataGridView1[0, RowSelection].Value.ToString(), "You're about to invite this person", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        MessageBox.Show("You have invited" + " " + dataGridView1[0, RowSelection].Value.ToString());
-                        string message = "7/" + myname + "/" + name;
-                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                        server.Send(msg);                        
-                    }
-                }
-            }
+        //    int RowSelection = e.RowIndex;
+        //    if (RowSelection >= 0)
+        //    {
+        //        string name = dataGridView1[1, RowSelection].Value.ToString();
+        //        if (name==myname)
+        //        {
+        //            MessageBox.Show("You can't invite yourself.");
+        //        }
+        //        else
+        //        {
+        //            DialogResult dialogResult = MessageBox.Show("Are you sure you want to invite" + " " + dataGridView1[1, RowSelection].Value.ToString(), "You're about to invite this person", MessageBoxButtons.YesNo);
+        //            if (dialogResult == DialogResult.Yes)
+        //            {
+        //                MessageBox.Show("You have invited" + " " + dataGridView1[1, RowSelection].Value.ToString());
+        //                string message = "7/" + myname + "/" + name;
+        //                byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
+        //                server.Send(msg);                        
+        //            }
+        //        }
+        //    }
 
-            else
-            {
-                MessageBox.Show("You must select a valid row.");
-            }
+        //    else
+        //    {
+        //        MessageBox.Show("You must select a valid row.");
+        //    }
         }
 
         private void gameid_TextChanged(object sender, EventArgs e)
@@ -245,11 +246,9 @@ namespace SOProject
                     label_users_connected.Text = connected;
 
                     dataGridView1.Rows.Clear();
-                    //dataGridView1.Columns.Clear(); // Clear columns first
-                    //dataGridView1.Columns.Add("PlayerName", "Connected Players"); Commented in order to prevent format exceptions
                     for (int i = 1; i < trozos.Length; i++)
                     {
-                        dataGridView1.Rows.Add(trozos[i]);
+                        dataGridView1.Rows.Add(false, trozos[i]);
                     }
                 }
                 catch (SocketException ex)
@@ -387,7 +386,7 @@ namespace SOProject
 
                         case "10": // chat
                             string chat = trozos[1];
-                            ng.UpdateChat(chat);
+                            room.UpdateChat(chat);
                             break;
                         case "11":
                             query4(trozos);
@@ -424,6 +423,18 @@ namespace SOProject
                 ng.Show();
             }
         }
+        private void NewChat (string myname)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => NewChat( myname)));
+            }
+            else
+            {
+                room = new ChatRoom(server, myname);
+                chat.Show();
+            }
+        }
 
         private void mygames_CheckedChanged(object sender, EventArgs e)
         {
@@ -449,6 +460,44 @@ namespace SOProject
         {
 
         }
+
+        private void invite_Click(object sender, EventArgs e)
+        {
+            int inv = 0;
+            try
+            {
+                List<string> selectedNames = new List<string>();
+
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    var cellValue = row.Cells["invitation"].Value;
+                    bool isChecked = cellValue is bool && (bool)cellValue;
+
+                    if (isChecked)
+                    {
+                        string playerName = row.Cells["Column1"].Value.ToString();
+
+                        if (!string.IsNullOrEmpty(playerName))
+                        {
+                            inv = inv + 1;
+                            selectedNames.Add(playerName);
+                        }
+                    }
+                }
+                string namesForServer = string.Join("/", selectedNames);
+                string message="7/"+ inv + "/"+ namesForServer;
+                MessageBox.Show(message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error processing data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void chat_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-    
 }
