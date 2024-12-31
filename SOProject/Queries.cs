@@ -35,6 +35,7 @@ namespace SOProject
         public int idgame;
         NewGame ng;
         ChatRoom room;
+        int inv = 0;
         public Queries(Socket s, string conectados, string myname)
         {
             InitializeComponent();
@@ -462,8 +463,7 @@ namespace SOProject
         }
 
         private void invite_Click(object sender, EventArgs e)
-        {
-            int inv = 0;
+        {            
             try
             {
                 List<string> selectedNames = new List<string>();
@@ -479,14 +479,23 @@ namespace SOProject
 
                         if (!string.IsNullOrEmpty(playerName))
                         {
-                            inv = inv + 1;
-                            selectedNames.Add(playerName);
+                            if (playerName == myname)
+                            {
+                                MessageBox.Show("You cannot invite yourself.");
+                            }
+                            else
+                            {
+                                inv = inv + 1;
+                                selectedNames.Add(playerName);
+                            }
                         }
                     }
                 }
                 string namesForServer = string.Join("/", selectedNames);
-                string message="7/"+ inv + "/"+ namesForServer;
-                MessageBox.Show(message);
+                string message="7/"+ myname+ "/"+ inv + "/"+ namesForServer;              
+                byte[] msg = Encoding.ASCII.GetBytes(message);
+                server.Send(msg);
+                Console.WriteLine("I'm done");
             }
             catch (Exception ex)
             {

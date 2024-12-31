@@ -54,3 +54,4 @@ C:\Users\Karolina\Source\Repo\hniina\Group_Project_v1\SOProject\obj\Debug\SOProj
 C:\Users\Karolina\Source\Repo\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.exe
 C:\Users\Karolina\Source\Repo\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.pdb
 C:\Users\OMISTAJA\Documents\SO\Group_Project_v1\SOProject\obj\Debug\SOProject.NewGame.resources
+C:\Users\marta\Documents\GitHub\Group_Project_v1\SOProject\obj\Debug\SOProject.ChatRoom.resources
