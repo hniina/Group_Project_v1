@@ -125,31 +125,31 @@ namespace SOProject
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-        //    int RowSelection = e.RowIndex;
-        //    if (RowSelection >= 0)
-        //    {
-        //        string name = dataGridView1[1, RowSelection].Value.ToString();
-        //        if (name==myname)
-        //        {
-        //            MessageBox.Show("You can't invite yourself.");
-        //        }
-        //        else
-        //        {
-        //            DialogResult dialogResult = MessageBox.Show("Are you sure you want to invite" + " " + dataGridView1[1, RowSelection].Value.ToString(), "You're about to invite this person", MessageBoxButtons.YesNo);
-        //            if (dialogResult == DialogResult.Yes)
-        //            {
-        //                MessageBox.Show("You have invited" + " " + dataGridView1[1, RowSelection].Value.ToString());
-        //                string message = "7/" + myname + "/" + name;
-        //                byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-        //                server.Send(msg);                        
-        //            }
-        //        }
-        //    }
+            int RowSelection = e.RowIndex;
+            if (RowSelection >= 0 && RowSelection < dataGridView1.Rows.Count)
+            {
+                string name = dataGridView1[1, RowSelection].Value.ToString();
+                if (name==myname)
+                {
+                    MessageBox.Show("You can't invite yourself.");
+                }
+                else
+                {
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to invite" + " " + dataGridView1[1, RowSelection].Value.ToString(), "You're about to invite this person", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        MessageBox.Show("You have invited" + " " + dataGridView1[1, RowSelection].Value.ToString());
+                        string message = "7/" + myname + "/" + name;
+                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
+                        server.Send(msg);                        
+                    }
+                }
+            }
 
-        //    else
-        //    {
-        //        MessageBox.Show("You must select a valid row.");
-        //    }
+            else
+            {
+                MessageBox.Show("You must select a valid row.");
+            }
         }
 
         private void gameid_TextChanged(object sender, EventArgs e)
@@ -357,7 +357,9 @@ namespace SOProject
                             break;
                         case "8":
                             int aceptado = Convert.ToInt32(trozos[1]);
-                            string invitation = trozos[3];
+                            string invitation = trozos[2];
+                            string responseMessage = trozos[3];
+
                             if (aceptado == 0)
                             {
                                 MessageBox.Show(invitation);
@@ -367,7 +369,8 @@ namespace SOProject
                                 MessageBox.Show(invitation);
                                 acceptedInvitation = 1;
                                 invites = myname;
-                                invited = trozos[2];
+                                invited = invitation;
+                                NewChat(myname);
                             }
                             break;
 
@@ -433,7 +436,7 @@ namespace SOProject
             else
             {
                 room = new ChatRoom(server, myname);
-                chat.Show();
+                room.Show();
             }
         }
 
@@ -463,7 +466,7 @@ namespace SOProject
         }
 
         private void invite_Click(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 List<string> selectedNames = new List<string>();
@@ -491,22 +494,44 @@ namespace SOProject
                         }
                     }
                 }
-                string namesForServer = string.Join("/", selectedNames);
-                string message="7/"+ myname+ "/"+ inv + "/"+ namesForServer;              
-                byte[] msg = Encoding.ASCII.GetBytes(message);
-                server.Send(msg);
-                Console.WriteLine("I'm done");
-            }
+                if (selectedNames.Count == 1) //to the game
+                {
+                    string message = "7/" + myname + "/" + selectedNames[0];
+                    byte[] msg = Encoding.ASCII.GetBytes(message);
+                    server.Send(msg);
+                    Console.WriteLine("Game invite sent.");
+                }
+                else if (selectedNames.Count > 1 && selectedNames.Count <= 6)
+                { //chat
+                    string namesForServer = string.Join("/", selectedNames);
+                    string message = "7/" + myname + "/" + inv + "/" + namesForServer;
+                    byte[] msg = Encoding.ASCII.GetBytes(message);
+                    server.Send(msg);
+                    Console.WriteLine("I'm done");
+                }
+                else
+                {
+                    MessageBox.Show("Please select 1 player for a game or 1–6 players for a chat.");
+                }
+                }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error processing data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void chat_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                // Chatroom 
+                NewChat(myname);
+                Console.WriteLine("ChatRoom open: " + myname);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening chat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
