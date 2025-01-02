@@ -342,6 +342,7 @@ namespace SOProject
                                 string accepted = "8/" + pinvites + "/" + "1/"+myname;                                
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
+                                MessageBox.Show(accepted);
                                 acceptedInvitation = 1;
                                 MessageBox.Show("You can now press the start button. Enjoy the game!");
                                 invites = pinvites;
@@ -496,7 +497,7 @@ namespace SOProject
                 }
                 if (selectedNames.Count == 1) //to the game
                 {
-                    string message = "7/" + myname + "/" + selectedNames[0];
+                    string message = "7/" + myname +"/" +"1/" + selectedNames[0];
                     byte[] msg = Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
                     Console.WriteLine("Game invite sent.");
