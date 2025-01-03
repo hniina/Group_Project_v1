@@ -334,32 +334,31 @@ namespace SOProject
                             ConnectedList(mensaje);
                             break;
                         case "7": //invitaion
-                            string pinvites = trozos[1];
-                            string message = trozos[2];
+                            int roomid = Convert.ToInt32(trozos[1]);
+                            string pinvites = trozos[2];
+                            string message = trozos[3];
                             DialogResult dialogResult = MessageBox.Show(message, "You're about to accept this game", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
-                                string accepted = "8/" + pinvites + "/" + "1/"+myname;                                
+                                string accepted = "8/" +roomid+"/"+ pinvites + "/" + "1/"+myname;                                
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
-                                MessageBox.Show(accepted);
                                 acceptedInvitation = 1;
-                                MessageBox.Show("You can now press the start button. Enjoy the game!");
-                                invites = pinvites;
-                                invited = myname;
+                                MessageBox.Show("Wait for the others to be ready, please.");
 
                             }
                             else //not accepted
                             {
-                                string accepted = "8/" + pinvites + "/" + "0/" + myname;
+                                string accepted = "8/" + roomid + "/" + pinvites + "/" + "0/" + myname;
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
                             }
                             break;
                         case "8":
                             int aceptado = Convert.ToInt32(trozos[1]);
-                            string invitation = trozos[2];
-                            string responseMessage = trozos[3];
+                            int idroom= Convert.ToInt32(trozos[2]);
+                            string invitation = trozos[3];
+                            string responseMessage = trozos[4];
 
                             if (aceptado == 0)
                             {
@@ -495,24 +494,25 @@ namespace SOProject
                         }
                     }
                 }
+                int roomId= new Random().Next(1, 1000);
                 if (selectedNames.Count == 1) //to the game
                 {
-                    string message = "7/" + myname +"/" +"1/" + selectedNames[0];
+                    string message = "7/" + roomId+ "/"+ myname +"/" +"1/" + selectedNames[0];
                     byte[] msg = Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
                     Console.WriteLine("Game invite sent.");
                 }
-                else if (selectedNames.Count > 1 && selectedNames.Count <= 6)
+                else if (selectedNames.Count > 1 && selectedNames.Count <= 3)
                 { //chat
                     string namesForServer = string.Join("/", selectedNames);
-                    string message = "7/" + myname + "/" + inv + "/" + namesForServer;
+                    string message = "7/" + roomId + "/"+ myname + "/" + inv + "/" + namesForServer;
                     byte[] msg = Encoding.ASCII.GetBytes(message);
                     server.Send(msg);
                     Console.WriteLine("I'm done");
                 }
                 else
                 {
-                    MessageBox.Show("Please select 1 player for a game or 1–6 players for a chat.");
+                    MessageBox.Show("Please select 1 player for a game or 1–2 players for a chat.");
                 }
                 }
             catch (Exception ex)
