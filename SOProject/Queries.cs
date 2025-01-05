@@ -49,6 +49,7 @@ namespace SOProject
             this.myname = myname;
         }
 
+        private Dictionary<int, ChatRoom> chatForms = new Dictionary<int, ChatRoom>();
         private void Queries_Load(object sender, EventArgs e)
         {
         }
@@ -303,12 +304,13 @@ namespace SOProject
             {
                 while (true)
                 {
-                    Console.WriteLine("I am executing this while");
                     //Recibimos mensaje del servidor
                     byte[] msg2 = new byte[1024];
                     Array.Clear(msg2, 0, msg2.Length);
                     server.Receive(msg2);
-                    string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                    string received = Encoding.ASCII.GetString(msg2);
+                    Console.WriteLine("Received: " + received + "\n");
+                    string[] trozos = received.Split('/').Select(part => part.Trim()).ToArray();
                     string codigo = (trozos[0]);
                     string mensaje;
 
@@ -354,7 +356,7 @@ namespace SOProject
                                 server.Send(msg);
                             }
                             break;
-                        case "8":
+                        /*case "8":
                             int aceptado = Convert.ToInt32(trozos[1]);
                             int idroom= Convert.ToInt32(trozos[2]);
                             string invitation = trozos[3];
@@ -372,7 +374,7 @@ namespace SOProject
                                 invited = invitation;
                                 NewChat(myname);
                             }
-                            break;
+                            break;*/
 
                         case "9": //get id if you are the onw that invites
                             int gameID = Convert.ToInt32(trozos[1]);
@@ -401,6 +403,59 @@ namespace SOProject
                         case "13":
                             query6(trozos);
                             break;
+                        case "15":
+                            // 15/<chatID>/<inviterName>/message
+                            int chatID = int.Parse(trozos[1]);
+                            string inviter = trozos[2];
+                            string msgg = trozos[3];
+
+                            DialogResult dr = MessageBox.Show($"{inviter} invited you. {msgg}",
+                                                              "Chat Invitation",
+                                                              MessageBoxButtons.YesNo);
+                            int accepte = (dr == DialogResult.Yes) ? 1 : 0;
+                            // Now send 16/chatID/myName/accepted
+                            string toSend = $"16/{chatID}/{myname}/{accepte}";
+                            Console.WriteLine("Sending: " + toSend + "\n");
+                            byte[] sendBytes = Encoding.ASCII.GetBytes(toSend);
+                            server.Send(sendBytes);
+                            break;
+
+                        case "17":
+                            // 17/<chatID>/start or cancelled
+                            chatID = int.Parse(trozos[1]);
+                            string status = trozos[2].Split('\0')[0];
+                            Console.WriteLine("START: " + status);
+                            if (status == "start")
+                            {
+                                // Chat is starting
+                                Thread t = new Thread(() => OpenChatForm(chatID));                                // create a new partial thread that opens the chat form
+
+                                t.SetApartmentState(ApartmentState.STA);
+                                t.Start();
+                            }
+                            else
+                            {
+                                // "cancelled"
+                                MessageBox.Show($"Chat {chatID} was cancelled");
+                            }
+                            break;
+
+                        case "19":
+                            // 19/<chatID>/<sender>/<message>
+                            chatID = int.Parse(trozos[1]);
+                            string senderName = trozos[2];
+                            string chatMsg = trozos[3];
+
+                            // Find the ChatForm for chatID, if it exists
+                            if (chatForms.ContainsKey(chatID))
+                            {
+                                chatForms[chatID].UpdateChat($"{senderName}: {chatMsg}");
+                            }
+                            else
+                            {
+                                // No form? Possibly open or ignore
+                            }
+                            break;
                     }
                 }
             }
@@ -415,6 +470,15 @@ namespace SOProject
             }
         }
 
+        public void OpenChatForm(int chatID)
+        {
+            // Must be on the new thread with a message loop if it's a WinForm
+            ChatRoom form = new ChatRoom(server, myname, chatID);
+            // store it
+            chatForms[chatID] = form;
+            Application.Run(form);
+        }
+
         private void PonerEnMarchaFormulario(string p1, string p2, int id, string myname)
         {
             if (InvokeRequired)
@@ -427,7 +491,7 @@ namespace SOProject
                 ng.Show();
             }
         }
-        private void NewChat (string myname)
+        /*private void NewChat (string myname)
         {
             if (InvokeRequired)
             {
@@ -435,10 +499,10 @@ namespace SOProject
             }
             else
             {
-                room = new ChatRoom(server, myname);
+                room = new ChatRoom(server, myname, chatID);
                 room.Show();
             }
-        }
+        }*/
 
         private void mygames_CheckedChanged(object sender, EventArgs e)
         {
@@ -467,7 +531,7 @@ namespace SOProject
 
         private void invite_Click(object sender, EventArgs e)
         {
-            try
+            /*try
             {
                 List<string> selectedNames = new List<string>();
 
@@ -518,6 +582,62 @@ namespace SOProject
             catch (Exception ex)
             {
                 MessageBox.Show($"Error processing data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }*/
+
+            try
+            {
+                // 1) Collect selected player names
+                List<string> selectedNames = new List<string>();
+
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    // Read the cell that contains the checkbox (column index 0 in your case)
+                    object cellValue = row.Cells[0].Value;
+                    bool isChecked = (cellValue is bool && (bool)cellValue);
+
+                    if (isChecked)
+                    {
+                        // The second column (index 1) holds the player's username
+                        string playerName = row.Cells[1].Value.ToString();
+
+                        // Make sure we don't invite ourselves
+                        if (playerName == myname)
+                        {
+                            MessageBox.Show("You cannot invite yourself.");
+                            continue;
+                        }
+
+                        selectedNames.Add(playerName);
+                    }
+                }
+
+                // 2) Check how many have been selected
+                int numInvites = selectedNames.Count;
+                if (numInvites == 0)
+                {
+                    MessageBox.Show("No players selected to invite.");
+                    return;
+                }
+
+                // 3) Build the message for the server
+                //    Suppose you have a new opcode 14 for "multi-chat invite."
+                //    Format: "14/myname/numInvites/invitee1/invitee2/..."
+                string message = $"14/{myname}/{numInvites}";
+                foreach (string name in selectedNames)
+                {
+                    message += $"/{name}";
+                }
+
+                // 4) Send it to the server
+                byte[] msgBytes = Encoding.ASCII.GetBytes(message);
+                server.Send(msgBytes);
+
+                Console.WriteLine("Invite message sent: " + message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error processing invitation: {ex.Message}",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -526,7 +646,7 @@ namespace SOProject
             try
             {
                 // Chatroom 
-                NewChat(myname);
+                //NewChat(myname);
                 Console.WriteLine("ChatRoom open: " + myname);
             }
             catch (Exception ex)

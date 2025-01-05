@@ -17,11 +17,13 @@ namespace SOProject
     {
         Socket server;
         string myname;
-        public ChatRoom(Socket s, string myname)
+        int chatID;
+        public ChatRoom(Socket s, string myname, int chatID)
         {
             InitializeComponent();
             this.server = s;
             this.myname = myname;
+            this.chatID = chatID;
         }
 
         private void ChatRoom_Load(object sender, EventArgs e)
@@ -31,10 +33,18 @@ namespace SOProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string soutput;           
+            /*string soutput;           
             soutput = "10/" + myname + "/" + message.Text;
             byte[] output = System.Text.Encoding.ASCII.GetBytes(soutput);
-            server.Send(output);
+            server.Send(output);*/
+
+            string msg = message.Text;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                string packet = $"18/{chatID}/{myname}/{msg}";
+                byte[] b = Encoding.ASCII.GetBytes(packet);
+                server.Send(b);
+            }
         }
 
         public void UpdateChat(string message)
