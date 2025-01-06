@@ -47,13 +47,13 @@
             this.dateQuery = new System.Windows.Forms.RadioButton();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.invite = new System.Windows.Forms.Button();
-            this.chat = new System.Windows.Forms.Button();
+            this.ConnectedAs = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // gameid
             // 
-            this.gameid.Location = new System.Drawing.Point(641, 80);
+            this.gameid.Location = new System.Drawing.Point(661, 138);
             this.gameid.Name = "gameid";
             this.gameid.Size = new System.Drawing.Size(122, 22);
             this.gameid.TabIndex = 0;
@@ -63,7 +63,7 @@
             // PlayerGame
             // 
             this.PlayerGame.AutoSize = true;
-            this.PlayerGame.Location = new System.Drawing.Point(323, 55);
+            this.PlayerGame.Location = new System.Drawing.Point(343, 113);
             this.PlayerGame.Name = "PlayerGame";
             this.PlayerGame.Size = new System.Drawing.Size(158, 20);
             this.PlayerGame.TabIndex = 1;
@@ -75,7 +75,7 @@
             // winner
             // 
             this.winner.AutoSize = true;
-            this.winner.Location = new System.Drawing.Point(323, 81);
+            this.winner.Location = new System.Drawing.Point(343, 139);
             this.winner.Name = "winner";
             this.winner.Size = new System.Drawing.Size(294, 20);
             this.winner.TabIndex = 2;
@@ -87,7 +87,7 @@
             // gamesPlayed
             // 
             this.gamesPlayed.AutoSize = true;
-            this.gamesPlayed.Location = new System.Drawing.Point(323, 107);
+            this.gamesPlayed.Location = new System.Drawing.Point(343, 165);
             this.gamesPlayed.Name = "gamesPlayed";
             this.gamesPlayed.Size = new System.Drawing.Size(189, 20);
             this.gamesPlayed.TabIndex = 3;
@@ -98,7 +98,7 @@
             // 
             // query
             // 
-            this.query.Location = new System.Drawing.Point(641, 318);
+            this.query.Location = new System.Drawing.Point(661, 376);
             this.query.Name = "query";
             this.query.Size = new System.Drawing.Size(134, 31);
             this.query.TabIndex = 4;
@@ -109,7 +109,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(363, 10);
+            this.label1.Location = new System.Drawing.Point(364, 83);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 16);
             this.label1.TabIndex = 5;
@@ -154,7 +154,7 @@
             // 
             // playerName
             // 
-            this.playerName.Location = new System.Drawing.Point(641, 108);
+            this.playerName.Location = new System.Drawing.Point(661, 166);
             this.playerName.Name = "playerName";
             this.playerName.Size = new System.Drawing.Size(122, 22);
             this.playerName.TabIndex = 9;
@@ -184,7 +184,7 @@
             // mygames
             // 
             this.mygames.AutoSize = true;
-            this.mygames.Location = new System.Drawing.Point(323, 133);
+            this.mygames.Location = new System.Drawing.Point(343, 191);
             this.mygames.Name = "mygames";
             this.mygames.Size = new System.Drawing.Size(168, 20);
             this.mygames.TabIndex = 13;
@@ -196,7 +196,7 @@
             // resultofthegame
             // 
             this.resultofthegame.AutoSize = true;
-            this.resultofthegame.Location = new System.Drawing.Point(323, 159);
+            this.resultofthegame.Location = new System.Drawing.Point(343, 217);
             this.resultofthegame.Name = "resultofthegame";
             this.resultofthegame.Size = new System.Drawing.Size(233, 20);
             this.resultofthegame.TabIndex = 14;
@@ -207,7 +207,7 @@
             // 
             // Playername2
             // 
-            this.Playername2.Location = new System.Drawing.Point(641, 157);
+            this.Playername2.Location = new System.Drawing.Point(661, 215);
             this.Playername2.Name = "Playername2";
             this.Playername2.Size = new System.Drawing.Size(122, 22);
             this.Playername2.TabIndex = 15;
@@ -217,7 +217,7 @@
             // dateQuery
             // 
             this.dateQuery.AutoSize = true;
-            this.dateQuery.Location = new System.Drawing.Point(323, 185);
+            this.dateQuery.Location = new System.Drawing.Point(343, 243);
             this.dateQuery.Name = "dateQuery";
             this.dateQuery.Size = new System.Drawing.Size(282, 20);
             this.dateQuery.TabIndex = 16;
@@ -228,7 +228,7 @@
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(323, 217);
+            this.monthCalendar1.Location = new System.Drawing.Point(343, 275);
             this.monthCalendar1.MaxDate = new System.DateTime(2025, 1, 31, 0, 0, 0, 0);
             this.monthCalendar1.MinDate = new System.DateTime(2024, 11, 1, 0, 0, 0, 0);
             this.monthCalendar1.Name = "monthCalendar1";
@@ -245,22 +245,23 @@
             this.invite.UseVisualStyleBackColor = true;
             this.invite.Click += new System.EventHandler(this.invite_Click);
             // 
-            // chat
+            // ConnectedAs
             // 
-            this.chat.Location = new System.Drawing.Point(57, 377);
-            this.chat.Name = "chat";
-            this.chat.Size = new System.Drawing.Size(178, 32);
-            this.chat.TabIndex = 19;
-            this.chat.Text = "New Chat";
-            this.chat.UseVisualStyleBackColor = true;
-            this.chat.Click += new System.EventHandler(this.chat_Click);
+            this.ConnectedAs.AutoSize = true;
+            this.ConnectedAs.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectedAs.Location = new System.Drawing.Point(336, 29);
+            this.ConnectedAs.Name = "ConnectedAs";
+            this.ConnectedAs.Size = new System.Drawing.Size(245, 39);
+            this.ConnectedAs.TabIndex = 19;
+            this.ConnectedAs.Text = "Connected as: ";
+            this.ConnectedAs.Click += new System.EventHandler(this.ConnectedAs_Click);
             // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 517);
-            this.Controls.Add(this.chat);
+            this.Controls.Add(this.ConnectedAs);
             this.Controls.Add(this.invite);
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.dateQuery);
@@ -309,6 +310,6 @@
         private System.Windows.Forms.Button invite;
         private System.Windows.Forms.DataGridViewCheckBoxColumn invitation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.Button chat;
+        private System.Windows.Forms.Label ConnectedAs;
     }
 }

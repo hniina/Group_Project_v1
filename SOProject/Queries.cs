@@ -52,6 +52,7 @@ namespace SOProject
         private Dictionary<int, ChatRoom> chatForms = new Dictionary<int, ChatRoom>();
         private void Queries_Load(object sender, EventArgs e)
         {
+            ConnectedAs.Text = "Connected as: " + myname;
         }
 
         private void PlayerGame_CheckedChanged(object sender, EventArgs e)
@@ -400,7 +401,6 @@ namespace SOProject
                             // 17/<chatID>/start or cancelled
                             chatID = int.Parse(trozos[1]);
                             string status = trozos[2].Split('\0')[0];
-                            Console.WriteLine("START: " + status);
                             if (status == "start")
                             {
                                 // Chat is starting
@@ -467,18 +467,6 @@ namespace SOProject
                 ng.Show();
             }
         }
-        /*private void NewChat (string myname)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new Action(() => NewChat( myname)));
-            }
-            else
-            {
-                room = new ChatRoom(server, myname, chatID);
-                room.Show();
-            }
-        }*/
 
         private void mygames_CheckedChanged(object sender, EventArgs e)
         {
@@ -507,59 +495,6 @@ namespace SOProject
 
         private void invite_Click(object sender, EventArgs e)
         {
-            /*try
-            {
-                List<string> selectedNames = new List<string>();
-
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    var cellValue = row.Cells["invitation"].Value;
-                    bool isChecked = cellValue is bool && (bool)cellValue;
-
-                    if (isChecked)
-                    {
-                        string playerName = row.Cells["Column1"].Value.ToString();
-
-                        if (!string.IsNullOrEmpty(playerName))
-                        {
-                            if (playerName == myname)
-                            {
-                                MessageBox.Show("You cannot invite yourself.");
-                            }
-                            else
-                            {
-                                inv = inv + 1;
-                                selectedNames.Add(playerName);
-                            }
-                        }
-                    }
-                }
-                int roomId= new Random().Next(1, 1000);
-                if (selectedNames.Count == 1) //to the game
-                {
-                    string message = "7/" + roomId+ "/"+ myname +"/" +"1/" + selectedNames[0];
-                    byte[] msg = Encoding.ASCII.GetBytes(message);
-                    server.Send(msg);
-                    Console.WriteLine("Game invite sent.");
-                }
-                else if (selectedNames.Count > 1 && selectedNames.Count <= 3)
-                { //chat
-                    string namesForServer = string.Join("/", selectedNames);
-                    string message = "7/" + roomId + "/"+ myname + "/" + inv + "/" + namesForServer;
-                    byte[] msg = Encoding.ASCII.GetBytes(message);
-                    server.Send(msg);
-                    Console.WriteLine("I'm done");
-                }
-                else
-                {
-                    MessageBox.Show("Please select 1 player for a game or 1–2 players for a chat.");
-                }
-                }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error processing data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
-
             try
             {
                 // 1) Collect selected player names
@@ -574,7 +509,7 @@ namespace SOProject
                     if (isChecked)
                     {
                         // The second column (index 1) holds the player's username
-                        string playerName = row.Cells[1].Value.ToString();
+                        string playerName = row.Cells[1].Value.ToString().Split('\0')[0];
 
                         // Make sure we don't invite ourselves
                         if (playerName == myname)
@@ -617,18 +552,9 @@ namespace SOProject
             }
         }
 
-        private void chat_Click(object sender, EventArgs e)
+        private void ConnectedAs_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Chatroom 
-                //NewChat(myname);
-                Console.WriteLine("ChatRoom open: " + myname);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error opening chat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
         }
     }
 }

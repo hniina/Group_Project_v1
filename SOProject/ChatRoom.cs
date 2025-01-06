@@ -28,7 +28,7 @@ namespace SOProject
 
         private void ChatRoom_Load(object sender, EventArgs e)
         {
-
+            ChattingAs.Text = "Chatting as: " + myname;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -64,6 +64,16 @@ namespace SOProject
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
