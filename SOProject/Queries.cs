@@ -126,31 +126,7 @@ namespace SOProject
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int RowSelection = e.RowIndex;
-            if (RowSelection >= 0 && RowSelection < dataGridView1.Rows.Count)
-            {
-                string name = dataGridView1[1, RowSelection].Value.ToString();
-                if (name==myname)
-                {
-                    MessageBox.Show("You can't invite yourself.");
-                }
-                else
-                {
-                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to invite" + " " + dataGridView1[1, RowSelection].Value.ToString(), "You're about to invite this person", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        MessageBox.Show("You have invited" + " " + dataGridView1[1, RowSelection].Value.ToString());
-                        string message = "7/" + myname + "/" + name;
-                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-                        server.Send(msg);                        
-                    }
-                }
-            }
 
-            else
-            {
-                MessageBox.Show("You must select a valid row.");
-            }
         }
 
         private void gameid_TextChanged(object sender, EventArgs e)
