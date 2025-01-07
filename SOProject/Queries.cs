@@ -253,6 +253,7 @@ namespace SOProject
                     // Gracefully shut down and close the socket
                     server.Shutdown(SocketShutdown.Both);
                     server.Close();
+                    atender.Abort();
                 }
             }
             catch (SocketException ex)
@@ -266,7 +267,7 @@ namespace SOProject
             finally
             {
                 // Display the disconnect message, ensuring it always happens
-                MessageBox.Show("Disconnected");
+                MessageBox.Show("Disconnected");                
             }
         }
 

@@ -31,8 +31,8 @@ namespace SOProject
 
         private void signupbutton_Click(object sender, EventArgs e)
         {
-            SignUp signUp = new SignUp(server);
             this.Hide();
+            SignUp signUp = new SignUp(server);
             signUp.ShowDialog();
             this.Show();
         }
@@ -74,9 +74,10 @@ namespace SOProject
 
                     lista = trozos[4];
                     myname = trozos[2];
+                    this.Hide();
                     Queries q = new Queries(server, lista, myname);
                     q.ShowDialog();
-                    this.Hide();
+                    
                     break;
                 case 4:
                     MessageBox.Show("The password is not correct.");
