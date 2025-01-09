@@ -39,10 +39,20 @@ namespace SOProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            server.Shutdown(SocketShutdown.Both);
-            server.Close();
-            MessageBox.Show("Disconnected");
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete your account?", "You're about to delete your account", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string soutput = "19/" + usernameText.Text + "/" + passwordText.Text;
+                byte[] output = System.Text.Encoding.ASCII.GetBytes("19/" + usernameText.Text + "/" + passwordText.Text);
+                server.Send(output);
+
+                byte[] msg2 = new byte[1024];
+                server.Receive(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                string mensaje = trozos[1];
+                MessageBox.Show(mensaje);
+            }
+
         }
 
         private void loginbutton_Click(object sender, EventArgs e)

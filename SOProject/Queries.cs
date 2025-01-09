@@ -244,16 +244,17 @@ namespace SOProject
                 // Ensure the server is valid before proceeding
                 if (server != null)
                 {
-                    string mensaje = "0/"; // Message to notify server for player removal
+                    string mensaje = "0/"+ myname; // Message to notify server for player removal
                     byte[] msg = Encoding.ASCII.GetBytes(mensaje);
 
                     // Send the message
                     server.Send(msg);
+                    atender.Abort();
 
                     // Gracefully shut down and close the socket
                     server.Shutdown(SocketShutdown.Both);
-                    server.Close();
-                    atender.Abort();
+                    server.Close();                    
+                    MessageBox.Show("Disconnected");
                 }
             }
             catch (SocketException ex)
@@ -264,11 +265,11 @@ namespace SOProject
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                // Display the disconnect message, ensuring it always happens
-                MessageBox.Show("Disconnected");                
-            }
+            //finally
+            //{
+            //    // Display the disconnect message, ensuring it always happens
+            //    MessageBox.Show("Disconnected");                
+            //}
         }
 
         private void label_users_connected_Click(object sender, EventArgs e)
@@ -334,25 +335,6 @@ namespace SOProject
                                 server.Send(msg);
                             }
                             break;
-                        /*case "8":
-                            int aceptado = Convert.ToInt32(trozos[1]);
-                            int idroom= Convert.ToInt32(trozos[2]);
-                            string invitation = trozos[3];
-                            string responseMessage = trozos[4];
-
-                            if (aceptado == 0)
-                            {
-                                MessageBox.Show(invitation);
-                            }
-                            else
-                            {
-                                MessageBox.Show(invitation);
-                                acceptedInvitation = 1;
-                                invites = myname;
-                                invited = invitation;
-                                NewChat(myname);
-                            }
-                            break;*/
 
                         case "9": //get id if you are the onw that invites
                             int gameID = Convert.ToInt32(trozos[1]);

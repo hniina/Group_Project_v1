@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.loginbutton = new System.Windows.Forms.Button();
             this.signupbutton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.usernameText = new System.Windows.Forms.TextBox();
             this.passwordText = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -39,6 +38,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -65,17 +65,6 @@
             this.signupbutton.Text = "Sign Up";
             this.signupbutton.UseVisualStyleBackColor = true;
             this.signupbutton.Click += new System.EventHandler(this.signupbutton_Click);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(294, 355);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 35);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Disconnect";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // usernameText
             // 
@@ -155,6 +144,17 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "LOG IN";
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.button1.Location = new System.Drawing.Point(295, 347);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(170, 35);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Delete account";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -186,7 +186,6 @@
 
         private System.Windows.Forms.Button loginbutton;
         private System.Windows.Forms.Button signupbutton;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox usernameText;
         private System.Windows.Forms.TextBox passwordText;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -194,5 +193,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
     }
 }
