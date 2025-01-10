@@ -100,7 +100,7 @@ namespace SOProject
                             break;
 
                         case 4:
-                            MessageBox.Show("Your passwrd must have between 8 and 20 characters");
+                            MessageBox.Show("Your password must have between 8 and 20 characters");
                             break;
 
 
