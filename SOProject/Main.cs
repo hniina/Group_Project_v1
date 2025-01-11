@@ -51,7 +51,17 @@ namespace SOProject
                 string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
                 string mensaje = trozos[1].Split('\0')[0];
                 MessageBox.Show(mensaje);
+                if (server != null)
+                {
+                    string disconnectMessage = $"0/{myname}";
+                    byte[] msg = Encoding.ASCII.GetBytes(disconnectMessage);
+                    server.Send(msg);
 
+                    // Close the socket connection
+                    server.Shutdown(SocketShutdown.Both);
+                    server.Close();
+                    server = null;
+                }
 
             }
 
@@ -59,48 +69,56 @@ namespace SOProject
 
         private void loginbutton_Click(object sender, EventArgs e)
         {
-            string soutput = "2/" + usernameText.Text + "/" + passwordText.Text;
-            byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText.Text + "/" + passwordText.Text);
-            server.Send(output);
-
-            byte[] msg2 = new byte[1024];
-            server.Receive(msg2);
-            string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
-            int codigo = Convert.ToInt32(trozos[1].Split('\0')[0]);
-
-            switch (codigo)
+            if ((usernameText.Text == "Username") || (passwordText.Text == "Password"))
             {
-                case 0:
-                    MessageBox.Show("The userame does not exist.");
-                    break;
-                case 1:
-                    MessageBox.Show("The data was not found in the database");
-                    break;
-
-                case 2:
-                    MessageBox.Show("Login error. Please, try again.");
-                    break;
-
-                case 3:
-                    MessageBox.Show("Login successful");
-
-                    lista = trozos[4];
-                    myname = trozos[2];
-                    this.Hide();
-                    Queries q = new Queries(server, lista, myname);
-                    q.ShowDialog();
-                    
-                    break;
-                case 4:
-                    MessageBox.Show("The password is not correct.");
-                    break;
-                case 5:
-                    MessageBox.Show("You are already logged in");
-                    break;
-                default:
-                    MessageBox.Show(Convert.ToString(codigo));
-                    break;
+                MessageBox.Show("You must fill the information in order to have access to the app");
             }
+            else
+            {
+                string soutput = "2/" + usernameText.Text + "/" + passwordText.Text;
+                byte[] output = System.Text.Encoding.ASCII.GetBytes("2/" + usernameText.Text + "/" + passwordText.Text);
+                server.Send(output);
+
+                byte[] msg2 = new byte[1024];
+                server.Receive(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                int codigo = Convert.ToInt32(trozos[1].Split('\0')[0]);
+
+                switch (codigo)
+                {
+                    case 0:
+                        MessageBox.Show("The userame does not exist.");
+                        break;
+                    case 1:
+                        MessageBox.Show("The data was not found in the database");
+                        break;
+
+                    case 2:
+                        MessageBox.Show("Login error. Please, try again.");
+                        break;
+
+                    case 3:
+                        MessageBox.Show("Login successful");
+
+                        lista = trozos[4];
+                        myname = trozos[2];
+                        this.Hide();
+                        Queries q = new Queries(server, lista, myname);
+                        q.ShowDialog();
+
+                        break;
+                    case 4:
+                        MessageBox.Show("The password is not correct.");
+                        break;
+                    case 5:
+                        MessageBox.Show("You are already logged in");
+                        break;
+                    default:
+                        MessageBox.Show(Convert.ToString(codigo));
+                        break;
+                }
+            }
+           
         }
 
         private void Main_Load(object sender, EventArgs e)
