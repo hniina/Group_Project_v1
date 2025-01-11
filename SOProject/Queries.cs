@@ -88,12 +88,12 @@ namespace SOProject
 
                 else if (mygames.Checked)
                 {
-                    message = "11/"+myname;
+                    message = "7/"+myname;
 
                 }
                 else if (resultofthegame.Checked)
                 { 
-                    message = "12/" + myname + "/" + Playername2.Text;
+                    message = "8/" + myname + "/" + Playername2.Text;
                 }
                 else if (dateQuery.Checked) // New case for games during selected dates
                 {
@@ -104,7 +104,7 @@ namespace SOProject
                     string formattedStartDate = startDate.ToString("yyyy-MM-dd");
                     string formattedEndDate = endDate.ToString("yyyy-MM-dd");
 
-                    message = $"13/{formattedStartDate}/{formattedEndDate}";
+                    message = $"9/{formattedStartDate}/{formattedEndDate}";
                 }
 
                 byte[] msg = Encoding.ASCII.GetBytes(message);
@@ -270,7 +270,7 @@ namespace SOProject
         {
             try
             {
-                string packet = $"20/{chatID}/{myname}/left";
+                string packet = $"13/{chatID}/{myname}/left";
                 byte[] b = Encoding.ASCII.GetBytes(packet);
                 server.Send(b);
             }
@@ -322,43 +322,17 @@ namespace SOProject
                             mensaje = trozos[1].Split('\0')[0];
                             ConnectedList(mensaje);
                             break;
-                        case "7": //invitaion
-                            int roomid = Convert.ToInt32(trozos[1]);
-                            string pinvites = trozos[2];
-                            string message = trozos[3];
-                            DialogResult dialogResult = MessageBox.Show(message, "You're about to accept this game", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                string accepted = "8/" +roomid+"/"+ pinvites + "/" + "1/"+myname;                                
-                                byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
-                                server.Send(msg);
-                                acceptedInvitation = 1;
-                                MessageBox.Show("Wait for the others to be ready, please.");
-
-                            }
-                            else //not accepted
-                            {
-                                string accepted = "8/" + roomid + "/" + pinvites + "/" + "0/" + myname;
-                                byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
-                                server.Send(msg);
-                            }
-                            break;
-
-                        case "10": // chat
-                            string chat = trozos[1];
-                            room.UpdateChat(chat);
-                            break;
-                        case "11":
+                        case "7":
                             query4(trozos);
                             break;
-                        case "12":
+                        case "8":
                             query5(trozos);
                             break;
-                        case "13":
+                        case "9":
                             query6(trozos);
                             break;
-                        case "15":
-                            // 15/<chatID>/<inviterName>/message
+                        case "10":
+                            // 10/<chatID>/<inviterName>/message
                             int chatID = int.Parse(trozos[1]);
                             string inviter = trozos[2];
                             string msgg = trozos[3];
@@ -367,15 +341,15 @@ namespace SOProject
                                                               "Chat Invitation",
                                                               MessageBoxButtons.YesNo);
                             int accepte = (dr == DialogResult.Yes) ? 1 : 0;
-                            // Now send 16/chatID/myName/accepted
-                            string toSend = $"16/{chatID}/{myname}/{accepte}";
+                            // Now send 11/chatID/myName/accepted
+                            string toSend = $"11/{chatID}/{myname}/{accepte}";
                             Console.WriteLine("Sending: " + toSend + "\n");
                             byte[] sendBytes = Encoding.ASCII.GetBytes(toSend);
                             server.Send(sendBytes);
                             break;
 
-                        case "17":
-                            // 17/<chatID>/start or cancelled
+                        case "11":
+                            // 11/<chatID>/start or cancelled
                             chatID = int.Parse(trozos[1]);
                             string status = trozos[2].Split('\0')[0];
                             if (status == "start")
@@ -393,8 +367,8 @@ namespace SOProject
                             }
                             break;
 
-                        case "19":
-                            // 19/<chatID>/<sender>/<message>
+                        case "12":
+                            // 12/<chatID>/<sender>/<message>
                             chatID = int.Parse(trozos[1]);
                             string senderName = trozos[2];
                             string chatMsg = trozos[3];
@@ -410,8 +384,8 @@ namespace SOProject
                             }
                             break;
 
-                        case "21":
-                            // 21/<chatID>/<username>/left
+                        case "14":
+                            // 14/<chatID>/<username>/left
                             int partedChatID = int.Parse(trozos[1]);
                             string partedUser = trozos[2];
                             string partedAction = trozos[3]; // "left"
@@ -524,9 +498,8 @@ namespace SOProject
                 }
 
                 // 3) Build the message for the server
-                //    Suppose you have a new opcode 14 for "multi-chat invite."
-                //    Format: "14/myname/numInvites/invitee1/invitee2/..."
-                string message = $"14/{myname}/{numInvites}";
+                //    Format: "10/myname/numInvites/invitee1/invitee2/..."
+                string message = $"10/{myname}/{numInvites}";
                 foreach (string name in selectedNames)
                 {
                     message += $"/{name}";

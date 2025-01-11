@@ -3,36 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\karolina\\source\\jan10\\hniina\\group_project_v1\\soproject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\chatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:chatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\chatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:chatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\karolina\\source\\jan10\\hniina\\group_project_v1\\soproject\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|c:\\users\\karolina\\source\\jan10\\hniina\\group_project_v1\\soproject\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\chatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3B081869-DDF1-473F-A22D-A76773CEA220}|SOProject.csproj|solutionrelative:chatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,98 +54,91 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ChatRoom.cs",
-              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs",
-              "RelativeDocumentMoniker": "ChatRoom.cs",
-              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs",
-              "RelativeToolTip": "ChatRoom.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAgwFEAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T22:53:42.209Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Queries.cs",
-              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs",
-              "RelativeDocumentMoniker": "Queries.cs",
-              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs",
-              "RelativeToolTip": "Queries.cs",
-              "ViewState": "AgIAACABAAAAAAAAAAApwCUBAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T20:19:30.319Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ChatRoom.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs",
-              "RelativeDocumentMoniker": "ChatRoom.cs",
-              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs [Design]",
-              "RelativeToolTip": "ChatRoom.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T22:53:34.853Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Queries.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs",
-              "RelativeDocumentMoniker": "Queries.cs",
-              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs [Design]",
-              "RelativeToolTip": "Queries.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T22:37:20.965Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Main.cs",
               "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Main.cs",
               "RelativeDocumentMoniker": "Main.cs",
               "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Main.cs",
               "RelativeToolTip": "Main.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAlwDcAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAAwMsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T20:40:51.477Z"
+              "WhenOpened": "2025-01-11T16:38:00.734Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "Queries.cs",
+              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs",
+              "RelativeDocumentMoniker": "Queries.cs",
+              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs",
+              "RelativeToolTip": "Queries.cs",
+              "ViewState": "AgIAAG0BAAAAAAAAAADwv4oBAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-10T20:19:30.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Connect.cs",
               "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Connect.cs",
               "RelativeDocumentMoniker": "Connect.cs",
               "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Connect.cs",
               "RelativeToolTip": "Connect.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwB0AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-10T20:19:26.061Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
+              "Title": "ChatRoom.cs",
+              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs",
+              "RelativeDocumentMoniker": "ChatRoom.cs",
+              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs",
+              "RelativeToolTip": "ChatRoom.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAowFQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-10T22:53:42.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Queries.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs",
+              "RelativeDocumentMoniker": "Queries.cs",
+              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Queries.cs [Design]",
+              "RelativeToolTip": "Queries.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-11T16:30:34.922Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ChatRoom.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs",
+              "RelativeDocumentMoniker": "ChatRoom.cs",
+              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\ChatRoom.cs [Design]",
+              "RelativeToolTip": "ChatRoom.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-10T22:53:34.853Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Connect.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Connect.cs",
               "RelativeDocumentMoniker": "Connect.cs",
               "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Connect.cs [Design]",
               "RelativeToolTip": "Connect.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T20:16:59.524Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Main.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Main.cs",
-              "RelativeDocumentMoniker": "Main.cs",
-              "ToolTip": "C:\\Users\\Karolina\\source\\Jan10\\hniina\\Group_Project_v1\\SOProject\\Main.cs [Design]",
-              "RelativeToolTip": "Main.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-10T20:16:57.984Z"
+              "WhenOpened": "2025-01-10T20:16:59.524Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

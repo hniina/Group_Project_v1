@@ -36,7 +36,7 @@ namespace SOProject
             string msg = message.Text;
             if (!string.IsNullOrEmpty(msg))
             {
-                string packet = $"18/{chatID}/{myname}/{msg}";
+                string packet = $"12/{chatID}/{myname}/{msg}";
                 byte[] b = Encoding.ASCII.GetBytes(packet);
                 server.Send(b);
             }
@@ -75,8 +75,8 @@ namespace SOProject
         {
             try
             {
-                // Format: "20/<chatID>/<myname>/left"
-                string packet = $"20/{chatID}/{myname}/left";
+                // Format: "13/<chatID>/<myname>/left"
+                string packet = $"13/{chatID}/{myname}/left";
                 byte[] b = Encoding.ASCII.GetBytes(packet);
                 server.Send(b);
             }

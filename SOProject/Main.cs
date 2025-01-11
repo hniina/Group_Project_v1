@@ -49,8 +49,10 @@ namespace SOProject
                 byte[] msg2 = new byte[1024];
                 server.Receive(msg2);
                 string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
-                string mensaje = trozos[1];
+                string mensaje = trozos[1].Split('\0')[0];
                 MessageBox.Show(mensaje);
+
+
             }
 
         }
@@ -64,7 +66,7 @@ namespace SOProject
             byte[] msg2 = new byte[1024];
             server.Receive(msg2);
             string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
-            int codigo = Convert.ToInt32(trozos[1]);
+            int codigo = Convert.ToInt32(trozos[1].Split('\0')[0]);
 
             switch (codigo)
             {
