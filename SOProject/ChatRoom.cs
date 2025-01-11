@@ -33,11 +33,6 @@ namespace SOProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*string soutput;           
-            soutput = "10/" + myname + "/" + message.Text;
-            byte[] output = System.Text.Encoding.ASCII.GetBytes(soutput);
-            server.Send(output);*/
-
             string msg = message.Text;
             if (!string.IsNullOrEmpty(msg))
             {
@@ -74,6 +69,21 @@ namespace SOProject
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ChatRoom_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                // Format: "20/<chatID>/<myname>/left"
+                string packet = $"20/{chatID}/{myname}/left";
+                byte[] b = Encoding.ASCII.GetBytes(packet);
+                server.Send(b);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error sending leave message: " + ex.Message);
+            }
         }
     }
 }

@@ -89,6 +89,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "ChatRoom";
             this.Text = "ChatRoom";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatRoom_FormClosed);
             this.Load += new System.EventHandler(this.ChatRoom_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

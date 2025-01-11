@@ -43,7 +43,6 @@ namespace SOProject
             ThreadStart ts = delegate { AtenderServidor(); };
             atender = new Thread(ts);
             atender.Start();
-            Console.WriteLine("Hilo iniciado...");
             this.conectados = conectados;
             ConnectedList(conectados);
             this.myname = myname;
@@ -83,7 +82,7 @@ namespace SOProject
                 }
                 else if (gamesPlayed.Checked)  // New case for Games Played by a Player
                 {
-                    message = "6/" + playerName.Text; // "6" represents the new query
+                    message = "5/" + playerName.Text; // "5" represents the new query
 
                 }
 
@@ -130,43 +129,6 @@ namespace SOProject
 
         }
 
-        private void gameid_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void gamesPlayed_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void playerName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void newgame_Click(object sender, EventArgs e)
-        {
-            if (acceptedInvitation == 1)
-            {
-                ThreadStart ts = delegate { PonerEnMarchaFormulario(invites,invited,idgame, myname); };
-                Thread T = new Thread(ts);
-                T.Start();
-            }
-
-            else
-            {
-                MessageBox.Show("You must invite someone and they have to accept your invitation to start a new game.");
-            }
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string message = "5/";
-            byte[] msg = Encoding.ASCII.GetBytes(message);
-            server.Send(msg);   
-        }
-
         public void query1(string message)
         {
             string formattedMessage = message.Replace(",", "\n");
@@ -211,7 +173,6 @@ namespace SOProject
 
         public void ConnectedList(string mensaje)
         {
-            Console.WriteLine("ConnectedList ejecutado con: " + mensaje);
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action<string>(ConnectedList), mensaje);
@@ -239,38 +200,57 @@ namespace SOProject
 
         private void Queries_FormClosing(object sender, FormClosingEventArgs e)
         {
+            DisconnectFromServer();
+
+            // Exit the application
+            Application.Exit();
+        }
+
+        private bool isDisconnected = false;
+        private void DisconnectFromServer()
+        {
+            if (isDisconnected) return; // Prevent duplicate execution
+
             try
             {
-                // Ensure the server is valid before proceeding
+                isDisconnected = true; // Mark as disconnected
+
                 if (server != null)
                 {
-                    string mensaje = "0/"+ myname; // Message to notify server for player removal
+                    // Notify the server that the client is disconnecting
+                    string mensaje = $"0/{myname}";
                     byte[] msg = Encoding.ASCII.GetBytes(mensaje);
-
-                    // Send the message
                     server.Send(msg);
-                    atender.Abort();
 
                     // Gracefully shut down and close the socket
                     server.Shutdown(SocketShutdown.Both);
-                    server.Close();                    
-                    MessageBox.Show("Disconnected");
+                    server.Close();
+                    server = null; // Set to null to prevent further use
+                }
+
+                // Abort the atender thread
+                if (atender != null && atender.IsAlive)
+                {
+                    atender.Abort();
                 }
             }
             catch (SocketException ex)
             {
+                // Handle socket-related errors
                 MessageBox.Show($"Socket error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Handle general errors
+                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //finally
-            //{
-            //    // Display the disconnect message, ensuring it always happens
-            //    MessageBox.Show("Disconnected");                
-            //}
+            finally
+            {
+                // Display a single disconnect message
+                MessageBox.Show("Disconnected");
+            }
         }
+
 
         private void label_users_connected_Click(object sender, EventArgs e)
         {
@@ -311,7 +291,6 @@ namespace SOProject
 
                         case "4": //Connected List 
                             mensaje = trozos[1].Split('\0')[0];
-                            Console.WriteLine("Llamando a ConnectedList...");
                             ConnectedList(mensaje);
                             break;
                         case "7": //invitaion
@@ -334,20 +313,6 @@ namespace SOProject
                                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(accepted);
                                 server.Send(msg);
                             }
-                            break;
-
-                        case "9": //get id if you are the onw that invites
-                            int gameID = Convert.ToInt32(trozos[1]);
-                            string player1 = trozos[2];
-                            string player2 = trozos[3];
-
-                            if (ng != null)
-                            {
-                                ng.SetGameID(gameID);
-                                ng.UpdatePlayerInfo(player1, player2);
-                                ng.ShowPlaceShipsMessage();
-                            }
-
                             break;
 
                         case "10": // chat
@@ -415,17 +380,33 @@ namespace SOProject
                                 // No form? Possibly open or ignore
                             }
                             break;
+
+                        case "21":
+                            // 21/<chatID>/<username>/left
+                            int partedChatID = int.Parse(trozos[1]);
+                            string partedUser = trozos[2];
+                            string partedAction = trozos[3]; // "left"
+
+                            if (chatForms.ContainsKey(partedChatID))
+                            {
+                                chatForms[partedChatID].UpdateChat($"[Notification]: {partedUser} has left the chat.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"[Notification]: {partedUser} has left chat {partedChatID}.");
+                            }
+                            break;
                     }
                 }
             }
 
             catch (SocketException ex)
             {
-                MessageBox.Show($"Socket error (Atender): {ex.Message}");
+                //MessageBox.Show($"Socket error (Atender): {ex.Message}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Unexpected error (Atender): {ex.Message}");
+                //MessageBox.Show($"Unexpected error (Atender): {ex.Message}");
             }
         }
 
@@ -442,7 +423,7 @@ namespace SOProject
         {
             if (InvokeRequired)
             {
-                Invoke(new Action(() => PonerEnMarchaFormulario(p1, p2, id,myname)));
+                //Invoke(new Action(() => PonerEnMarchaFormulario(p1, p2, id,myname)));
             }
             else
             {
@@ -534,10 +515,29 @@ namespace SOProject
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void ConnectedAs_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void gameid_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void gamesPlayed_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void playerName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void disconnect_Click(object sender, EventArgs e)
+        {
+            DisconnectFromServer(); // Perform disconnection
+            Application.Exit();     // Exit the application
         }
     }
 }

@@ -39,7 +39,6 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.playerName = new System.Windows.Forms.TextBox();
-            this.newgame = new System.Windows.Forms.Button();
             this.label_users_connected = new System.Windows.Forms.Label();
             this.mygames = new System.Windows.Forms.RadioButton();
             this.resultofthegame = new System.Windows.Forms.RadioButton();
@@ -48,6 +47,7 @@
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.invite = new System.Windows.Forms.Button();
             this.ConnectedAs = new System.Windows.Forms.Label();
+            this.disconnect = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,16 +161,6 @@
             this.playerName.Text = "Enter player Name";
             this.playerName.TextChanged += new System.EventHandler(this.playerName_TextChanged);
             // 
-            // newgame
-            // 
-            this.newgame.Location = new System.Drawing.Point(57, 415);
-            this.newgame.Name = "newgame";
-            this.newgame.Size = new System.Drawing.Size(178, 72);
-            this.newgame.TabIndex = 10;
-            this.newgame.Text = "New Game";
-            this.newgame.UseVisualStyleBackColor = true;
-            this.newgame.Click += new System.EventHandler(this.newgame_Click);
-            // 
             // label_users_connected
             // 
             this.label_users_connected.AutoSize = true;
@@ -256,11 +246,24 @@
             this.ConnectedAs.Text = "Connected as: ";
             this.ConnectedAs.Click += new System.EventHandler(this.ConnectedAs_Click);
             // 
+            // disconnect
+            // 
+            this.disconnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.disconnect.ForeColor = System.Drawing.Color.Red;
+            this.disconnect.Location = new System.Drawing.Point(71, 385);
+            this.disconnect.Name = "disconnect";
+            this.disconnect.Size = new System.Drawing.Size(165, 70);
+            this.disconnect.TabIndex = 21;
+            this.disconnect.Text = "Disconnect";
+            this.disconnect.UseVisualStyleBackColor = true;
+            this.disconnect.Click += new System.EventHandler(this.disconnect_Click);
+            // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 517);
+            this.Controls.Add(this.disconnect);
             this.Controls.Add(this.ConnectedAs);
             this.Controls.Add(this.invite);
             this.Controls.Add(this.monthCalendar1);
@@ -269,7 +272,6 @@
             this.Controls.Add(this.resultofthegame);
             this.Controls.Add(this.mygames);
             this.Controls.Add(this.label_users_connected);
-            this.Controls.Add(this.newgame);
             this.Controls.Add(this.playerName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
@@ -300,7 +302,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox playerName;
-        private System.Windows.Forms.Button newgame;
         private System.Windows.Forms.Label label_users_connected;
         private System.Windows.Forms.RadioButton mygames;
         private System.Windows.Forms.RadioButton resultofthegame;
@@ -311,5 +312,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn invitation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.Label ConnectedAs;
+        private System.Windows.Forms.Button disconnect;
     }
 }

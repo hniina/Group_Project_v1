@@ -70,3 +70,18 @@ C:\Users\Karolina\source\Ant istrynimos\hniina\Group_Project_v1\SOProject\obj\De
 C:\Users\Karolina\source\Ant istrynimos\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.CoreCompileInputs.cache
 C:\Users\Karolina\source\Ant istrynimos\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.exe
 C:\Users\Karolina\source\Ant istrynimos\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.pdb
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\bin\Debug\SOProject.exe.config
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\bin\Debug\SOProject.exe
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\bin\Debug\SOProject.pdb
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.AssemblyReference.cache
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.ChatRoom.resources
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.Connect.resources
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.Main.resources
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.NewGame.resources
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.Properties.Resources.resources
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.Queries.resources
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.SignUp.resources
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.GenerateResource.cache
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.csproj.CoreCompileInputs.cache
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.exe
+C:\Users\Karolina\source\Jan10\hniina\Group_Project_v1\SOProject\obj\Debug\SOProject.pdb
