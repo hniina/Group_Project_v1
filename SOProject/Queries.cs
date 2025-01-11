@@ -355,7 +355,7 @@ namespace SOProject
                             if (status == "start")
                             {
                                 // Chat is starting
-                                Thread t = new Thread(() => OpenChatForm(chatID));                                // create a new partial thread that opens the chat form
+                                Thread t = new Thread(() => OpenChatForm(chatID)); // create a new partial thread that opens the chat form
 
                                 t.SetApartmentState(ApartmentState.STA);
                                 t.Start();
@@ -498,7 +498,7 @@ namespace SOProject
                 }
 
                 // 3) Build the message for the server
-                //    Format: "10/myname/numInvites/invitee1/invitee2/..."
+                // Format: "10/myname/numInvites/invitee1/invitee2/..."
                 string message = $"10/{myname}/{numInvites}";
                 foreach (string name in selectedNames)
                 {

@@ -87,14 +87,14 @@ namespace SOProject
                 switch (codigo)
                 {
                     case 0:
-                        MessageBox.Show("The userame does not exist.");
+                        MessageBox.Show("The userame does not exist");
                         break;
                     case 1:
                         MessageBox.Show("The data was not found in the database");
                         break;
 
                     case 2:
-                        MessageBox.Show("Login error. Please, try again.");
+                        MessageBox.Show("Login error. Please, try again");
                         break;
 
                     case 3:
@@ -108,7 +108,7 @@ namespace SOProject
 
                         break;
                     case 4:
-                        MessageBox.Show("The password is not correct.");
+                        MessageBox.Show("The password is not correct");
                         break;
                     case 5:
                         MessageBox.Show("You are already logged in");
@@ -125,30 +125,10 @@ namespace SOProject
         {
 
         }
+
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //try
-            //{
-            //    if (server != null && server.Connected)
-            //    {
-            //        // Gracefully shut down the server connection
-            //        server.Shutdown(SocketShutdown.Both);
-            //        server.Close();
-            //    }
-            //    MessageBox.Show("Disconnected");
-            //}
-            //catch (SocketException ex)
-            //{
-            //    //MessageBox.Show($"Socket error during shutdown: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //catch (Exception ex)
-            //{
-            //    //MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //finally
-            //{
-            //    MessageBox.Show("Main window was clossed");
-            //}
+
         }
 
         private void usernameText_Enter(object sender, EventArgs e)
