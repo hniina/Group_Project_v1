@@ -209,26 +209,57 @@ namespace SOProject
         private bool isDisconnected = false;
         private void DisconnectFromServer()
         {
-            if (isDisconnected) return; // Prevent duplicate execution
+            if (isDisconnected) return;
 
+            // 1) For each open chat, send "20/<chatID>/<myname>/left"
+            foreach (int chatID in chatForms.Keys.ToList())
+            {
+                // Build the 'left' packet
+                string packet = $"20/{chatID}/{myname}/left";
+                byte[] b = Encoding.ASCII.GetBytes(packet);
+                try
+                {
+                    server.Send(b);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error notifying about leaving chat {chatID}: {ex.Message}");
+                }
+            }
+
+            // 2) Now close the chat forms if you want
+            //    This might be optional if each ChatRoom handles its own closure
+            foreach (ChatRoom form in chatForms.Values)
+            {
+                if (form.InvokeRequired)
+                {
+                    // We’re on a background thread, so use Invoke to run on the UI thread
+                    form.Invoke((MethodInvoker)(() => form.Close()));
+                }
+                else
+                {
+                    // Already on the UI thread; can close directly
+                    form.Close();
+                }
+            }
+            chatForms.Clear();
+
+            // 3) Proceed with the rest of your existing disconnection logic
             try
             {
-                isDisconnected = true; // Mark as disconnected
-
+                isDisconnected = true;
                 if (server != null)
                 {
-                    // Notify the server that the client is disconnecting
+                    // Send "0/<myname>" to remove from connected list
                     string mensaje = $"0/{myname}";
                     byte[] msg = Encoding.ASCII.GetBytes(mensaje);
                     server.Send(msg);
 
-                    // Gracefully shut down and close the socket
                     server.Shutdown(SocketShutdown.Both);
                     server.Close();
-                    server = null; // Set to null to prevent further use
+                    server = null;
                 }
 
-                // Abort the atender thread
                 if (atender != null && atender.IsAlive)
                 {
                     atender.Abort();
@@ -236,21 +267,17 @@ namespace SOProject
             }
             catch (SocketException ex)
             {
-                // Handle socket-related errors
                 MessageBox.Show($"Socket error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                // Handle general errors
                 MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                // Display a single disconnect message
                 MessageBox.Show("Disconnected");
             }
         }
-
 
         private void label_users_connected_Click(object sender, EventArgs e)
         {
