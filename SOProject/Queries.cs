@@ -211,73 +211,75 @@ namespace SOProject
         {
             if (isDisconnected) return;
 
-            // 1) For each open chat, send "20/<chatID>/<myname>/left"
-            foreach (int chatID in chatForms.Keys.ToList())
-            {
-                // Build the 'left' packet
-                string packet = $"20/{chatID}/{myname}/left";
-                byte[] b = Encoding.ASCII.GetBytes(packet);
-                try
-                {
-                    server.Send(b);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error notifying about leaving chat {chatID}: {ex.Message}");
-                }
-            }
-
-            // 2) Now close the chat forms if you want
-            //    This might be optional if each ChatRoom handles its own closure
-            foreach (ChatRoom form in chatForms.Values)
-            {
-                if (form.InvokeRequired)
-                {
-                    // We’re on a background thread, so use Invoke to run on the UI thread
-                    form.Invoke((MethodInvoker)(() => form.Close()));
-                }
-                else
-                {
-                    // Already on the UI thread; can close directly
-                    form.Close();
-                }
-            }
-            chatForms.Clear();
-
-            // 3) Proceed with the rest of your existing disconnection logic
             try
             {
                 isDisconnected = true;
+
+                // 1) Notify all active chats
+                foreach (int chatID in chatForms.Keys.ToList())
+                {
+                    NotifyChatRoomLeft(chatID);
+
+                    Thread.Sleep(100);
+                }
+
+                // 2) Send final disconnect message to the server
                 if (server != null)
                 {
-                    // Send "0/<myname>" to remove from connected list
-                    string mensaje = $"0/{myname}";
-                    byte[] msg = Encoding.ASCII.GetBytes(mensaje);
+                    string disconnectMessage = $"0/{myname}";
+                    byte[] msg = Encoding.ASCII.GetBytes(disconnectMessage);
                     server.Send(msg);
 
+                    // Close the socket connection
                     server.Shutdown(SocketShutdown.Both);
                     server.Close();
                     server = null;
                 }
 
+                // 3) Abort the server listener thread
                 if (atender != null && atender.IsAlive)
                 {
                     atender.Abort();
                 }
-            }
-            catch (SocketException ex)
-            {
-                MessageBox.Show($"Socket error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // 4) Close all open chat forms
+                foreach (ChatRoom chatForm in chatForms.Values)
+                {
+                    if (chatForm.InvokeRequired)
+                    {
+                        chatForm.Invoke((MethodInvoker)(() => chatForm.Close()));
+                    }
+                    else
+                    {
+                        chatForm.Close();
+                    }
+                }
+                chatForms.Clear();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"Error during disconnection: {ex.Message}");
             }
             finally
             {
                 MessageBox.Show("Disconnected");
             }
         }
+
+        private void NotifyChatRoomLeft(int chatID)
+        {
+            try
+            {
+                string packet = $"20/{chatID}/{myname}/left";
+                byte[] b = Encoding.ASCII.GetBytes(packet);
+                server.Send(b);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error notifying chat {chatID} of leaving: {ex.Message}");
+            }
+        }
+
 
         private void label_users_connected_Click(object sender, EventArgs e)
         {
