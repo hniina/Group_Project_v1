@@ -23,3 +23,8 @@ https://github.com/user-attachments/assets/56463ea5-e53d-4b1a-9b1f-03687c645c6d
 V5: 
 https://github.com/user-attachments/assets/df02c87e-db03-4ffa-8ff8-3107fb927711
 
+V6: 
+https://youtu.be/ZwDauBYjhkg
+Code: Nojus, Marta and Niina (mostly made by Nojus)
+Test: Nojus, Marta and Niina
+Video: Marta
