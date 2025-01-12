@@ -25,6 +25,7 @@ https://github.com/user-attachments/assets/df02c87e-db03-4ffa-8ff8-3107fb927711
 
 V6: 
 https://youtu.be/ZwDauBYjhkg
+Protocol: https://docs.google.com/spreadsheets/d/1JzyUbu8eZMemzl-HJvX79niaoFGXsbhHPBdg9XYubKg/edit?usp=sharing
 Code: Nojus, Marta and Niina (mostly made by Nojus)
 Test: Nojus, Marta and Niina
 Video: Marta
